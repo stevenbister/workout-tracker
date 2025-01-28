@@ -70,7 +70,7 @@ jobs:
       - run: pnpm test
       - name: UI coverage report
         # Set if: always() to also generate the report if tests are failing
-        # Only works if you set `reportOnFailure: true` in your vite config as specified above
+        # Only works if you set `reportOnFailure: true`
         if: always()
         uses: davelosert/vitest-coverage-report-action@v2
         with:
@@ -78,8 +78,6 @@ jobs:
           json-summary-path: './packages/ui/coverage/coverage-summary.json'
           json-final-path: './packages/ui/coverage/coverage-final.json'
       - name: App coverage report
-        # Set if: always() to also generate the report if tests are failing
-        # Only works if you set `reportOnFailure: true` in your vite config as specified above
         if: always()
         uses: davelosert/vitest-coverage-report-action@v2
         with:
@@ -87,8 +85,6 @@ jobs:
           json-summary-path: './apps/app/coverage/coverage-summary.json'
           json-final-path: './apps/app/coverage/coverage-final.json'
       - name: API coverage report
-        # Set if: always() to also generate the report if tests are failing
-        # Only works if you set `reportOnFailure: true` in your vite config as specified above
         if: always()
         uses: davelosert/vitest-coverage-report-action@v2
         with:
