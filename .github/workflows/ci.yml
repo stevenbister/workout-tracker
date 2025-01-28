@@ -22,6 +22,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
     outputs:
       cache-key: ${{ steps.cache.outputs.cache-hit }} # Use output to cache pnpm
   lint:
