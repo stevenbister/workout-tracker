@@ -4,7 +4,6 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "test": "echo 'Add test script here'",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "typecheck": "tsc --noEmit"

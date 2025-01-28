@@ -1,4 +1,4 @@
-import { configDefaults, defineConfig, mergeConfig } from 'vitest/config';
+import { defineConfig, mergeConfig } from 'vitest/config';
 import viteConfig from './vite.config.ts';
 
 export default mergeConfig(
@@ -8,13 +8,7 @@ export default mergeConfig(
             include: ['./src/**/*.test.{ts,tsx}'],
             globals: true,
             environment: 'jsdom',
-            setupFiles: ['@repo/core/setup-tests/react.ts'],
-            coverage: {
-                exclude: [
-                    ...configDefaults.coverage.exclude!,
-                    './src/**/*.stories.{ts,tsx}',
-                ],
-            },
+            setupFiles: ['@repo/core/tests/setup.ts'],
         },
     })
 );
