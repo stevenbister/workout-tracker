@@ -25,6 +25,7 @@
         "@repo/core": "workspace:*",
         "@repo/eslint-config": "workspace:*",
         "@repo/typescript-config": "workspace:*",
+        "@repo/vite-config": "workspace:*",
         "@storybook/addon-essentials": "^8.5.1",
         "@storybook/addon-interactions": "^8.5.1",
         "@storybook/addon-onboarding": "^8.5.1",

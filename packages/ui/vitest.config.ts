@@ -1,15 +1,16 @@
 import { configDefaults, defineConfig, mergeConfig } from 'vitest/config';
 import viteConfig from './vite.config.ts';
 
+import vitestConfig from '@repo/vite-config/vitest';
+
 export default mergeConfig(
     viteConfig,
     defineConfig({
+        ...vitestConfig,
         test: {
-            include: ['./src/**/*.test.{ts,tsx}'],
-            globals: true,
-            environment: 'jsdom',
-            setupFiles: ['@repo/core/tests/setup.ts'],
+            ...vitestConfig.test,
             coverage: {
+                ...vitestConfig.test?.coverage,
                 exclude: [
                     ...configDefaults.coverage.exclude!,
                     './src/**/*.stories.{ts,tsx}',
