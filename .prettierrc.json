@@ -1,0 +1,16 @@
+{
+    "useTabs": false,
+    "bracketSpacing": true,
+    "tabWidth": 4,
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "overrides": [
+        {
+            "files": "*.{yaml,yml}",
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
+}
