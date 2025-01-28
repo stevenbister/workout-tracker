@@ -28,6 +28,9 @@ build
 dist
 dist-ssr
 
+# wrangler files
+.wrangler
+.dev.vars
 
 # Debug
 npm-debug.log*
