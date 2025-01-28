@@ -54,6 +54,11 @@ jobs:
     name: ⚡ Vitest
     runs-on: ubuntu-latest
     needs: setup
+    permissions:
+      # Required to checkout the code
+      contents: read
+      # Required to put a comment into the pull-request
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - name: Install pnpm
@@ -63,3 +68,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - run: pnpm test
+      - name: 'Report Coverage'
+        # Set if: always() to also generate the report if tests are failing
+        # Only works if you set `reportOnFailure: true` in your vite config as specified above
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
