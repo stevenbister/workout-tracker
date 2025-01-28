@@ -4,6 +4,7 @@ import {
     type ComponentPropsWithRef,
     type ElementType,
     type ForwardRefExoticComponent,
+    type JSX,
     type ReactElement,
 } from 'react';
 
@@ -33,7 +34,10 @@ interface ForwardRefComponent<IntrinsicElementString, OwnProps = ButtonProps>
 }
 
 export const Button = forwardRef(
+    // eslint-disable-next-line react/prop-types
     ({ as: Element = 'button', ...rest }, forwardedRef) => (
         <Element {...rest} ref={forwardedRef} />
     )
 ) as ForwardRefComponent<'button'>;
+
+Button.displayName = 'Button';
