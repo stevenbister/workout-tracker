@@ -6,5 +6,15 @@ export default defineConfig({
         globals: true,
         environment: 'jsdom',
         setupFiles: ['../../packages/vite-config/tests/setup.js'],
+        coverage: {
+            reporter: ['text', 'json', 'json-summary'],
+            reportOnFailure: true,
+            thresholds: {
+                lines: 80,
+                branches: 80,
+                functions: 80,
+                statements: 80,
+            },
+        },
     },
 });

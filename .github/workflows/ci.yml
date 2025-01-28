@@ -1,0 +1,95 @@
+name: CI
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    types: [opened, reopened, synchronize]
+jobs:
+  setup:
+    name: 🔧 Setup
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: [20]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+    outputs:
+      cache-key: ${{ steps.cache.outputs.cache-hit }} # Use output to cache pnpm
+  lint:
+    name: ⬣ Lint
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+      - name: Install dependencies
+        run: pnpm install
+      - run: pnpm lint
+  typecheck:
+    name: ʦ TypeScript
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+      - name: Install dependencies
+        run: pnpm install
+      - run: pnpm typecheck
+  vitest:
+    name: ⚡ Vitest
+    runs-on: ubuntu-latest
+    needs: setup
+    permissions:
+      # Required to checkout the code
+      contents: read
+      # Required to put a comment into the pull-request
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+      - name: Install dependencies
+        run: pnpm install
+      - run: pnpm test
+      - name: UI coverage report
+        # Set if: always() to also generate the report if tests are failing
+        # Only works if you set `reportOnFailure: true`
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          name: UI
+          json-summary-path: './packages/ui/coverage/coverage-summary.json'
+          json-final-path: './packages/ui/coverage/coverage-final.json'
+      - name: App coverage report
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          name: App
+          json-summary-path: './apps/app/coverage/coverage-summary.json'
+          json-final-path: './apps/app/coverage/coverage-final.json'
+      - name: API coverage report
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          name: API
+          json-summary-path: './apps/api/coverage/coverage-summary.json'
+          json-final-path: './apps/api/coverage/coverage-final.json'
