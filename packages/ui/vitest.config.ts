@@ -8,7 +8,7 @@ export default mergeConfig(
             include: ['./src/**/*.test.{ts,tsx}'],
             globals: true,
             environment: 'jsdom',
-            setupFiles: ['./setup-tests.ts'],
+            setupFiles: ['@repo/core/setup-tests/react.ts'],
             coverage: {
                 exclude: [
                     ...configDefaults.coverage.exclude!,

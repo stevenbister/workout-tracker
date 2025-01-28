@@ -1,0 +1,17 @@
+{
+    "name": "@repo/core",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "echo 'Add dev script here'",
+        "build": "echo 'Add build script here'",
+        "test": "echo 'Add test script here'",
+        "lint": "echo 'Add lint script here'"
+    },
+    "devDependencies": {
+        "@testing-library/dom": "^10.4.0",
+        "@testing-library/jest-dom": "^6.6.3",
+        "@testing-library/react": "^16.1.0",
+        "vitest": "^3.0.4"
+    }
+}
