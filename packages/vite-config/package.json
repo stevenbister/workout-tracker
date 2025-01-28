@@ -9,14 +9,13 @@
     },
     "scripts": {
         "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
-        "typecheck": "tsc --noEmit"
+        "lint:fix": "eslint . --fix"
     },
     "devDependencies": {
-        "@repo/core": "workspace:*",
+        "@testing-library/jest-dom": "^6.6.3",
+        "@testing-library/react": "^16.2.0",
         "@vitejs/plugin-react": "^4.3.4",
         "eslint": "^9.19.0",
-        "typescript": "^5.7.3",
         "vite": "^6.0.5",
         "vitest": "^3.0.4"
     }

@@ -5,6 +5,6 @@ export default defineConfig({
         include: ['./src/**/*.test.{ts,tsx}'],
         globals: true,
         environment: 'jsdom',
-        setupFiles: ['@repo/core/tests/setup.ts'],
+        setupFiles: ['../../packages/vite-config/tests/setup.js'],
     },
 });
