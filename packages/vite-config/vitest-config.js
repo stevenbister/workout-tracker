@@ -7,7 +7,8 @@ export default defineConfig({
         environment: 'jsdom',
         setupFiles: ['../../packages/vite-config/tests/setup.js'],
         coverage: {
-            reporter: ['text', 'json', 'json-summary'],
+            enabled: true,
+            reporter: ['text', 'html', 'json', 'json-summary'],
             reportOnFailure: true,
             thresholds: {
                 lines: 80,
