@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "wrangler dev",
         "deploy": "wrangler deploy --minify",
-        "test": "vitest run --coverage",
+        "test": "vitest run",
         "test:watch": "vitest",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
