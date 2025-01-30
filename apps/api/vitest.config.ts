@@ -11,6 +11,7 @@ export default defineConfig({
             exclude: [
                 ...configDefaults.coverage.exclude!,
                 './*.config.ts',
+                'src/**/constants.ts',
                 'src/{env,types}.ts',
             ],
         },
