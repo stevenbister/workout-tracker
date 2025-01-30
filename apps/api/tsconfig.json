@@ -7,5 +7,5 @@
             "@types/node"
         ]
     },
-    "include": ["src", "vite.d.ts", "drizzle.config.ts"]
+    "include": ["src", "vite.d.ts", "drizzle.config.ts", "vitest.config.ts"]
 }
