@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 
-import { dbConnect } from './middlewares/db-connect';
-import { Bindings } from './types';
+import { dbConnect } from '@/middlewares/db-connect';
+import { Bindings } from '@/types';
 
 const app = new Hono<{ Bindings: Bindings }>();
 

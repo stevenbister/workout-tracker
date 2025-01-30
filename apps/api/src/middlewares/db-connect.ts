@@ -1,8 +1,8 @@
 import { drizzle } from 'drizzle-orm/d1';
 import { createMiddleware } from 'hono/factory';
 
-import * as schema from '../db/schema';
-import { Bindings } from '../types';
+import * as schema from '@/db/schema';
+import { Bindings } from '@/types';
 
 export const dbConnect = createMiddleware<{
     Bindings: Bindings;

@@ -1,4 +1,4 @@
-import app from './index.js';
+import app from '@/index';
 
 test('GET /', async () => {
     const res = await app.request('/');
