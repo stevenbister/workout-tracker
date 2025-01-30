@@ -1,5 +1,6 @@
-import vitestConfig from '@repo/vite-config/vitest';
 import { configDefaults, defineConfig, mergeConfig } from 'vitest/config';
+
+import vitestConfig from '@repo/vite-config/vitest';
 
 import viteConfig from './vite.config.ts';
 
@@ -9,6 +10,8 @@ export default mergeConfig(
         ...vitestConfig,
         test: {
             ...vitestConfig.test,
+            environment: 'jsdom',
+            setupFiles: ['../../packages/vite-config/tests/setup.js'],
             coverage: {
                 ...vitestConfig.test?.coverage,
                 exclude: [
