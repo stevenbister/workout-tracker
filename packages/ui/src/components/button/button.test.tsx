@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+
 import { Button, type ButtonProps } from './button';
 
 const setup = (props?: Partial<Omit<ButtonProps, 'children'>>) =>

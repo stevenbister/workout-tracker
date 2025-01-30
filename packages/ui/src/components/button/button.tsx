@@ -1,11 +1,11 @@
 // Credit: https://github.com/radix-ui/primitives/blob/7101e7d6efb2bff13cc6761023ab85aeec73539e/packages/react/polymorphic/src/forwardRefWithAs.ts
 import {
-    forwardRef,
     type ComponentPropsWithRef,
     type ElementType,
     type ForwardRefExoticComponent,
     type JSX,
     type ReactElement,
+    forwardRef,
 } from 'react';
 
 export type ButtonProps = unknown;
