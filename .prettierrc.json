@@ -5,6 +5,15 @@
     "semi": true,
     "trailingComma": "es5",
     "singleQuote": true,
+    "importOrder": [
+        "<THIRD_PARTY_MODULES>",
+        "@repo/vite-config/(.*)$",
+        "@repo/core/(.*)$",
+        "@repo/ui",
+        "^[./]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
     "overrides": [
         {
             "files": "*.{yaml,yml}",
@@ -12,5 +21,6 @@
                 "tabWidth": 2
             }
         }
-    ]
+    ],
+    "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }

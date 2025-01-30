@@ -1,5 +1,6 @@
-import { Button } from '@repo/ui/components/button';
 import { useState } from 'react';
+
+import { Button } from '@repo/ui/components/button';
 
 function App() {
     const [count, setCount] = useState(0);

@@ -1,9 +1,15 @@
-import { Hono } from 'hono'
+import { Hono } from 'hono';
 
-const app = new Hono()
+import { dbConnect } from './middlewares/db-connect';
+import { Bindings } from './types';
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+const app = new Hono<{ Bindings: Bindings }>();
 
-export default app
+app.get('/', dbConnect, async (c) => {
+    const db = c.var.db;
+    const users = await db.query.users.findMany();
+
+    return c.json(users);
+});
+
+export default app;
