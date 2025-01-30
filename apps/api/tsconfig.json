@@ -1,7 +1,11 @@
 {
-    "extends": "@repo/typescript-config/base.json",
+    "extends": "@repo/typescript-config/node.json",
     "compilerOptions": {
-        "types": ["@cloudflare/workers-types/2023-07-01", "vitest/globals"]
+        "types": [
+            "@cloudflare/workers-types/2023-07-01",
+            "vitest/globals",
+            "@types/node"
+        ]
     },
-    "include": ["src", "vite.d.ts"]
+    "include": ["src", "vite.d.ts", "drizzle.config.ts"]
 }

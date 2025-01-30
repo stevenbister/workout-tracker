@@ -1,11 +1,21 @@
 {
     "$schema": "https://turbo.build/schema.json",
     "ui": "tui",
+    "globalDependencies": [".env"],
     "tasks": {
         "build": {
             "dependsOn": ["^build"],
             "inputs": ["$TURBO_DEFAULT$", ".env*"],
             "outputs": ["dist/**"]
+        },
+        "api#build": {
+            "dependsOn": ["^build"],
+            "inputs": ["$TURBO_DEFAULT$", ".env*"],
+            "env": [
+                "CLOUDFLARE_ACCOUNT_ID",
+                "CLOUDFLARE_DATABASE_ID",
+                "CLOUDFLARE_D1_TOKEN"
+            ]
         },
         "lint": {
             "dependsOn": ["^lint"]
@@ -17,6 +27,7 @@
             "dependsOn": ["^typecheck"]
         },
         "dev": {
+            "inputs": ["$TURBO_DEFAULT$", ".en*v"],
             "cache": false,
             "persistent": true
         },
