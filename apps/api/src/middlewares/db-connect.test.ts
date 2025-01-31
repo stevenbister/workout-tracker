@@ -30,7 +30,7 @@ beforeEach(() => vi.clearAllMocks());
 it('calls drizzle db connector', async () => {
     const res = await app.request('/', {}, mockEnv);
 
-    expect(res.status).toBe(STATUS.OK);
+    expect(res.status).toBe(STATUS.OK.CODE);
 
     expect(mockDbClient).toHaveBeenCalledWith(mockEnv.DB, {
         schema: expect.any(Object),

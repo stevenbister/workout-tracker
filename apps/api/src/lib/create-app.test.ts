@@ -42,7 +42,7 @@ beforeEach(() => vi.clearAllMocks());
 it('sets up the dbConnect middleware', async () => {
     const res = await setup();
 
-    expect(res.status).toBe(STATUS.OK);
+    expect(res.status).toBe(STATUS.OK.CODE);
 
     const data = await res.json();
     expect(data).toEqual({ dbConnected: true });
@@ -53,10 +53,12 @@ it('returns 404 for unknown routes', async () => {
         route: '/unknown-route',
     });
 
-    expect(res.status).toBe(STATUS.NOT_FOUND);
+    expect(res.status).toBe(STATUS.NOT_FOUND.CODE);
 
     const data = await res.json();
-    expect(data).toEqual({ message: 'Not found - /unknown-route' });
+    expect(data).toEqual({
+        message: `${STATUS.NOT_FOUND.MESSAGE} - /unknown-route`,
+    });
 });
 
 it('returns error code when errors are thrown', async () => {
@@ -64,7 +66,7 @@ it('returns error code when errors are thrown', async () => {
         throwError: true,
     });
 
-    expect(res.status).toBe(STATUS.INTERNAL_SERVER_ERROR);
+    expect(res.status).toBe(STATUS.INTERNAL_SERVER_ERROR.CODE);
 
     const data = await res.json();
     expect(data).toEqual({ message: 'Error', stack: expect.any(String) });
@@ -90,7 +92,7 @@ it('handles validation errors with defaultHook', async () => {
         method: 'POST',
     });
 
-    expect(res.status).toBe(STATUS.UNPROCESSABLE_ENTITY);
+    expect(res.status).toBe(STATUS.UNPROCESSABLE_ENTITY.CODE);
 
     const data = await res.json();
     expect(data).toEqual({ success: false, error: 'Validation error' });

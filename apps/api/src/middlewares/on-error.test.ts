@@ -23,7 +23,7 @@ const mockContext = (env: string) =>
 const defaultMockError: MockError = {
     name: 'Mock error',
     status: STATUS.BAD_GATEWAY.CODE,
-    message: 'Bad Gateway',
+    message: STATUS.BAD_GATEWAY.MESSAGE,
     stack: 'stack trace',
 };
 
@@ -53,7 +53,7 @@ it('returns the error status if present', () => {
 
 it('returns 500 if error status is not present', () => {
     const err = {
-        message: 'Internal Server Error',
+        message: STATUS.INTERNAL_SERVER_ERROR.MESSAGE,
         stack: 'stack trace',
     } as MockError;
 
@@ -64,14 +64,14 @@ it('returns 500 if error status is not present', () => {
             message: err.message,
             stack: err.stack,
         },
-        STATUS.INTERNAL_SERVER_ERROR
+        STATUS.INTERNAL_SERVER_ERROR.CODE
     );
 });
 
 it('does not include stack trace in production', () => {
     const err = {
         status: STATUS.BAD_REQUEST.CODE,
-        message: 'Bad Request',
+        message: STATUS.BAD_REQUEST.MESSAGE,
         stack: 'stack trace',
     } as MockError;
 
@@ -92,7 +92,7 @@ it('does not include stack trace in production', () => {
 it('returns 500 if currentStatus is OK', () => {
     const err = {
         status: STATUS.OK.CODE,
-        message: 'OK',
+        message: STATUS.OK.MESSAGE,
         stack: 'stack trace',
     } as MockError;
 
@@ -103,6 +103,6 @@ it('returns 500 if currentStatus is OK', () => {
             message: err.message,
             stack: err.stack,
         },
-        STATUS.INTERNAL_SERVER_ERROR
+        STATUS.INTERNAL_SERVER_ERROR.CODE
     );
 });

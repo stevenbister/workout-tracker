@@ -17,8 +17,8 @@ it('returns the 404 status with the request path', () => {
 
     expect(c.json).toHaveBeenCalledWith(
         {
-            message: `Not found - ${c.req.path}`,
+            message: `${STATUS.NOT_FOUND.MESSAGE} - ${c.req.path}`,
         },
-        STATUS.NOT_FOUND
+        STATUS.NOT_FOUND.CODE
     );
 });
