@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Context } from 'hono';
 
 import { STATUS_CODES } from '@/lib/constants/http-status-codes';

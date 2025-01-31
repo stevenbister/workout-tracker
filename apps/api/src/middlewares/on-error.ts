@@ -7,8 +7,6 @@ export const onError: ErrorHandler = (err, c) => {
     const currentStatus =
         'status' in err ? err.status : c.newResponse(null).status;
 
-    console.log(currentStatus);
-
     const statusCode =
         currentStatus !== STATUS_CODES.OK
             ? (currentStatus as ContentfulStatusCode)
