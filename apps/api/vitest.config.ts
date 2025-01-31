@@ -13,6 +13,7 @@ export default defineConfig({
                 './*.config.ts',
                 'src/**/constants.ts',
                 'src/{env,types}.ts',
+                'src/db/schema',
             ],
         },
     },

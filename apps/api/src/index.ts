@@ -1,14 +1,15 @@
+import configureOpenAPI from './lib/configure-open-api';
 import createApp from './lib/create-app';
+import { index } from './routes';
 
 const app = createApp();
 
-app.get('/', async (c) => {
-    const db = c.var.db;
-    const users = await db.query.users.findMany();
+configureOpenAPI(app);
 
-    return c.json(users);
+const routes = [index] as const;
+
+routes.forEach((route) => {
+    app.route('/', route);
 });
-
-// TODO: Configure open api
 
 export default app;
