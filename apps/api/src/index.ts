@@ -1,15 +1,15 @@
-import { Hono } from 'hono';
+import configureOpenAPI from './lib/configure-open-api';
+import createApp from './lib/create-app';
+import { index } from './routes';
 
-import { dbConnect } from './middlewares/db-connect';
-import { Bindings } from './types';
+const app = createApp();
 
-const app = new Hono<{ Bindings: Bindings }>();
+configureOpenAPI(app);
 
-app.get('/', dbConnect, async (c) => {
-    const db = c.var.db;
-    const users = await db.query.users.findMany();
+const routes = [index] as const;
 
-    return c.json(users);
+routes.forEach((route) => {
+    app.route('/', route);
 });
 
 export default app;

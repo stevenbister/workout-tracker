@@ -5,7 +5,10 @@
             "@cloudflare/workers-types/2023-07-01",
             "vitest/globals",
             "@types/node"
-        ]
+        ],
+        "paths": {
+            "@/*": ["./src/*"]
+        }
     },
     "include": ["src", "vite.d.ts", "drizzle.config.ts", "vitest.config.ts"]
 }
