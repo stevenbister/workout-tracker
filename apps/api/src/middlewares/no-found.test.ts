@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Context } from 'hono';
 
-import { STATUS_CODES } from '@/lib/constants/http-status-codes';
+import { STATUS } from '@/lib/constants/http-status-codes';
 
 import { notFound } from './not-found';
 
@@ -19,6 +19,6 @@ it('returns the 404 status with the request path', () => {
         {
             message: `Not found - ${c.req.path}`,
         },
-        STATUS_CODES.NOT_FOUND
+        STATUS.NOT_FOUND
     );
 });

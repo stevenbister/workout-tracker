@@ -5,7 +5,7 @@ import { notFound } from '@/middlewares/not-found';
 import { onError } from '@/middlewares/on-error';
 import type { AppBindings } from '@/types';
 
-import { STATUS_CODES } from './constants/http-status-codes';
+import { STATUS } from './constants/http-status-codes';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const defaultHook: Hook<any, any, any, any> = async (result, c) => {
@@ -17,7 +17,7 @@ export const defaultHook: Hook<any, any, any, any> = async (result, c) => {
                 success,
                 error,
             },
-            STATUS_CODES.UNPROCESSABLE_ENTITY
+            STATUS.UNPROCESSABLE_ENTITY.CODE
         );
     }
 };

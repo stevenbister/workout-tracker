@@ -1,6 +1,6 @@
 import { createRoute } from '@hono/zod-openapi';
 
-import { STATUS_CODES } from '@/lib/constants/http-status-codes';
+import { STATUS } from '@/lib/constants/http-status-codes';
 import { createRouter } from '@/lib/create-app';
 import { messageSchema } from '@/lib/schemas/message-schema';
 
@@ -12,7 +12,7 @@ export const index = createRouter().openapi(
         method: 'get',
         path: '/',
         responses: {
-            [STATUS_CODES.OK]: {
+            [STATUS.OK.CODE]: {
                 content: {
                     'application/json': {
                         schema: messageSchema(message),
@@ -22,5 +22,5 @@ export const index = createRouter().openapi(
             },
         },
     }),
-    (c) => c.json({ message }, STATUS_CODES.OK)
+    (c) => c.json({ message }, STATUS.OK.CODE)
 );

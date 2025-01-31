@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Context } from 'hono';
 
-import { STATUS_CODES } from '@/lib/constants/http-status-codes';
+import { STATUS } from '@/lib/constants/http-status-codes';
 
 import { onError } from './on-error';
 
@@ -14,15 +14,15 @@ type MockError = {
 const mockContext = (env: string) =>
     ({
         env: { NODE_ENV: env },
-        newResponse: vi
-            .fn()
-            .mockReturnValue({ status: STATUS_CODES.INTERNAL_SERVER_ERROR }),
+        newResponse: vi.fn().mockReturnValue({
+            status: STATUS.INTERNAL_SERVER_ERROR.CODE,
+        }),
         json: vi.fn(),
     }) as unknown as Context<any, any, object>;
 
 const defaultMockError: MockError = {
     name: 'Mock error',
-    status: STATUS_CODES.BAD_GATEWAY,
+    status: STATUS.BAD_GATEWAY.CODE,
     message: 'Bad Gateway',
     stack: 'stack trace',
 };
@@ -64,13 +64,13 @@ it('returns 500 if error status is not present', () => {
             message: err.message,
             stack: err.stack,
         },
-        STATUS_CODES.INTERNAL_SERVER_ERROR
+        STATUS.INTERNAL_SERVER_ERROR
     );
 });
 
 it('does not include stack trace in production', () => {
     const err = {
-        status: STATUS_CODES.BAD_REQUEST,
+        status: STATUS.BAD_REQUEST.CODE,
         message: 'Bad Request',
         stack: 'stack trace',
     } as MockError;
@@ -91,7 +91,7 @@ it('does not include stack trace in production', () => {
 
 it('returns 500 if currentStatus is OK', () => {
     const err = {
-        status: STATUS_CODES.OK,
+        status: STATUS.OK.CODE,
         message: 'OK',
         stack: 'stack trace',
     } as MockError;
@@ -103,6 +103,6 @@ it('returns 500 if currentStatus is OK', () => {
             message: err.message,
             stack: err.stack,
         },
-        STATUS_CODES.INTERNAL_SERVER_ERROR
+        STATUS.INTERNAL_SERVER_ERROR
     );
 });

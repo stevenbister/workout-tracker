@@ -3,7 +3,7 @@ import { ZodError } from 'zod';
 
 import { AppBindings } from '@/types';
 
-import { STATUS_CODES } from './constants/http-status-codes';
+import { STATUS } from './constants/http-status-codes';
 import createApp, { defaultHook } from './create-app';
 
 vi.mock('@/middlewares/db-connect', () => ({
@@ -42,7 +42,7 @@ beforeEach(() => vi.clearAllMocks());
 it('sets up the dbConnect middleware', async () => {
     const res = await setup();
 
-    expect(res.status).toBe(STATUS_CODES.OK);
+    expect(res.status).toBe(STATUS.OK);
 
     const data = await res.json();
     expect(data).toEqual({ dbConnected: true });
@@ -53,7 +53,7 @@ it('returns 404 for unknown routes', async () => {
         route: '/unknown-route',
     });
 
-    expect(res.status).toBe(STATUS_CODES.NOT_FOUND);
+    expect(res.status).toBe(STATUS.NOT_FOUND);
 
     const data = await res.json();
     expect(data).toEqual({ message: 'Not found - /unknown-route' });
@@ -64,7 +64,7 @@ it('returns error code when errors are thrown', async () => {
         throwError: true,
     });
 
-    expect(res.status).toBe(STATUS_CODES.INTERNAL_SERVER_ERROR);
+    expect(res.status).toBe(STATUS.INTERNAL_SERVER_ERROR);
 
     const data = await res.json();
     expect(data).toEqual({ message: 'Error', stack: expect.any(String) });
@@ -90,7 +90,7 @@ it('handles validation errors with defaultHook', async () => {
         method: 'POST',
     });
 
-    expect(res.status).toBe(STATUS_CODES.UNPROCESSABLE_ENTITY);
+    expect(res.status).toBe(STATUS.UNPROCESSABLE_ENTITY);
 
     const data = await res.json();
     expect(data).toEqual({ success: false, error: 'Validation error' });

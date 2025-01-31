@@ -1,7 +1,7 @@
 import { Context, Next } from 'hono';
 import { testClient } from 'hono/testing';
 
-import { STATUS_CODES } from '@/lib/constants/http-status-codes';
+import { STATUS } from '@/lib/constants/http-status-codes';
 import createApp from '@/lib/create-app';
 import { AppBindings } from '@/types';
 
@@ -22,9 +22,9 @@ beforeEach(() => vi.clearAllMocks());
 test('GET /', async () => {
     const res = await client.index.$get();
 
-    expect(res.status).toBe(STATUS_CODES.OK);
+    expect(res.status).toBe(STATUS.OK.CODE);
 
-    if (res.status === STATUS_CODES.OK) {
+    if (res.status === STATUS.OK.CODE) {
         const data = await res.json();
         expect(data).toEqual({ message: 'Workout Tracker Index' });
     }

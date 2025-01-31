@@ -1,72 +1,258 @@
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
-export const STATUS_CODES = {
+export const STATUS = {
     // Informational responses
-    CONTINUE: 100,
-    SWITCHING_PROTOCOLS: 101,
-    PROCESSING: 102,
-    EARLY_HINTS: 103,
+    CONTINUE: {
+        CODE: 100,
+        MESSAGE: 'Continue',
+    },
+    SWITCHING_PROTOCOLS: {
+        CODE: 101,
+        MESSAGE: 'Switching Protocols',
+    },
+    PROCESSING: {
+        CODE: 102,
+        MESSAGE: 'Processing',
+    },
+    EARLY_HINTS: {
+        CODE: 103,
+        MESSAGE: 'Early Hints',
+    },
     // Successful responses
-    OK: 200,
-    CREATED: 201,
-    ACCEPTED: 202,
-    NON_AUTHORITATIVE_INFORMATION: 203,
-    NO_CONTENT: 204,
-    RESET_CONTENT: 205,
-    PARTIAL_CONTENT: 206,
-    MULTI_STATUS: 207,
-    ALREADY_REPORTED: 208,
-    IM_USED: 226,
+    OK: {
+        CODE: 200,
+        MESSAGE: 'OK',
+    },
+    CREATED: {
+        CODE: 201,
+        MESSAGE: 'Created',
+    },
+    ACCEPTED: {
+        CODE: 202,
+        MESSAGE: 'Accepted',
+    },
+    NON_AUTHORITATIVE_INFORMATION: {
+        CODE: 203,
+        MESSAGE: 'Non-Authoritative Information',
+    },
+    NO_CONTENT: {
+        CODE: 204,
+        MESSAGE: 'No Content',
+    },
+    RESET_CONTENT: {
+        CODE: 205,
+        MESSAGE: 'Reset Content',
+    },
+    PARTIAL_CONTENT: {
+        CODE: 206,
+        MESSAGE: 'Partial Content',
+    },
+    MULTI_STATUS: {
+        CODE: 207,
+        MESSAGE: 'Multi-Status',
+    },
+    ALREADY_REPORTED: {
+        CODE: 208,
+        MESSAGE: 'Already Reported',
+    },
+    IM_USED: {
+        CODE: 226,
+        MESSAGE: 'IM Used',
+    },
     // Redirection messages
-    MULTIPLE_CHOICES: 300,
-    MOVED_PERMANENTLY: 301,
-    FOUND: 302,
-    SEE_OTHER: 303,
-    NOT_MODIFIED: 304,
-    USE_PROXY: 305,
-    TEMPORARY_REDIRECT: 307,
-    PERMANENT_REDIRECT: 308,
+    MULTIPLE_CHOICES: {
+        CODE: 300,
+        MESSAGE: 'Multiple Choices',
+    },
+    MOVED_PERMANENTLY: {
+        CODE: 301,
+        MESSAGE: 'Moved Permanently',
+    },
+    FOUND: {
+        CODE: 302,
+        MESSAGE: 'Found',
+    },
+    SEE_OTHER: {
+        CODE: 303,
+        MESSAGE: 'See Other',
+    },
+    NOT_MODIFIED: {
+        CODE: 304,
+        MESSAGE: 'Not Modified',
+    },
+    USE_PROXY: {
+        CODE: 305,
+        MESSAGE: 'Use Proxy',
+    },
+    TEMPORARY_REDIRECT: {
+        CODE: 307,
+        MESSAGE: 'Temporary Redirect',
+    },
+    PERMANENT_REDIRECT: {
+        CODE: 308,
+        MESSAGE: 'Permanent Redirect',
+    },
     // Client error responses
-    BAD_REQUEST: 400,
-    UNAUTHORIZED: 401,
-    PAYMENT_REQUIRED: 402,
-    FORBIDDEN: 403,
-    NOT_FOUND: 404,
-    METHOD_NOT_ALLOWED: 405,
-    NOT_ACCEPTABLE: 406,
-    PROXY_AUTHENTICATION_REQUIRED: 407,
-    REQUEST_TIMEOUT: 408,
-    CONFLICT: 409,
-    GONE: 410,
-    LENGTH_REQUIRED: 411,
-    PRECONDITION_FAILED: 412,
-    PAYLOAD_TOO_LARGE: 413,
-    URI_TOO_LONG: 414,
-    UNSUPPORTED_MEDIA_TYPE: 415,
-    RANGE_NOT_SATISFIABLE: 416,
-    EXPECTATION_FAILED: 417,
-    IM_A_TEAPOT: 418,
-    MISDIRECTED_REQUEST: 421,
-    UNPROCESSABLE_ENTITY: 422,
-    LOCKED: 423,
-    FAILED_DEPENDENCY: 424,
-    TOO_EARLY: 425,
-    UPGRADE_REQUIRED: 426,
-    PRECONDITION_REQUIRED: 428,
-    TOO_MANY_REQUESTS: 429,
-    REQUEST_HEADER_FIELDS_TOO_LARGE: 431,
-    UNAVAILABLE_FOR_LEGAL_REASONS: 451,
+    BAD_REQUEST: {
+        CODE: 400,
+        MESSAGE: 'Bad Request',
+    },
+    UNAUTHORIZED: {
+        CODE: 401,
+        MESSAGE: 'Unauthorized',
+    },
+    PAYMENT_REQUIRED: {
+        CODE: 402,
+        MESSAGE: 'Payment Required',
+    },
+    FORBIDDEN: {
+        CODE: 403,
+        MESSAGE: 'Forbidden',
+    },
+    NOT_FOUND: {
+        CODE: 404,
+        MESSAGE: 'Not Found',
+    },
+    METHOD_NOT_ALLOWED: {
+        CODE: 405,
+        MESSAGE: 'Method Not Allowed',
+    },
+    NOT_ACCEPTABLE: {
+        CODE: 406,
+        MESSAGE: 'Not Acceptable',
+    },
+    PROXY_AUTHENTICATION_REQUIRED: {
+        CODE: 407,
+        MESSAGE: 'Proxy Authentication Required',
+    },
+    REQUEST_TIMEOUT: {
+        CODE: 408,
+        MESSAGE: 'Request Timeout',
+    },
+    CONFLICT: {
+        CODE: 409,
+        MESSAGE: 'Conflict',
+    },
+    GONE: {
+        CODE: 410,
+        MESSAGE: 'Gone',
+    },
+    LENGTH_REQUIRED: {
+        CODE: 411,
+        MESSAGE: 'Length Required',
+    },
+    PRECONDITION_FAILED: {
+        CODE: 412,
+        MESSAGE: 'Precondition Failed',
+    },
+    PAYLOAD_TOO_LARGE: {
+        CODE: 413,
+        MESSAGE: 'Payload Too Large',
+    },
+    URI_TOO_LONG: {
+        CODE: 414,
+        MESSAGE: 'URI Too Long',
+    },
+    UNSUPPORTED_MEDIA_TYPE: {
+        CODE: 415,
+        MESSAGE: 'Unsupported Media Type',
+    },
+    RANGE_NOT_SATISFIABLE: {
+        CODE: 416,
+        MESSAGE: 'Range Not Satisfiable',
+    },
+    EXPECTATION_FAILED: {
+        CODE: 417,
+        MESSAGE: 'Expectation Failed',
+    },
+    IM_A_TEAPOT: {
+        CODE: 418,
+        MESSAGE: "I'm a teapot",
+    },
+    MISDIRECTED_REQUEST: {
+        CODE: 421,
+        MESSAGE: 'Misdirected Request',
+    },
+    UNPROCESSABLE_ENTITY: {
+        CODE: 422,
+        MESSAGE: 'Unprocessable Entity',
+    },
+    LOCKED: {
+        CODE: 423,
+        MESSAGE: 'Locked',
+    },
+    FAILED_DEPENDENCY: {
+        CODE: 424,
+        MESSAGE: 'Failed Dependency',
+    },
+    TOO_EARLY: {
+        CODE: 425,
+        MESSAGE: 'Too Early',
+    },
+    UPGRADE_REQUIRED: {
+        CODE: 426,
+        MESSAGE: 'Upgrade Required',
+    },
+    PRECONDITION_REQUIRED: {
+        CODE: 428,
+        MESSAGE: 'Precondition Required',
+    },
+    TOO_MANY_REQUESTS: {
+        CODE: 429,
+        MESSAGE: 'Too Many Requests',
+    },
+    REQUEST_HEADER_FIELDS_TOO_LARGE: {
+        CODE: 431,
+        MESSAGE: 'Request Header Fields Too Large',
+    },
+    UNAVAILABLE_FOR_LEGAL_REASONS: {
+        CODE: 451,
+        MESSAGE: 'Unavailable For Legal Reasons',
+    },
     // Server error responses
-    INTERNAL_SERVER_ERROR: 500,
-    NOT_IMPLEMENTED: 501,
-    BAD_GATEWAY: 502,
-    SERVICE_UNAVAILABLE: 503,
-    GATEWAY_TIMEOUT: 504,
-    HTTP_VERSION_NOT_SUPPORTED: 505,
-    VARIANT_ALSO_NEGOTIATES: 506,
-    INSUFFICIENT_STORAGE: 507,
-    LOOP_DETECTED: 508,
-    NOT_EXTENDED: 510,
-    NETWORK_AUTHENTICATION_REQUIRED: 511,
+    INTERNAL_SERVER_ERROR: {
+        CODE: 500,
+        MESSAGE: 'Internal Server Error',
+    },
+    NOT_IMPLEMENTED: {
+        CODE: 501,
+        MESSAGE: 'Not Implemented',
+    },
+    BAD_GATEWAY: {
+        CODE: 502,
+        MESSAGE: 'Bad Gateway',
+    },
+    SERVICE_UNAVAILABLE: {
+        CODE: 503,
+        MESSAGE: 'Service Unavailable',
+    },
+    GATEWAY_TIMEOUT: {
+        CODE: 504,
+        MESSAGE: 'Gateway Timeout',
+    },
+    HTTP_VERSION_NOT_SUPPORTED: {
+        CODE: 505,
+        MESSAGE: 'HTTP Version Not Supported',
+    },
+    VARIANT_ALSO_NEGOTIATES: {
+        CODE: 506,
+        MESSAGE: 'Variant Also Negotiates',
+    },
+    INSUFFICIENT_STORAGE: {
+        CODE: 507,
+        MESSAGE: 'Insufficient Storage',
+    },
+    LOOP_DETECTED: {
+        CODE: 508,
+        MESSAGE: 'Loop Detected',
+    },
+    NOT_EXTENDED: {
+        CODE: 510,
+        MESSAGE: 'Not Extended',
+    },
+    NETWORK_AUTHENTICATION_REQUIRED: {
+        CODE: 511,
+        MESSAGE: 'Network Authentication Required',
+    },
 } as const;
 
-export type StatusCode = keyof typeof STATUS_CODES;
+export type StatusCode = keyof typeof STATUS;

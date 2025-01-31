@@ -1,6 +1,6 @@
 import { drizzle } from 'drizzle-orm/d1';
 
-import { STATUS_CODES } from '@/lib/constants/http-status-codes';
+import { STATUS } from '@/lib/constants/http-status-codes';
 import createApp from '@/lib/create-app';
 import { AppBindings } from '@/types';
 
@@ -30,7 +30,7 @@ beforeEach(() => vi.clearAllMocks());
 it('calls drizzle db connector', async () => {
     const res = await app.request('/', {}, mockEnv);
 
-    expect(res.status).toBe(STATUS_CODES.OK);
+    expect(res.status).toBe(STATUS.OK);
 
     expect(mockDbClient).toHaveBeenCalledWith(mockEnv.DB, {
         schema: expect.any(Object),
