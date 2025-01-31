@@ -1,4 +1,5 @@
 import { Hook, OpenAPIHono } from '@hono/zod-openapi';
+import { logger } from 'hono/logger';
 
 import { dbConnect } from '@/middlewares/db-connect';
 import { notFound } from '@/middlewares/not-found';
@@ -31,10 +32,10 @@ export function createRouter() {
 
 export default function createApp() {
     const app = createRouter();
-    // TODO: Add pino logger
-    // app.use(pinoLogger());
 
     app.use(dbConnect);
+    app.use(logger());
+
     app.notFound(notFound);
     app.onError(onError);
     return app;
