@@ -3,12 +3,12 @@ import { Hook, OpenAPIHono } from '@hono/zod-openapi';
 import { dbConnect } from '@/middlewares/db-connect';
 import { notFound } from '@/middlewares/not-found';
 import { onError } from '@/middlewares/on-error';
-import type { AppBindings, AppOpenAPI } from '@/types';
+import type { AppBindings } from '@/types';
 
 import { STATUS_CODES } from './constants/http-status-codes';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const defaultHook: Hook<any, any, any, any> = async (result, c) => {
+export const defaultHook: Hook<any, any, any, any> = async (result, c) => {
     if (!result.success) {
         const { success, error } = result;
 
@@ -38,8 +38,4 @@ export default function createApp() {
     app.notFound(notFound);
     app.onError(onError);
     return app;
-}
-
-export function createTestApp<R extends AppOpenAPI>(router: R) {
-    return createApp().route('/', router);
 }
