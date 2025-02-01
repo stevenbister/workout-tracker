@@ -1,5 +1,7 @@
-import { OpenAPIHono } from '@hono/zod-openapi';
+import { OpenAPIHono, RouteConfig, RouteHandler } from '@hono/zod-openapi';
 import { drizzle } from 'drizzle-orm/d1';
+
+import { authAdapter } from '@repo/core/auth/server';
 
 import * as schema from '@/db/schema';
 
@@ -12,6 +14,7 @@ export type AppBindings = {
     };
     Variables: {
         db: ReturnType<typeof drizzle<typeof schema>>;
+        authAdapter: ReturnType<typeof authAdapter>;
     };
 };
 
