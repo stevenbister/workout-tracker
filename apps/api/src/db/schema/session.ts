@@ -1,13 +1,17 @@
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 
-export type User = typeof user.$inferSelect;
+import { user } from './users';
 
-export const user = sqliteTable('user', {
+export type Session = typeof session.$inferSelect;
+
+export const session = sqliteTable('session', {
     id: text().primaryKey(),
-    name: text().notNull(),
-    email: text().notNull(),
-    emailVerified: integer({ mode: 'boolean' }).notNull().default(false),
+    userId: text()
+        .notNull()
+        .references(() => user.id),
+    token: text().notNull(),
+    expiresAt: integer({ mode: 'timestamp' }).notNull(),
     createdAt: integer({ mode: 'timestamp' })
         .notNull()
         .$defaultFn(() => new Date()),
@@ -17,6 +21,6 @@ export const user = sqliteTable('user', {
         .$onUpdate(() => new Date()),
 });
 
-export const usersSchema = createSelectSchema(user);
+export const sessionSchema = createSelectSchema(session);
 
-export const insertUserSchema = createInsertSchema(user);
+export const insertUserSchema = createInsertSchema(session);
