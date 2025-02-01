@@ -19,4 +19,4 @@ export const verification = sqliteTable('verification', {
 
 export const verificationSchema = createSelectSchema(verification);
 
-export const insertUserSchema = createInsertSchema(verification);
+export const insertVerificationSchema = createInsertSchema(verification);

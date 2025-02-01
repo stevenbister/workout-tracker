@@ -23,4 +23,4 @@ export const session = sqliteTable('session', {
 
 export const sessionSchema = createSelectSchema(session);
 
-export const insertUserSchema = createInsertSchema(session);
+export const insertSessionSchema = createInsertSchema(session);

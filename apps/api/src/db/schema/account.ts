@@ -30,4 +30,4 @@ export const account = sqliteTable('account', {
 
 export const accountSchema = createSelectSchema(account);
 
-export const insertUserSchema = createInsertSchema(account);
+export const insertAccountSchema = createInsertSchema(account);
