@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { APIError } from 'better-auth/api';
 import { Context } from 'hono';
 
 import { STATUS } from '@/lib/constants/http-status-codes';
@@ -27,7 +28,7 @@ const defaultMockError: MockError = {
     stack: 'stack trace',
 };
 
-const setup = (options?: { env?: string; err?: MockError }) => {
+const setup = (options?: { env?: string; err?: MockError | APIError }) => {
     const c = mockContext(options?.env ?? 'development');
 
     onError(options?.err ?? defaultMockError, c);
@@ -102,6 +103,30 @@ it('returns 500 if currentStatus is OK', () => {
         {
             message: err.message,
             stack: err.stack,
+        },
+        STATUS.INTERNAL_SERVER_ERROR.CODE
+    );
+});
+
+it('returns 500 if error is instance of APIError', () => {
+    const err = {
+        status: 'UNPROCESSABLE_ENTITY',
+        body: {
+            message: 'User already exists',
+            code: 'USER_ALREADY_EXISTS',
+        },
+    };
+
+    const { c } = setup({
+        err: new APIError('UNPROCESSABLE_ENTITY', err.body),
+    });
+
+    expect(c.json).toHaveBeenCalledWith(
+        {
+            message: err.body.message,
+            stack: expect.objectContaining({
+                body: err.body,
+            }),
         },
         STATUS.INTERNAL_SERVER_ERROR.CODE
     );

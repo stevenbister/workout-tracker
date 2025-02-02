@@ -14,6 +14,14 @@ vi.mock('@/middlewares/db-connect', () => ({
     },
 }));
 
+vi.mock('@/middlewares/auth-adapter', () => ({
+    authAdapter: (c: Context<AppBindings, string, object>, next: Next) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        c.set<any>('authAdapter', vi.fn());
+        return next();
+    },
+}));
+
 const app = createApp();
 configureOpenAPI(app);
 

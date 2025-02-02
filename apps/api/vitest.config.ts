@@ -14,6 +14,7 @@ export default defineConfig({
                 'src/**/constants.ts',
                 'src/{env,types}.ts',
                 'src/db/schema',
+                'src/index.ts',
             ],
         },
     },
