@@ -1,7 +1,11 @@
-import { OpenAPIHono, RouteConfig, RouteHandler } from '@hono/zod-openapi';
-import { drizzle } from 'drizzle-orm/d1';
-
-import { authAdapter } from '@repo/core/auth/server';
+import type {
+    OpenAPIHono,
+    RouteConfig,
+    RouteHandler,
+    z,
+} from '@hono/zod-openapi';
+import type { betterAuth } from 'better-auth';
+import type { drizzle } from 'drizzle-orm/d1';
 
 import * as schema from '@/db/schema';
 
@@ -14,7 +18,7 @@ export type AppBindings = {
     };
     Variables: {
         db: ReturnType<typeof drizzle<typeof schema>>;
-        authAdapter: ReturnType<typeof authAdapter>;
+        authAdapter: ReturnType<typeof betterAuth>;
     };
 };
 
@@ -24,3 +28,5 @@ export type AppRouteHandler<R extends RouteConfig> = RouteHandler<
     R,
     AppBindings
 >;
+
+export type ZodSchema = z.AnyZodObject | z.ZodArray<z.AnyZodObject>;

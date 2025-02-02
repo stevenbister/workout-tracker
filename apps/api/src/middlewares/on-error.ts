@@ -1,3 +1,4 @@
+import { APIError } from 'better-auth/api';
 import type { ErrorHandler } from 'hono';
 import type { ContentfulStatusCode } from 'hono/utils/http-status';
 
@@ -13,6 +14,16 @@ export const onError: ErrorHandler = (err, c) => {
             : STATUS.INTERNAL_SERVER_ERROR.CODE;
 
     const env = c.env?.NODE_ENV ?? 'development';
+
+    if (err instanceof APIError) {
+        return c.json(
+            {
+                message: err.body.message,
+                stack: env === 'production' ? undefined : err,
+            },
+            STATUS.INTERNAL_SERVER_ERROR.CODE
+        );
+    }
 
     return c.json(
         {

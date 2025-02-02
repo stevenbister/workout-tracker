@@ -2,7 +2,7 @@ import { AppRouteHandler } from '@/types';
 
 import type { SignUpRoute } from './auth.routes';
 
-export const signUp: AppRouteHandler<SignUpRoute> = async (c) => {
+export const signUp: AppRouteHandler<SignUpRoute> = async (c, next) => {
     const auth = c.get('authAdapter');
     const { email, password, name } = c.req.valid('json');
 
