@@ -55,7 +55,6 @@ describe('sign-up', () => {
 
         expect(mockSignUpEmail).toHaveBeenCalledWith({
             body: mockUser,
-            asResponse: true,
         });
 
         expect(res.status).toBe(STATUS.OK.CODE);

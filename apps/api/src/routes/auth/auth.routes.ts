@@ -31,7 +31,33 @@ export const signUp = createRoute({
     },
     responses: {
         [STATUS.OK.CODE]: jsonContent(
-            messageSchema('Success'),
+            z
+                .object({
+                    token: z.string().nullable(),
+                    user: z.object({
+                        id: z.string(),
+                        email: z.string(),
+                        name: z.string(),
+                        image: z.string().nullable().optional(),
+                        emailVerified: z.boolean(),
+                        createdAt: z.string(),
+                        updatedAt: z.string(),
+                    }),
+                })
+                .openapi({
+                    example: {
+                        token: 'P3MNgjanZJ9JINj28nJfrsyUfLe6oUAP',
+                        user: {
+                            id: 'tfKg9riejdFHq5kEEGgxaG9vVrXlylWA',
+                            email: 'test@test.com',
+                            name: 'test',
+                            image: null,
+                            emailVerified: false,
+                            createdAt: '2025-02-02T16:01:54.000Z',
+                            updatedAt: '2025-02-02T16:01:54.000Z',
+                        },
+                    },
+                }),
             'Successfully created user'
         ),
         [STATUS.UNPROCESSABLE_ENTITY.CODE]: jsonContent(
