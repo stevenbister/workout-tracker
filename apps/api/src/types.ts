@@ -9,7 +9,7 @@ export type AppBindings = {
     Bindings: {
         NODE_ENV: string;
         DB: D1Database;
-        BETTER_AUTH_URL: string;
+        BASE_API_URL: string;
         BETTER_AUTH_SECRET: string;
     };
     Variables: {
