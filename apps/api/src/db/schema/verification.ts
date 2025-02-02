@@ -4,17 +4,12 @@ import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 export type Verification = typeof verification.$inferSelect;
 
 export const verification = sqliteTable('verification', {
-    id: text().primaryKey(),
-    identifier: text().notNull(),
-    value: text().notNull(),
-    expiresAt: integer({ mode: 'timestamp' }).notNull(),
-    createdAt: integer({ mode: 'timestamp' })
-        .notNull()
-        .$defaultFn(() => new Date()),
-    updatedAt: integer({ mode: 'timestamp' })
-        .notNull()
-        .$defaultFn(() => new Date())
-        .$onUpdate(() => new Date()),
+    id: text('id').primaryKey(),
+    identifier: text('identifier').notNull(),
+    value: text('value').notNull(),
+    expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
+    createdAt: integer('created_at', { mode: 'timestamp' }),
+    updatedAt: integer('updated_at', { mode: 'timestamp' }),
 });
 
 export const verificationSchema = createSelectSchema(verification);

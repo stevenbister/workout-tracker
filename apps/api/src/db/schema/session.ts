@@ -6,19 +6,16 @@ import { user } from './users';
 export type Session = typeof session.$inferSelect;
 
 export const session = sqliteTable('session', {
-    id: text().primaryKey(),
-    userId: text()
+    id: text('id').primaryKey(),
+    expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
+    token: text('token').notNull().unique(),
+    createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
+    ipAddress: text('ip_address'),
+    userAgent: text('user_agent'),
+    userId: text('user_id')
         .notNull()
         .references(() => user.id),
-    token: text().notNull(),
-    expiresAt: integer({ mode: 'timestamp' }).notNull(),
-    createdAt: integer({ mode: 'timestamp' })
-        .notNull()
-        .$defaultFn(() => new Date()),
-    updatedAt: integer({ mode: 'timestamp' })
-        .notNull()
-        .$defaultFn(() => new Date())
-        .$onUpdate(() => new Date()),
 });
 
 export const sessionSchema = createSelectSchema(session);

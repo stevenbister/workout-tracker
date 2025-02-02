@@ -15,6 +15,20 @@
       "when": 1738411191445,
       "tag": "0001_freezing_mole_man",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1738495606679,
+      "tag": "0002_condemned_karen_page",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1738497584524,
+      "tag": "0003_lumpy_pixie",
+      "breakpoints": true
     }
   ]
 }

@@ -6,26 +6,25 @@ import { user } from './users';
 export type Account = typeof account.$inferSelect;
 
 export const account = sqliteTable('account', {
-    id: text().primaryKey(),
-    userId: text()
+    id: text('id').primaryKey(),
+    accountId: text('account_id').notNull(),
+    providerId: text('provider_id').notNull(),
+    userId: text('user_id')
         .notNull()
         .references(() => user.id),
-    accountId: text().notNull(),
-    providerId: text().notNull(),
-    accessToken: text(),
-    refreshToken: text(),
-    accessTokenExpiresAt: integer({ mode: 'timestamp' }),
-    refreshTokenExpiresAt: integer({ mode: 'timestamp' }),
-    scope: text(),
-    idToken: text(),
-    password: text(),
-    createdAt: integer({ mode: 'timestamp' })
-        .notNull()
-        .$defaultFn(() => new Date()),
-    updatedAt: integer({ mode: 'timestamp' })
-        .notNull()
-        .$defaultFn(() => new Date())
-        .$onUpdate(() => new Date()),
+    accessToken: text('access_token'),
+    refreshToken: text('refresh_token'),
+    idToken: text('id_token'),
+    accessTokenExpiresAt: integer('access_token_expires_at', {
+        mode: 'timestamp',
+    }),
+    refreshTokenExpiresAt: integer('refresh_token_expires_at', {
+        mode: 'timestamp',
+    }),
+    scope: text('scope'),
+    password: text('password'),
+    createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
 });
 
 export const accountSchema = createSelectSchema(account);
