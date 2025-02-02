@@ -1,4 +1,4 @@
-import { createRoute } from '@hono/zod-openapi';
+import { createRoute, z } from '@hono/zod-openapi';
 
 import { STATUS } from '@/lib/constants/http-status-codes';
 import { PREFIX } from '@/lib/constants/misc';
@@ -8,16 +8,40 @@ const tags = ['auth'];
 
 export const signUp = createRoute({
     tags,
-    method: 'get',
+    method: 'post',
     path: `${PREFIX}/auth/sign-up`,
+    request: {
+        // TODO: Add schema
+        body: {
+            content: {
+                // TODO: Make a helper for application/json
+                'application/json': {
+                    schema: z
+                        .object({
+                            email: z.string().email(),
+                            // TODO: need to get an error message out of this
+                            password: z.string().min(8),
+                            name: z.string(),
+                        })
+                        .openapi({
+                            example: {
+                                email: 'test@test.com',
+                                password: 'password1234',
+                                name: 'test',
+                            },
+                        }),
+                },
+            },
+        },
+    },
     responses: {
         [STATUS.OK.CODE]: {
             content: {
                 'application/json': {
-                    schema: messageSchema('test'),
+                    schema: messageSchema('Success'),
                 },
             },
-            description: 'test',
+            description: 'Sign up a user',
         },
     },
 });
