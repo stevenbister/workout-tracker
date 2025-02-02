@@ -1,6 +1,6 @@
 import { AppRouteHandler } from '@/types';
 
-import { SignUpRoute } from './auth.routes';
+import type { SignUpRoute } from './auth.routes';
 
 export const signUp: AppRouteHandler<SignUpRoute> = async (c) => {
     const auth = c.get('authAdapter');
