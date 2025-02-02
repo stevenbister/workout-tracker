@@ -47,7 +47,8 @@ export default function createApp() {
 
     app.use(
         cors({
-            origin: (_, c) => c.env.BASE_API_URL,
+            origin: (_, c) =>
+                process.env.NODE_ENV === 'test' ? '' : c.env.BASE_API_URL,
             allowHeaders: ['Content-Type', 'Authorization'],
             allowMethods: ['POST', 'GET', 'OPTIONS'],
             exposeHeaders: ['Content-Length'],

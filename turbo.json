@@ -14,7 +14,8 @@
             "env": [
                 "CLOUDFLARE_ACCOUNT_ID",
                 "CLOUDFLARE_DATABASE_ID",
-                "CLOUDFLARE_D1_TOKEN"
+                "CLOUDFLARE_D1_TOKEN",
+                "NODE_ENV"
             ]
         },
         "lint": {
@@ -27,12 +28,13 @@
             "dependsOn": ["^typecheck"]
         },
         "dev": {
-            "inputs": ["$TURBO_DEFAULT$", ".en*v"],
+            "inputs": ["$TURBO_DEFAULT$", ".env*"],
             "cache": false,
             "persistent": true
         },
         "test": {
-            "dependsOn": ["^test"]
+            "dependsOn": ["^test"],
+            "env": ["NODE_ENV"]
         },
         "test:watch": {
             "dependsOn": ["^test:watch"],
