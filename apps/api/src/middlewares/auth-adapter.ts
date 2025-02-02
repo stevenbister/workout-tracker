@@ -1,8 +1,8 @@
-import bcrypt from 'bcryptjs';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { createMiddleware } from 'hono/factory';
 
+import { hashPassword, verifyPassword } from '@/lib/auth/auth';
 import { AppBindings } from '@/types';
 
 export const authAdapter = createMiddleware<AppBindings>(async (c, next) => {
@@ -16,13 +16,8 @@ export const authAdapter = createMiddleware<AppBindings>(async (c, next) => {
             emailAndPassword: {
                 enabled: true,
                 password: {
-                    hash: async (password: string) => {
-                        const salt = await bcrypt.genSalt(10);
-
-                        return bcrypt.hash(password, salt);
-                    },
-                    verify: async ({ hash, password }) =>
-                        await bcrypt.compare(password, hash),
+                    hash: hashPassword,
+                    verify: verifyPassword,
                 },
             },
         })
