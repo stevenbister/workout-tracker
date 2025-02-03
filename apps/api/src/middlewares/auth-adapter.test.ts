@@ -1,14 +1,14 @@
-import { betterAuth } from 'better-auth';
+import { getAuth } from '@repo/core/auth/server';
 
 import { STATUS } from '@/lib/constants/http-status-codes';
 import createApp from '@/lib/create-app';
 import { AppBindings } from '@/types';
 
-vi.mock('better-auth', () => ({
-    betterAuth: vi.fn(),
+vi.mock('@repo/core/auth/server', () => ({
+    getAuth: vi.fn(),
 }));
 
-const mockAuthAdapter = vi.mocked(betterAuth).mockImplementation(vi.fn());
+const mockAuthAdapter = vi.mocked(getAuth).mockImplementation(vi.fn());
 
 const mockEnv: Partial<AppBindings['Bindings']> = {
     BASE_API_URL: 'http://localhost:8787',
@@ -27,15 +27,5 @@ it('calls the auth adapter', async () => {
 
     expect(res.status).toBe(STATUS.OK.CODE);
 
-    expect(mockAuthAdapter).toHaveBeenCalledWith({
-        database: expect.any(Function),
-        baseURL: mockEnv.BASE_API_URL,
-        emailAndPassword: {
-            enabled: true,
-            password: {
-                hash: expect.any(Function),
-                verify: expect.any(Function),
-            },
-        },
-    });
+    expect(mockAuthAdapter).toHaveBeenCalledTimes(1);
 });
