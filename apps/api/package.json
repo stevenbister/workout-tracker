@@ -18,9 +18,9 @@
     },
     "dependencies": {
         "@hono/zod-openapi": "^0.18.3",
+        "@repo/core": "workspace:*",
         "@scalar/hono-api-reference": "^0.5.170",
         "bcryptjs": "^2.4.3",
-        "better-auth": "^1.1.15",
         "dotenv": "^16.4.7",
         "drizzle-orm": "^0.39.1",
         "drizzle-zod": "^0.7.0",
@@ -29,7 +29,6 @@
     },
     "devDependencies": {
         "@cloudflare/workers-types": "^4.20250109.0",
-        "@repo/core": "workspace:*",
         "@repo/eslint-config": "workspace:*",
         "@repo/typescript-config": "workspace:*",
         "@repo/vite-config": "workspace:*",
