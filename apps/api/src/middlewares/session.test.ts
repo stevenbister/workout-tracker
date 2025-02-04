@@ -1,6 +1,6 @@
-import { Context, Next } from 'hono';
+import type { Context, Next } from 'hono';
 
-import { AppBindings } from '@/types';
+import type { AppBindings } from '@/types';
 
 import { session } from './session';
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Context } from 'hono';
+import type { Context } from 'hono';
 
 import { STATUS } from '@/lib/constants/http-status-codes';
 

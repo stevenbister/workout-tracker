@@ -19,6 +19,14 @@ export const config = [
         },
         rules: {
             'turbo/no-undeclared-env-vars': 'warn',
+            '@typescript-eslint/consistent-type-imports': [
+                'error',
+                {
+                    disallowTypeAnnotations: true,
+                    fixStyle: 'separate-type-imports',
+                    prefer: 'type-imports',
+                },
+            ],
         },
     },
     {
