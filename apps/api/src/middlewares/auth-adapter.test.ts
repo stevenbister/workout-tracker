@@ -1,8 +1,18 @@
+import { Context, Next } from 'hono';
+
 import { getAuth } from '@repo/core/auth/server';
 
 import { STATUS } from '@/lib/constants/http-status-codes';
 import createApp from '@/lib/create-app';
 import { AppBindings } from '@/types';
+
+vi.mock('@/middlewares/session', () => ({
+    session: (c: Context<AppBindings, string, object>, next: Next) => {
+        c.set('user', null);
+        c.set('session', null);
+        return next();
+    },
+}));
 
 vi.mock('@repo/core/auth/server', () => ({
     getAuth: vi.fn(),

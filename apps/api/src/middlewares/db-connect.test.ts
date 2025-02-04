@@ -13,6 +13,14 @@ vi.mock('@/middlewares/auth-adapter', () => ({
     },
 }));
 
+vi.mock('@/middlewares/session', () => ({
+    session: (c: Context<AppBindings, string, object>, next: Next) => {
+        c.set('user', null);
+        c.set('session', null);
+        return next();
+    },
+}));
+
 vi.mock('drizzle-orm/d1', () => ({
     drizzle: vi.fn(),
 }));

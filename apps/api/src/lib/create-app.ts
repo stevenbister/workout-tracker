@@ -6,6 +6,7 @@ import { authAdapter } from '@/middlewares/auth-adapter';
 import { dbConnect } from '@/middlewares/db-connect';
 import { notFound } from '@/middlewares/not-found';
 import { onError } from '@/middlewares/on-error';
+import { session } from '@/middlewares/session';
 import type { AppBindings } from '@/types';
 
 import { STATUS } from './constants/http-status-codes';
@@ -40,10 +41,7 @@ export default function createApp() {
 
     app.use(
         cors({
-            // Replaced auth routes with correct better-auth setup
             // TODO: Update process.env references
-            // TODO: fix / write new tests
-            // TODO: fix types
             origin: (_, c) =>
                 process.env.NODE_ENV === 'test' ? '' : c.env.BASE_CLIENT_URL,
             allowHeaders: ['Content-Type', 'Authorization'],
@@ -54,7 +52,7 @@ export default function createApp() {
         })
     );
 
-    // app.use(session);
+    app.use(session);
 
     app.use(logger());
 

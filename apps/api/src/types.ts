@@ -10,6 +10,8 @@ import type { getAuth } from '@repo/core/auth/server';
 
 import * as schema from '@/db/schema';
 
+type Auth = ReturnType<typeof getAuth>;
+
 export type AppBindings = {
     Bindings: {
         NODE_ENV: string;
@@ -19,7 +21,9 @@ export type AppBindings = {
     };
     Variables: {
         db: ReturnType<typeof drizzle<typeof schema>>;
-        authAdapter: ReturnType<typeof getAuth>;
+        authAdapter: Auth;
+        user: Auth['$Infer']['Session']['user'] | null;
+        session: Auth['$Infer']['Session']['session'] | null;
     };
 };
 
