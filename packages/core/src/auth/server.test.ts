@@ -35,6 +35,10 @@ it('calls betterAuth with correct options', async () => {
                     verify: mockOptions.verifyFn,
                 },
             }),
+            rateLimit: expect.objectContaining({
+                storage: 'database',
+                modelName: 'rateLimit',
+            }),
         })
     );
 });
