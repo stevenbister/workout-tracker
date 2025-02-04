@@ -8,7 +8,7 @@ import type { drizzle } from 'drizzle-orm/d1';
 
 import type { getAuth } from '@repo/core/auth/server';
 
-import * as schema from '@/db/schema';
+import type * as schema from '@/db/schema';
 
 type Auth = ReturnType<typeof getAuth>;
 

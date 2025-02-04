@@ -1,7 +1,7 @@
-import { Context, Next, ValidationTargets } from 'hono';
-import { ZodError } from 'zod';
+import type { Context, Next, ValidationTargets } from 'hono';
+import type { ZodError } from 'zod';
 
-import { AppBindings } from '@/types';
+import type { AppBindings } from '@/types';
 
 import { STATUS } from './constants/http-status-codes';
 import createApp, { defaultHook } from './create-app';

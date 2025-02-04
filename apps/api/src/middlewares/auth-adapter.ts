@@ -3,7 +3,7 @@ import { createMiddleware } from 'hono/factory';
 import { getAuth } from '@repo/core/auth/server';
 
 import { hashPassword, verifyPassword } from '@/lib/auth/auth';
-import { AppBindings } from '@/types';
+import type { AppBindings } from '@/types';
 
 export const authAdapter = createMiddleware<AppBindings>(async (c, next) => {
     c.set(

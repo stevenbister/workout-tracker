@@ -1,9 +1,9 @@
-import { Context, Next } from 'hono';
+import type { Context, Next } from 'hono';
 import { testClient } from 'hono/testing';
 
 import { STATUS } from '@/lib/constants/http-status-codes';
 import createApp from '@/lib/create-app';
-import { AppBindings } from '@/types';
+import type { AppBindings } from '@/types';
 
 import { index } from './index';
 

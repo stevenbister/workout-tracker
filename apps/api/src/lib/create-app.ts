@@ -1,4 +1,5 @@
-import { Hook, OpenAPIHono } from '@hono/zod-openapi';
+import type { Hook } from '@hono/zod-openapi';
+import { OpenAPIHono } from '@hono/zod-openapi';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 

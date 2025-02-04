@@ -1,10 +1,10 @@
-import { Context, Next } from 'hono';
+import type { Context, Next } from 'hono';
 
 import { getAuth } from '@repo/core/auth/server';
 
 import { STATUS } from '@/lib/constants/http-status-codes';
 import createApp from '@/lib/create-app';
-import { AppBindings } from '@/types';
+import type { AppBindings } from '@/types';
 
 vi.mock('@/middlewares/session', () => ({
     session: (c: Context<AppBindings, string, object>, next: Next) => {
