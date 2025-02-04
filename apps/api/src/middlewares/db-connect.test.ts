@@ -1,8 +1,17 @@
 import { drizzle } from 'drizzle-orm/d1';
+import { Context, Next } from 'hono';
 
 import { STATUS } from '@/lib/constants/http-status-codes';
 import createApp from '@/lib/create-app';
 import { AppBindings } from '@/types';
+
+vi.mock('@/middlewares/auth-adapter', () => ({
+    authAdapter: (c: Context<AppBindings, string, object>, next: Next) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        c.set<any>('authAdapter', vi.fn());
+        return next();
+    },
+}));
 
 vi.mock('drizzle-orm/d1', () => ({
     drizzle: vi.fn(),
