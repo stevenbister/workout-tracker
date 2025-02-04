@@ -34,5 +34,9 @@ export const getAuth = (db: DB, options: Options) => {
                 verify,
             },
         },
+        rateLimit: {
+            storage: 'database',
+            modelName: 'rateLimit',
+        },
     });
 };
