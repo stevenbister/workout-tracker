@@ -104,8 +104,12 @@ it('handles validation errors with defaultHook', async () => {
         return defaultHook(result, c);
     });
 
+    const headers = new Headers();
+    headers.set('Origin', 'http://localhost');
+
     const res = await app.request('/test-validation', {
         method: 'POST',
+        headers,
     });
 
     expect(res.status).toBe(STATUS.UNPROCESSABLE_ENTITY.CODE);
