@@ -4,10 +4,13 @@ import type {
     RouteHandler,
     z,
 } from '@hono/zod-openapi';
-import type { betterAuth } from 'better-auth';
 import type { drizzle } from 'drizzle-orm/d1';
 
+import type { getAuth } from '@repo/core/auth/server';
+
 import * as schema from '@/db/schema';
+
+type Auth = ReturnType<typeof getAuth>;
 
 export type AppBindings = {
     Bindings: {
@@ -18,7 +21,9 @@ export type AppBindings = {
     };
     Variables: {
         db: ReturnType<typeof drizzle<typeof schema>>;
-        authAdapter: ReturnType<typeof betterAuth>;
+        authAdapter: Auth;
+        user: Auth['$Infer']['Session']['user'] | null;
+        session: Auth['$Infer']['Session']['session'] | null;
     };
 };
 

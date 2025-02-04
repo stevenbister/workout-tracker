@@ -79,6 +79,13 @@ jobs:
           name: UI
           json-summary-path: './packages/ui/coverage/coverage-summary.json'
           json-final-path: './packages/ui/coverage/coverage-final.json'
+      - name: Core coverage report
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          name: App
+          json-summary-path: './packages/core/coverage/coverage-summary.json'
+          json-final-path: './packages/core/coverage/coverage-final.json'
       - name: App coverage report
         if: always()
         uses: davelosert/vitest-coverage-report-action@v2

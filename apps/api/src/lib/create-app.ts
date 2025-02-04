@@ -6,10 +6,10 @@ import { authAdapter } from '@/middlewares/auth-adapter';
 import { dbConnect } from '@/middlewares/db-connect';
 import { notFound } from '@/middlewares/not-found';
 import { onError } from '@/middlewares/on-error';
+import { session } from '@/middlewares/session';
 import type { AppBindings } from '@/types';
 
 import { STATUS } from './constants/http-status-codes';
-import { PREFIX } from './constants/misc';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const defaultHook: Hook<any, any, any, any> = async (result, c) => {
@@ -39,16 +39,11 @@ export default function createApp() {
     app.use(dbConnect);
     app.use(authAdapter);
 
-    app.on(['POST', 'GET'], `${PREFIX}/auth/**`, (c) => {
-        const auth = c.get('authAdapter');
-
-        return auth.handler(c.req.raw);
-    });
-
     app.use(
         cors({
+            // TODO: Update process.env references
             origin: (_, c) =>
-                process.env.NODE_ENV === 'test' ? '' : c.env.BASE_API_URL,
+                process.env.NODE_ENV === 'test' ? '' : c.env.BASE_CLIENT_URL,
             allowHeaders: ['Content-Type', 'Authorization'],
             allowMethods: ['POST', 'GET', 'OPTIONS'],
             exposeHeaders: ['Content-Length'],
@@ -56,6 +51,8 @@ export default function createApp() {
             credentials: true,
         })
     );
+
+    app.use(session);
 
     app.use(logger());
 
