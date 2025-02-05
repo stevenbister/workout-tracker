@@ -5,6 +5,7 @@ import { exercise } from './exercise';
 import { muscleGroup } from './muscle-group';
 
 export type ExerciseMuscleGroup = typeof exerciseMuscleGroup.$inferSelect;
+export type InsertExerciseMuscleGroup = typeof exerciseMuscleGroup.$inferInsert;
 
 export const exerciseMuscleGroup = sqliteTable('exercise_muscle_group', {
     id: integer('id').primaryKey({ autoIncrement: true }),

@@ -2,6 +2,7 @@ import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 
 export type Exercise = typeof exercise.$inferSelect;
+export type InsertExercise = typeof exercise.$inferInsert;
 
 export const exercise = sqliteTable('exercise', {
     id: integer('id').primaryKey({ autoIncrement: true }),
