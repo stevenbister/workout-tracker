@@ -11,11 +11,13 @@ export const workout = sqliteTable('workout', {
     id: integer('id').primaryKey({ autoIncrement: true }),
     userId: text('user_id')
         .notNull()
-        .references(() => user.id),
+        .references(() => user.id, { onDelete: 'cascade' }),
     date: integer('date', { mode: 'timestamp' }).$defaultFn(() => new Date()),
     duration: integer('duration', { mode: 'timestamp' }).notNull(),
     notes: text('notes'),
-    routineId: integer('routine_id').references(() => routine.id),
+    routineId: integer('routine_id').references(() => routine.id, {
+        onDelete: 'cascade',
+    }),
     createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(
         () => new Date()
     ),

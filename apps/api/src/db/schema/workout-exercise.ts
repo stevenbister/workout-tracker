@@ -11,10 +11,10 @@ export const workoutExercise = sqliteTable('workout_exercise', {
     id: integer('id').primaryKey({ autoIncrement: true }),
     workoutId: integer('workout_id')
         .notNull()
-        .references(() => workout.id),
+        .references(() => workout.id, { onDelete: 'cascade' }),
     exerciseId: integer('exercise_id')
         .notNull()
-        .references(() => exercise.id),
+        .references(() => exercise.id, { onDelete: 'cascade' }),
     order: integer('order').notNull(),
     createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(
         () => new Date()

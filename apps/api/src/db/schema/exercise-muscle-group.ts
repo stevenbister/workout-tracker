@@ -10,10 +10,10 @@ export const exerciseMuscleGroup = sqliteTable('exercise_muscle_group', {
     id: integer('id').primaryKey({ autoIncrement: true }),
     exerciseId: integer('exercise_id')
         .notNull()
-        .references(() => exercise.id),
+        .references(() => exercise.id, { onDelete: 'cascade' }),
     muscleGroupId: integer('muscle_group_id')
         .notNull()
-        .references(() => muscleGroup.id),
+        .references(() => muscleGroup.id, { onDelete: 'cascade' }),
     isPrimaryMuscleGroup: integer('is_primary_muscle_group', {
         mode: 'boolean',
     }),

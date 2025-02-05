@@ -10,11 +10,12 @@ export const routine = sqliteTable('routine', {
     id: integer('id').primaryKey({ autoIncrement: true }),
     userId: text('user_id')
         .notNull()
-        .references(() => user.id),
+        .references(() => user.id, { onDelete: 'cascade' }),
     name: text().notNull(),
     description: text(),
     routineGroupId: integer('routine_group_id').references(
-        () => routineGroup.id
+        () => routineGroup.id,
+        { onDelete: 'cascade' }
     ),
     createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(
         () => new Date()
