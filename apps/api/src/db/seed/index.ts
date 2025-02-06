@@ -1,11 +1,11 @@
 import { exercise, exerciseMuscleGroup, muscleGroup } from '@/db/schema';
-import type { DB } from '@/types';
+import type { DrizzleD1, DrizzleSqlite } from '@/types';
 
 import { exerciseData } from './data/exercise';
 import { exerciseMuscleGroupData } from './data/exercise-muscle-group';
 import { muscleGroupData } from './data/muscle-groups';
 
-export const seed = async (db: DB) => {
+export const seed = async (db: DrizzleD1 | DrizzleSqlite) => {
     console.log('Seeding data 🌱');
 
     await clearTables(db);
@@ -17,7 +17,7 @@ export const seed = async (db: DB) => {
     console.log('Seeding complete 🌱');
 };
 
-export const clearTables = async (db: DB) => {
+export const clearTables = async (db: DrizzleD1 | DrizzleSqlite) => {
     console.log('Resetting tables 🗑️');
     const schemas = [muscleGroup, exercise, exerciseMuscleGroup];
 

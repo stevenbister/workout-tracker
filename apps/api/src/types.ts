@@ -11,9 +11,10 @@ import type { getAuth } from '@repo/core/auth/server';
 
 import type * as schema from '@/db/schema';
 
-export type DB =
-    | ReturnType<typeof drizzleD1<typeof schema>>
-    | ReturnType<typeof drizzleSqlite<typeof schema>>;
+export type DrizzleD1 = ReturnType<typeof drizzleD1<typeof schema>>;
+export type DrizzleSqlite = ReturnType<typeof drizzleSqlite<typeof schema>>;
+
+export type DB = DrizzleD1;
 
 export type Auth = ReturnType<typeof getAuth>;
 export type AuthUser = Auth['$Infer']['Session']['user'] | null;
