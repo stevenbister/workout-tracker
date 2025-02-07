@@ -1,5 +1,6 @@
 import type { Context, Next } from 'hono';
 
+import { mockSession, mockUser } from '@/__mocks__/session';
 import type { AppBindings } from '@/types';
 
 import configureOpenAPI from './configure-open-api';
@@ -24,8 +25,8 @@ vi.mock('@/middlewares/auth-adapter', () => ({
 
 vi.mock('@/middlewares/session', () => ({
     session: (c: Context<AppBindings, string, object>, next: Next) => {
-        c.set('user', null);
-        c.set('session', null);
+        c.set('user', mockUser);
+        c.set('session', mockSession);
         return next();
     },
 }));
