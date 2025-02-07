@@ -7,6 +7,7 @@ import type { ListRoute } from './exercises.routes';
 
 export const list: AppRouteHandler<ListRoute> = async (c) => {
     const db = c.get('db');
+    const { limit, offset } = c.req.query();
 
     const exercisesMap = new Map<
         number,
@@ -23,8 +24,9 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
             id: exercise.id,
             name: exercise.name,
         })
-        .from(exercise);
-    // TODO: Pagination
+        .from(exercise)
+        .limit(parseInt(limit ?? ''))
+        .offset(parseInt(offset ?? ''));
 
     const exerciseIds = exercises.map((e) => e.id);
 

@@ -39,7 +39,12 @@ type SetupOptions = {
     method?: 'post' | 'get';
 };
 
-const setup = async (options?: SetupOptions) => {
+type Params = {
+    limit?: number;
+    offset?: number;
+};
+
+const setup = async (options?: SetupOptions, params?: Params) => {
     vi.mocked(session).mockImplementation(
         (c: Context<AppBindings, string, object>, next: Next) => {
             c.set('user', options?.user ?? null);
@@ -48,7 +53,12 @@ const setup = async (options?: SetupOptions) => {
         }
     );
 
-    const res = await route.$get();
+    const res = await route.$get({
+        query: {
+            limit: params?.limit,
+            offset: params?.offset,
+        },
+    });
     const data = await res.json();
 
     return {
@@ -94,5 +104,36 @@ describe(GET_ALL_EXERCISES, () => {
                 }),
             ])
         );
+    });
+
+    it('returns a number of items that match the limit', async () => {
+        const { res, data } = await setup(
+            {
+                user: mockUser,
+                session: mockSession,
+            },
+            {
+                limit: 1,
+            }
+        );
+
+        expect(res.status).toBe(STATUS.OK.CODE);
+        expect(data).toHaveLength(1);
+    });
+
+    it('returns an item with an index that matches the offset', async () => {
+        const { res, data } = await setup(
+            {
+                user: mockUser,
+                session: mockSession,
+            },
+            {
+                limit: 1,
+                offset: 4,
+            }
+        );
+
+        expect(res.status).toBe(STATUS.OK.CODE);
+        expect(data[0]!.id).toBe(5);
     });
 });
