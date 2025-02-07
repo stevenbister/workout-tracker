@@ -1,4 +1,4 @@
-import { API_PREFIX } from '@repo/core/constants/misc';
+import { AUTH } from '@repo/core/constants/paths';
 
 import configureOpenAPI from './lib/configure-open-api';
 import createApp from './lib/create-app';
@@ -12,7 +12,7 @@ configureOpenAPI(app);
 const routes = [index, seed] as const;
 
 // Better-auth handler
-app.on(['POST', 'GET'], `${API_PREFIX}/auth/*`, (c) =>
+app.on(['POST', 'GET'], `${AUTH}/*`, (c) =>
     c.get('authAdapter').handler(c.req.raw)
 );
 
