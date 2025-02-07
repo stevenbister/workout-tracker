@@ -11,6 +11,9 @@ import { onError } from '@/middlewares/on-error';
 import { session } from '@/middlewares/session';
 import type { AppBindings } from '@/types';
 
+import { checkIsAuthenticated } from '@/middlewares/check-is-authenticated';
+import { AUTH } from '@repo/core/constants/paths';
+import { except } from 'hono/combine';
 import { secureHeaders } from 'hono/secure-headers';
 import { STATUS } from './constants/http-status-codes';
 
@@ -69,6 +72,8 @@ export default function createApp() {
     app.use(session);
 
     app.use(logger());
+
+    app.use("*", except(`${AUTH}/*`, checkIsAuthenticated));
 
     app.notFound(notFound);
     app.onError(onError);

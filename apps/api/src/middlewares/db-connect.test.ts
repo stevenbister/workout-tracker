@@ -1,6 +1,7 @@
 import { drizzle } from 'drizzle-orm/d1';
 import type { Context, Next } from 'hono';
 
+import { mockSession, mockUser } from '@/__mocks__/session';
 import { STATUS } from '@/lib/constants/http-status-codes';
 import createApp from '@/lib/create-app';
 import type { AppBindings } from '@/types';
@@ -15,8 +16,8 @@ vi.mock('@/middlewares/auth-adapter', () => ({
 
 vi.mock('@/middlewares/session', () => ({
     session: (c: Context<AppBindings, string, object>, next: Next) => {
-        c.set('user', null);
-        c.set('session', null);
+        c.set('user', mockUser);
+        c.set('session', mockSession);
         return next();
     },
 }));

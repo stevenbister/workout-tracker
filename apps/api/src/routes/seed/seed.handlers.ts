@@ -1,13 +1,10 @@
-import { exercise, exerciseMuscleGroup, muscleGroup } from '@/db/schema';
-import { exerciseData } from '@/db/seed/data/exercise';
-import { exerciseMuscleGroupData } from '@/db/seed/data/exercise-muscle-group';
-import { muscleGroupData } from '@/db/seed/data/muscle-groups';
+import { seed } from '@/db/seed/index';
 import { STATUS } from '@/lib/constants/http-status-codes';
 import type { AppRouteHandler } from '@/types';
 
 import type { SeedRoute } from './seed.routes';
 
-export const seed: AppRouteHandler<SeedRoute> = async (c) => {
+export const seedRoute: AppRouteHandler<SeedRoute> = async (c) => {
     if (process.env.NODE_ENV === 'production')
         return c.json(
             { message: STATUS.NOT_FOUND.MESSAGE },
@@ -34,30 +31,11 @@ export const seed: AppRouteHandler<SeedRoute> = async (c) => {
     //         await processFn(chunk);
     //     }
     // }
+    //
 
     const db = c.get('db');
 
-    console.log('Seeding data 🌱');
-
-    console.log('Resetting tables...');
-    await db.delete(muscleGroup);
-    await db.delete(exercise);
-    await db.delete(exerciseMuscleGroup);
-    console.log('Tables reset');
-
-    console.log('Creating muscles...');
-    await db.insert(muscleGroup).values(muscleGroupData);
-    console.log('Muscles created');
-
-    console.log('Creating exercises...');
-    await db.insert(exercise).values(exerciseData);
-    console.log('Exercises created');
-
-    console.log('Creating exercise muscles...');
-    await db.insert(exerciseMuscleGroup).values(exerciseMuscleGroupData);
-    console.log('Exercise muscles created');
-
-    console.log('Seeding complete 🌱');
+    await seed(db);
 
     return c.json({ message: 'Success' }, STATUS.OK.CODE);
 };

@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { jsonContent } from './jsonContent';
 
 describe('jsonContent', () => {
-    it('should return the correct content and description', () => {
+    it('returns the correct content and description', () => {
         const schema = z.object({
             name: z.string(),
             age: z.number(),
@@ -22,7 +22,7 @@ describe('jsonContent', () => {
         });
     });
 
-    it('should work with different schemas', () => {
+    it('works with different schemas', () => {
         const schema = z.object({
             title: z.string(),
             completed: z.boolean(),
@@ -41,7 +41,7 @@ describe('jsonContent', () => {
         });
     });
 
-    it('should handle empty schemas', () => {
+    it('handles empty schemas', () => {
         const schema = z.object({});
         const description = 'Empty schema description';
 

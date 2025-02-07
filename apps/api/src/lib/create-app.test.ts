@@ -1,6 +1,7 @@
 import type { Context, Next, ValidationTargets } from 'hono';
 import type { ZodError } from 'zod';
 
+import { mockSession, mockUser } from '@/__mocks__/session';
 import type { AppBindings } from '@/types';
 
 import { STATUS } from './constants/http-status-codes';
@@ -24,8 +25,8 @@ vi.mock('@/middlewares/auth-adapter', () => ({
 
 vi.mock('@/middlewares/session', () => ({
     session: (c: Context<AppBindings, string, object>, next: Next) => {
-        c.set('user', null);
-        c.set('session', null);
+        c.set('user', mockUser);
+        c.set('session', mockSession);
         return next();
     },
 }));
