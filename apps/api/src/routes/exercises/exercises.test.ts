@@ -1,7 +1,10 @@
 import type { Context, Next } from 'hono';
 import { testClient } from 'hono/testing';
 
-import { GET_ALL_EXERCISES } from '@repo/core/constants/paths';
+import {
+    GET_ALL_EXERCISES,
+    GET_EXERCISE_BY_ID,
+} from '@repo/core/constants/paths';
 
 import { mockSession, mockUser } from '@/__mocks__/session';
 import { seed } from '@/db/seed';
@@ -31,7 +34,8 @@ vi.mock('@/middlewares/auth-adapter', () => ({
 vi.mock('@/middlewares/session');
 
 const client = testClient(createApp().route('/', exercises));
-const route = client.api.v1.exercises;
+const getAllRoute = client.api.v1.exercises;
+const getByIdRoute = client.api.v1.exercises[':id'];
 
 type SetupOptions = {
     user?: typeof mockUser;
@@ -39,12 +43,7 @@ type SetupOptions = {
     method?: 'post' | 'get';
 };
 
-type Params = {
-    limit?: number;
-    offset?: number;
-};
-
-const setup = async (options?: SetupOptions, params?: Params) => {
+const setup = (options?: SetupOptions) => {
     vi.mocked(session).mockImplementation(
         (c: Context<AppBindings, string, object>, next: Next) => {
             c.set('user', options?.user ?? null);
@@ -52,19 +51,6 @@ const setup = async (options?: SetupOptions, params?: Params) => {
             return next();
         }
     );
-
-    const res = await route.$get({
-        query: {
-            limit: params?.limit,
-            offset: params?.offset,
-        },
-    });
-    const data = await res.json();
-
-    return {
-        res,
-        data,
-    };
 };
 
 beforeAll(async () => await seed(testDB));
@@ -73,7 +59,9 @@ beforeEach(() => vi.resetAllMocks());
 
 describe(GET_ALL_EXERCISES, () => {
     it(`returns ${STATUS.UNAUTHORIZED.MESSAGE} if user is not logged in`, async () => {
-        const { res, data } = await setup();
+        setup();
+        const res = await getAllRoute.$get();
+        const data = await res.json();
 
         expect(res.status).toBe(STATUS.UNAUTHORIZED.CODE);
 
@@ -83,10 +71,12 @@ describe(GET_ALL_EXERCISES, () => {
     });
 
     it('returns list of exercises', async () => {
-        const { res, data } = await setup({
+        setup({
             user: mockUser,
             session: mockSession,
         });
+        const res = await getAllRoute.$get();
+        const data = await res.json();
 
         expect(res.status).toBe(STATUS.OK.CODE);
 
@@ -107,33 +97,64 @@ describe(GET_ALL_EXERCISES, () => {
     });
 
     it('returns a number of items that match the limit', async () => {
-        const { res, data } = await setup(
-            {
-                user: mockUser,
-                session: mockSession,
-            },
-            {
+        setup({
+            user: mockUser,
+            session: mockSession,
+        });
+        const res = await getAllRoute.$get({
+            query: {
                 limit: 1,
-            }
-        );
+            },
+        });
+        const data = await res.json();
 
         expect(res.status).toBe(STATUS.OK.CODE);
         expect(data).toHaveLength(1);
     });
 
     it('returns an item with an index that matches the offset', async () => {
-        const { res, data } = await setup(
-            {
-                user: mockUser,
-                session: mockSession,
-            },
-            {
+        setup({
+            user: mockUser,
+            session: mockSession,
+        });
+        const res = await getAllRoute.$get({
+            query: {
                 limit: 1,
                 offset: 4,
-            }
-        );
+            },
+        });
+        const data = await res.json();
 
         expect(res.status).toBe(STATUS.OK.CODE);
         expect(data[0]!.id).toBe(5);
+    });
+});
+
+describe(GET_EXERCISE_BY_ID, () => {
+    it('returns a single item with an id that matches the param passed', async () => {
+        setup({
+            user: mockUser,
+            session: mockSession,
+        });
+        const res = await getByIdRoute.$get({
+            param: {
+                id: '1',
+            },
+        });
+        const data = await res.json();
+
+        expect(res.status).toBe(STATUS.OK.CODE);
+        expect(data).toEqual([
+            expect.objectContaining({
+                id: expect.any(Number),
+                name: expect.any(String),
+                primaryMuscleGroups: expect.arrayContaining([
+                    expect.any(String),
+                ]),
+                secondaryMuscleGroups: expect.arrayContaining([
+                    expect.any(String),
+                ]),
+            }),
+        ]);
     });
 });
