@@ -35,5 +35,5 @@ export const getById: AppRouteHandler<GetByIdRoute> = async (c) => {
 
     const exercisesMap = await createExerciseMap(db, exercises);
 
-    return c.json([...exercisesMap.values()]);
+    return c.json([...exercisesMap.values()][0]);
 };
