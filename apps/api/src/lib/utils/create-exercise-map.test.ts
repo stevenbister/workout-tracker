@@ -38,6 +38,7 @@ it('returns a map of exercises with muscle groups', async () => {
                 expect.objectContaining({
                     id: expect.any(Number),
                     name: expect.any(String),
+                    equipment: expect.arrayContaining([expect.any(String)]),
                     primaryMuscleGroups: expect.arrayContaining([
                         expect.any(String),
                     ]),

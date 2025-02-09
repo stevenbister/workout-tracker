@@ -85,6 +85,7 @@ describe(GET_ALL_EXERCISES, () => {
                 expect.objectContaining({
                     id: expect.any(Number),
                     name: expect.any(String),
+                    equipment: expect.arrayContaining([expect.any(String)]),
                     primaryMuscleGroups: expect.arrayContaining([
                         expect.any(String),
                     ]),
