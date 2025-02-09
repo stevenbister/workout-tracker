@@ -85,6 +85,7 @@ describe(GET_ALL_EXERCISES, () => {
                 expect.objectContaining({
                     id: expect.any(Number),
                     name: expect.any(String),
+                    equipment: expect.arrayContaining([expect.any(String)]),
                     primaryMuscleGroups: expect.arrayContaining([
                         expect.any(String),
                     ]),
@@ -144,17 +145,18 @@ describe(GET_EXERCISE_BY_ID, () => {
         const data = await res.json();
 
         expect(res.status).toBe(STATUS.OK.CODE);
-        expect(data).toEqual([
+        expect(data).toEqual(
             expect.objectContaining({
                 id: expect.any(Number),
                 name: expect.any(String),
+                equipment: expect.arrayContaining([expect.any(String)]),
                 primaryMuscleGroups: expect.arrayContaining([
                     expect.any(String),
                 ]),
                 secondaryMuscleGroups: expect.arrayContaining([
                     expect.any(String),
                 ]),
-            }),
-        ]);
+            })
+        );
     });
 });
