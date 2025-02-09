@@ -71,7 +71,10 @@ export default function createApp() {
     app.use(authAdapter);
 
     app.use(session);
-    app.use('*', except(`${AUTH}/*`, checkIsAuthenticated));
+    app.use(
+        '*',
+        except([`${AUTH}/*`, 'doc', 'reference'], checkIsAuthenticated)
+    );
 
     app.use(logger());
 
