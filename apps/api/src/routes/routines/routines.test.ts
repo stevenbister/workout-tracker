@@ -1,9 +1,10 @@
 import type { Context, Next } from 'hono';
 import { testClient } from 'hono/testing';
 
-import { ALL_ROUTINES } from '@repo/core/constants/paths';
+import { ALL_ROUTINES, ROUTINE_BY_ID } from '@repo/core/constants/paths';
 
 import { mockSession, mockUser } from '@/__mocks__/session';
+import type { Routine } from '@/db/schema/routine';
 import { routineData } from '@/db/seed/data/routine';
 import { testDB } from '@/db/test/test-adapter';
 import { STATUS } from '@/lib/constants/http-status-codes';
@@ -30,8 +31,17 @@ vi.mock('@/middlewares/auth-adapter', () => ({
 
 vi.mock('@/middlewares/session');
 
+const mockRoutineData: Partial<Routine>[] = routineData
+    .filter(({ userId }) => userId === mockUser!.id)
+    .map(({ id, name, description }) => ({
+        id,
+        name,
+        description,
+    }));
+
 const client = testClient(createApp().route('/', routines));
 const getAllRoute = client.api.v1.routines;
+const getByIdRoute = client.api.v1.routines[':id'];
 
 beforeEach(() => {
     vi.resetAllMocks();
@@ -52,8 +62,21 @@ describe(ALL_ROUTINES, () => {
 
         expect(res.status).toBe(STATUS.OK.CODE);
 
-        expect(data).toEqual(
-            routineData.filter(({ userId }) => userId === mockUser!.id)
-        );
+        expect(data).toEqual(mockRoutineData);
+    });
+});
+
+describe(ROUTINE_BY_ID, () => {
+    it('returns a single routine by its id', async () => {
+        const res = await getByIdRoute.$get({
+            param: {
+                id: '1',
+            },
+        });
+        const data = await res.json();
+
+        expect(res.status).toBe(STATUS.OK.CODE);
+
+        expect(data).toEqual(mockRoutineData[0]);
     });
 });
