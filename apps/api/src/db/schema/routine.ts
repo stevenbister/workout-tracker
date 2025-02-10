@@ -5,6 +5,7 @@ import { routineGroup } from './routine-group';
 import { user } from './users';
 
 export type Routine = typeof routine.$inferSelect;
+export type InsertRoutine = typeof routine.$inferInsert;
 
 export const routine = sqliteTable('routine', {
     id: integer('id').primaryKey({ autoIncrement: true }),

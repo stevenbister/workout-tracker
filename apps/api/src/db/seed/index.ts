@@ -1,4 +1,10 @@
-import { exercise, exerciseMuscleGroup, muscleGroup } from '@/db/schema';
+import {
+    exercise,
+    exerciseMuscleGroup,
+    muscleGroup,
+    routine,
+    user,
+} from '@/db/schema';
 import type { DrizzleD1, DrizzleSqlite } from '@/types';
 
 import { equipment } from '../schema/equipment';
@@ -8,8 +14,14 @@ import { exerciseData } from './data/exercise';
 import { exerciseEquipmentData } from './data/exercise-equipment';
 import { exerciseMuscleGroupData } from './data/exercise-muscle-group';
 import { muscleGroupData } from './data/muscle-groups';
+import { routineData } from './data/routine';
+import { userData } from './data/user';
 
 const schemas = [
+    {
+        schema: user,
+        data: userData,
+    },
     {
         schema: muscleGroup,
         data: muscleGroupData,
@@ -29,6 +41,10 @@ const schemas = [
     {
         schema: exerciseEquipment,
         data: exerciseEquipmentData,
+    },
+    {
+        schema: routine,
+        data: routineData,
     },
 ];
 
