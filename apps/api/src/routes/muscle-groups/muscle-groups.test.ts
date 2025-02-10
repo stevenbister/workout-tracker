@@ -4,7 +4,6 @@ import { testClient } from 'hono/testing';
 import { GET_ALL_MUSCLE_GROUPS } from '@repo/core/constants/paths';
 
 import { mockSession, mockUser } from '@/__mocks__/session';
-import { seed } from '@/db/seed';
 import { testDB } from '@/db/test/test-adapter';
 import { STATUS } from '@/lib/constants/http-status-codes';
 import createApp from '@/lib/create-app';
@@ -32,8 +31,6 @@ vi.mock('@/middlewares/session');
 
 const client = testClient(createApp().route('/', muscleGroups));
 const getAllRoute = client.api.v1['muscle-groups'];
-
-beforeAll(async () => await seed(testDB));
 
 beforeEach(() => {
     vi.resetAllMocks();
