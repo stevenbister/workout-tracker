@@ -1,10 +1,7 @@
 import type { Context, Next } from 'hono';
 import { testClient } from 'hono/testing';
 
-import {
-    GET_ALL_EXERCISES,
-    GET_EXERCISE_BY_ID,
-} from '@repo/core/constants/paths';
+import { ALL_EXERCISES, EXERCISE_BY_ID } from '@repo/core/constants/paths';
 
 import { mockSession, mockUser } from '@/__mocks__/session';
 import { testDB } from '@/db/test/test-adapter';
@@ -54,7 +51,7 @@ const setup = (options?: SetupOptions) => {
 
 beforeEach(() => vi.resetAllMocks());
 
-describe(GET_ALL_EXERCISES, () => {
+describe(ALL_EXERCISES, () => {
     it(`returns ${STATUS.UNAUTHORIZED.MESSAGE} if user is not logged in`, async () => {
         setup();
         const res = await getAllRoute.$get();
@@ -128,7 +125,7 @@ describe(GET_ALL_EXERCISES, () => {
     });
 });
 
-describe(GET_EXERCISE_BY_ID, () => {
+describe(EXERCISE_BY_ID, () => {
     it('returns a single item with an id that matches the param passed', async () => {
         setup({
             user: mockUser,
