@@ -11,7 +11,7 @@ export default mergeConfig(
         test: {
             ...vitestConfig.test,
             environment: 'jsdom',
-            setupFiles: ['../../packages/vite-config/tests/setup.js'],
+            setupFiles: ['./vitest.setup.ts'],
             coverage: {
                 ...vitestConfig.test?.coverage,
                 exclude: [

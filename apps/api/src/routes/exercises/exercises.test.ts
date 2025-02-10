@@ -7,7 +7,6 @@ import {
 } from '@repo/core/constants/paths';
 
 import { mockSession, mockUser } from '@/__mocks__/session';
-import { seed } from '@/db/seed';
 import { testDB } from '@/db/test/test-adapter';
 import { STATUS } from '@/lib/constants/http-status-codes';
 import createApp from '@/lib/create-app';
@@ -52,8 +51,6 @@ const setup = (options?: SetupOptions) => {
         }
     );
 };
-
-beforeAll(async () => await seed(testDB));
 
 beforeEach(() => vi.resetAllMocks());
 

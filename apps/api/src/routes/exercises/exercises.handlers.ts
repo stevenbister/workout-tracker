@@ -1,6 +1,7 @@
 import { eq } from 'drizzle-orm';
 
 import { exercise } from '@/db/schema';
+import { STATUS } from '@/lib/constants/http-status-codes';
 import { createExerciseMap } from '@/lib/utils/create-exercise-map';
 import type { AppRouteHandler } from '@/types';
 
@@ -21,7 +22,7 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
 
     const exercisesMap = await createExerciseMap(db, exercises);
 
-    return c.json([...exercisesMap.values()]);
+    return c.json([...exercisesMap.values()], STATUS.OK.CODE);
 };
 
 export const getById: AppRouteHandler<GetByIdRoute> = async (c) => {
@@ -35,5 +36,5 @@ export const getById: AppRouteHandler<GetByIdRoute> = async (c) => {
 
     const exercisesMap = await createExerciseMap(db, exercises);
 
-    return c.json([...exercisesMap.values()][0]);
+    return c.json([...exercisesMap.values()][0], STATUS.OK.CODE);
 };
