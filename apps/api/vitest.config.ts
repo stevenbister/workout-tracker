@@ -6,6 +6,7 @@ import vitestConfig from '@repo/vite-config/vitest';
 export default defineConfig({
     test: {
         ...vitestConfig.test,
+        globalSetup: ['./vitest.global-setup.ts'],
         coverage: {
             ...vitestConfig.test?.coverage,
             exclude: [

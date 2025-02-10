@@ -33,9 +33,10 @@ const schemas = [
 ];
 
 export const seed = async (db: DrizzleD1 | DrizzleSqlite) => {
+    await clearTables(db);
+
     console.log('Seeding data 🌱');
 
-    await clearTables(db);
     await insertData(db);
 
     console.log('Seeding complete 🌱');
