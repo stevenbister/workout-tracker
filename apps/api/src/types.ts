@@ -15,8 +15,8 @@ export type DrizzleD1 = ReturnType<typeof drizzleD1<typeof schema>>;
 export type DrizzleSqlite = ReturnType<typeof drizzleSqlite<typeof schema>>;
 
 export type Auth = ReturnType<typeof getAuth>;
-export type AuthUser = Auth['$Infer']['Session']['user'] | null;
-export type AuthSession = Auth['$Infer']['Session']['session'] | null;
+export type AuthUser = Auth['$Infer']['Session']['user'];
+export type AuthSession = Auth['$Infer']['Session']['session'];
 
 export type AppBindings = {
     Bindings: {
