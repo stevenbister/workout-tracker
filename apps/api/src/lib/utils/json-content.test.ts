@@ -19,6 +19,7 @@ describe('jsonContent', () => {
                 },
             },
             description,
+            required: false,
         });
     });
 
@@ -38,6 +39,7 @@ describe('jsonContent', () => {
                 },
             },
             description,
+            required: false,
         });
     });
 
@@ -54,6 +56,7 @@ describe('jsonContent', () => {
                 },
             },
             description,
+            required: false,
         });
     });
 });
