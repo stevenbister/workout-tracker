@@ -42,7 +42,9 @@ type SetupOptions = {
 const setup = (options?: SetupOptions) => {
     vi.mocked(session).mockImplementation(
         (c: Context<AppBindings, string, object>, next: Next) => {
+            // @ts-expect-error -- only testing null here - normally wouldn't expect it
             c.set('user', options?.user ?? null);
+            // @ts-expect-error -- only testing null here - normally wouldn't expect it
             c.set('session', options?.session ?? null);
             return next();
         }
