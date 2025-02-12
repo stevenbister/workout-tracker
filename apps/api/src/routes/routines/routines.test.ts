@@ -43,14 +43,16 @@ const mockCreateRoutineInput: InsertRoutineSchema = {
         {
             exerciseId: 1,
             order: 1,
-            defaultReps: 8,
-            defaultWeight: 8,
+            minReps: 8,
+            maxReps: 12,
+            weight: 8,
         },
         {
             exerciseId: 2,
             order: 2,
-            defaultReps: 10,
-            defaultWeight: 10,
+            minReps: 10,
+            maxReps: 10,
+            weight: 10,
         },
     ],
 };
@@ -123,15 +125,12 @@ describe(CREATE_ROUTINE, () => {
             name,
             description,
             exercises: exercises.map(
-                ({ order, exerciseId, defaultReps, defaultWeight }) => ({
+                (exercise) => ({
                     id: expect.any(Number),
                     routineId: expect.any(Number),
-                    exerciseId,
-                    order,
-                    defaultReps,
-                    defaultWeight,
                     createdAt: expect.any(String),
                     updatedAt: expect.any(String),
+                    ...exercise
                 })
             ),
         });

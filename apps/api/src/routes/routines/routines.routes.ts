@@ -35,8 +35,9 @@ const modifiedInsertRoutineSchema = insertRoutineSchema
                 insertRoutineExerciseSchema.pick({
                     exerciseId: true,
                     order: true,
-                    defaultReps: true,
-                    defaultWeight: true,
+                    minReps: true,
+                    maxReps: true,
+                    weight: true,
                 })
             ),
         })
