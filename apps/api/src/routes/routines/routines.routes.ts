@@ -14,7 +14,7 @@ import {
 import { STATUS } from '@/lib/constants/http-status-codes';
 import { errorSchema } from '@/lib/schemas/error-schema';
 import { messageSchema } from '@/lib/schemas/message-schema';
-import { jsonContent } from '@/lib/utils/jsonContent';
+import { jsonContent } from '@/lib/utils/json-content';
 
 const tags = ['routines'];
 

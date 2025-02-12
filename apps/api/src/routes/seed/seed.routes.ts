@@ -4,7 +4,7 @@ import { API_PREFIX } from '@repo/core/constants/misc';
 
 import { STATUS } from '@/lib/constants/http-status-codes';
 import { messageSchema } from '@/lib/schemas/message-schema';
-import { jsonContent } from '@/lib/utils/jsonContent';
+import { jsonContent } from '@/lib/utils/json-content';
 
 export const seed = createRoute({
     path: `${API_PREFIX}/seed`,

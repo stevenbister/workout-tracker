@@ -4,7 +4,7 @@ import { ALL_EXERCISES, EXERCISE_BY_ID } from '@repo/core/constants/paths';
 
 import { exerciseSchema } from '@/db/schema/exercise';
 import { STATUS } from '@/lib/constants/http-status-codes';
-import { jsonContent } from '@/lib/utils/jsonContent';
+import { jsonContent } from '@/lib/utils/json-content';
 
 const tags = ['exercises'];
 

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { jsonContent } from './jsonContent';
+import { jsonContent } from './json-content';
 
 describe('jsonContent', () => {
     it('returns the correct content and description', () => {

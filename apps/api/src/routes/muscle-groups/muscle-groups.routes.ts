@@ -4,7 +4,7 @@ import { ALL_MUSCLE_GROUPS } from '@repo/core/constants/paths';
 
 import { muscleGroupSchema } from '@/db/schema/muscle-group';
 import { STATUS } from '@/lib/constants/http-status-codes';
-import { jsonContent } from '@/lib/utils/jsonContent';
+import { jsonContent } from '@/lib/utils/json-content';
 
 const tags = ['muscle-groups'];
 
