@@ -1,10 +1,14 @@
 import type { Context, Next } from 'hono';
 import { testClient } from 'hono/testing';
 
-import { ALL_ROUTINES, ROUTINE_BY_ID } from '@repo/core/constants/paths';
+import {
+    ALL_ROUTINES,
+    CREATE_ROUTINE,
+    ROUTINE_BY_ID,
+} from '@repo/core/constants/paths';
 
 import { mockSession, mockUser } from '@/__mocks__/session';
-import type { Routine } from '@/db/schema/routine';
+import { type Routine } from '@/db/schema/routine';
 import { routineData } from '@/db/seed/data/routine';
 import { testDB } from '@/db/test/test-adapter';
 import { STATUS } from '@/lib/constants/http-status-codes';
@@ -13,6 +17,7 @@ import { session } from '@/middlewares/session';
 import type { AppBindings, DrizzleD1 } from '@/types';
 
 import { routines } from './routines.index';
+import type { InsertRoutineSchema } from './routines.routes';
 
 vi.mock('@/middlewares/db-connect', () => ({
     dbConnect: (c: Context<AppBindings, string, object>, next: Next) => {
@@ -31,6 +36,25 @@ vi.mock('@/middlewares/auth-adapter', () => ({
 
 vi.mock('@/middlewares/session');
 
+const mockCreateRoutineInput: InsertRoutineSchema = {
+    name: 'Mock workout',
+    description: 'mock workout description',
+    exercises: [
+        {
+            exerciseId: 1,
+            order: 1,
+            defaultReps: 8,
+            defaultWeight: 8,
+        },
+        {
+            exerciseId: 2,
+            order: 2,
+            defaultReps: 10,
+            defaultWeight: 10,
+        },
+    ],
+};
+
 const mockRoutineData: Partial<Routine>[] = routineData
     .filter(({ userId }) => userId === mockUser!.id)
     .map(({ id, name, description }) => ({
@@ -40,8 +64,10 @@ const mockRoutineData: Partial<Routine>[] = routineData
     }));
 
 const client = testClient(createApp().route('/', routines));
+
 const getAllRoute = client.api.v1.routines;
 const getByIdRoute = client.api.v1.routines[':id'];
+const createRoute = client.api.v1.routines.create;
 
 beforeEach(() => {
     vi.resetAllMocks();
@@ -62,7 +88,7 @@ describe(ALL_ROUTINES, () => {
 
         expect(res.status).toBe(STATUS.OK.CODE);
 
-        expect(data).toEqual(mockRoutineData);
+        expect(data).toEqual(expect.arrayContaining(mockRoutineData));
     });
 });
 
@@ -78,5 +104,36 @@ describe(ROUTINE_BY_ID, () => {
         expect(res.status).toBe(STATUS.OK.CODE);
 
         expect(data).toEqual(mockRoutineData[0]);
+    });
+});
+
+describe(CREATE_ROUTINE, () => {
+    it('creates a new workout routine', async () => {
+        const res = await createRoute.$post({
+            json: mockCreateRoutineInput,
+        });
+        const data = await res.json();
+
+        expect(res.status).toBe(STATUS.OK.CODE);
+
+        const { name, description, exercises } = mockCreateRoutineInput;
+
+        expect(data).toEqual({
+            id: expect.any(Number),
+            name,
+            description,
+            exercises: exercises.map(
+                ({ order, exerciseId, defaultReps, defaultWeight }) => ({
+                    id: expect.any(Number),
+                    routineId: expect.any(Number),
+                    exerciseId,
+                    order,
+                    defaultReps,
+                    defaultWeight,
+                    createdAt: expect.any(String),
+                    updatedAt: expect.any(String),
+                })
+            ),
+        });
     });
 });

@@ -104,3 +104,5 @@ export const create = createRoute({
 export type ListRoute = typeof list;
 export type GetByIdRoute = typeof getById;
 export type CreateRoute = typeof create;
+
+export type InsertRoutineSchema = z.infer<typeof modifiedInsertRoutineSchema>;
