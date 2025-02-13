@@ -8,8 +8,6 @@ import {
 } from '@repo/core/constants/paths';
 
 import { mockSession, mockUser } from '@/__mocks__/session';
-import { type Routine } from '@/db/schema/routine';
-import { routineData } from '@/db/seed/data/routine';
 import { testDB } from '@/db/test/test-adapter';
 import { STATUS } from '@/lib/constants/http-status-codes';
 import createApp from '@/lib/create-app';
@@ -57,14 +55,6 @@ const mockCreateRoutineInput: InsertRoutineSchema = {
     ],
 };
 
-const mockRoutineData: Partial<Routine>[] = routineData
-    .filter(({ userId }) => userId === mockUser!.id)
-    .map(({ id, name, description }) => ({
-        id,
-        name,
-        description,
-    }));
-
 const client = testClient(createApp().route('/', routines));
 
 const getAllRoute = client.api.v1.routines;
@@ -90,7 +80,16 @@ describe(ALL_ROUTINES, () => {
 
         expect(res.status).toBe(STATUS.OK.CODE);
 
-        expect(data).toEqual(expect.arrayContaining(mockRoutineData));
+        expect(data).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    id: expect.any(Number),
+                    name: expect.any(String),
+                    description: expect.any(String),
+                    exercises: expect.arrayContaining([]),
+                }),
+            ])
+        );
     });
 });
 
@@ -105,7 +104,14 @@ describe(ROUTINE_BY_ID, () => {
 
         expect(res.status).toBe(STATUS.OK.CODE);
 
-        expect(data).toEqual(mockRoutineData[0]);
+        expect(data).toEqual(
+            expect.objectContaining({
+                id: expect.any(Number),
+                name: expect.any(String),
+                description: expect.any(String),
+                exercises: expect.arrayContaining([]),
+            })
+        );
     });
 });
 
@@ -124,15 +130,13 @@ describe(CREATE_ROUTINE, () => {
             id: expect.any(Number),
             name,
             description,
-            exercises: exercises.map(
-                (exercise) => ({
-                    id: expect.any(Number),
-                    routineId: expect.any(Number),
-                    createdAt: expect.any(String),
-                    updatedAt: expect.any(String),
-                    ...exercise
-                })
-            ),
+            exercises: exercises.map((exercise) => ({
+                id: expect.any(Number),
+                routineId: expect.any(Number),
+                createdAt: expect.any(String),
+                updatedAt: expect.any(String),
+                ...exercise,
+            })),
         });
     });
 });

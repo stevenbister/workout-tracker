@@ -18,11 +18,17 @@ import { jsonContent } from '@/lib/utils/json-content';
 
 const tags = ['routines'];
 
-const modifiedRoutineSchema = routineSchema.pick({
-    id: true,
-    name: true,
-    description: true,
-});
+const modifiedRoutineSchema = routineSchema
+    .pick({
+        id: true,
+        name: true,
+        description: true,
+    })
+    .merge(
+        z.object({
+            exercises: z.array(routineExerciseSchema),
+        })
+    );
 
 const modifiedInsertRoutineSchema = insertRoutineSchema
     .pick({
@@ -84,11 +90,7 @@ export const create = createRoute({
     },
     responses: {
         [STATUS.OK.CODE]: jsonContent(
-            modifiedRoutineSchema.merge(
-                z.object({
-                    exercises: z.array(routineExerciseSchema),
-                })
-            ),
+            modifiedRoutineSchema,
             'The created routine'
         ),
         [STATUS.NOT_IMPLEMENTED.CODE]: jsonContent(

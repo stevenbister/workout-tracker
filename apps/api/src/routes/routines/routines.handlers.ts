@@ -7,6 +7,7 @@ import {
 } from '@/db/schema/routine-exercise';
 import { user as userSchema } from '@/db/schema/users';
 import { STATUS } from '@/lib/constants/http-status-codes';
+import { createRoutinesMap } from '@/lib/utils/create-routines-map';
 import type { AppRouteHandler } from '@/types';
 
 import type { CreateRoute, GetByIdRoute, ListRoute } from './routines.routes';
@@ -20,12 +21,18 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
             id: routine.id,
             name: routine.name,
             description: routine.description,
+            exercises: routineExercise,
         })
         .from(routine)
         .leftJoin(userSchema, eq(routine.userId, userSchema.id))
+        .leftJoin(routineExercise, eq(routine.id, routineExercise.routineId))
         .where(eq(userSchema.id, user?.id ?? ''));
 
-    return c.json(routines, STATUS.OK.CODE);
+    const routineMap = await createRoutinesMap(routines);
+
+    const result = Array.from(routineMap.values());
+
+    return c.json(result, STATUS.OK.CODE);
 };
 
 export const getById: AppRouteHandler<GetByIdRoute> = async (c) => {
@@ -38,9 +45,11 @@ export const getById: AppRouteHandler<GetByIdRoute> = async (c) => {
             id: routine.id,
             name: routine.name,
             description: routine.description,
+            exercises: routineExercise,
         })
         .from(routine)
         .leftJoin(userSchema, eq(routine.userId, userSchema.id))
+        .leftJoin(routineExercise, eq(routine.id, routineExercise.routineId))
         .where(
             and(eq(userSchema.id, user?.id ?? ''), eq(routine.id, parseInt(id)))
         );
@@ -53,7 +62,11 @@ export const getById: AppRouteHandler<GetByIdRoute> = async (c) => {
             STATUS.NOT_FOUND.CODE
         );
 
-    return c.json(routines[0], STATUS.OK.CODE);
+    const routineMap = await createRoutinesMap(routines);
+
+    const result = Array.from(routineMap.values());
+
+    return c.json(result[0], STATUS.OK.CODE);
 };
 
 export const create: AppRouteHandler<CreateRoute> = async (c) => {
