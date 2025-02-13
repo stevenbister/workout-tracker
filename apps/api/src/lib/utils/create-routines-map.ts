@@ -16,7 +16,8 @@ export const createRoutinesMap = async (routines: RoutineWithExercises[]) => {
         if (!routineMap.has(id)) {
             routineMap.set(id, { id, name, description, exercises: [] });
         }
-        routineMap.get(id).exercises.push(exercises);
+
+        if (exercises) routineMap.get(id).exercises.push(exercises);
     }
 
     return routineMap;
