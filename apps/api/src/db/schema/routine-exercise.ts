@@ -4,7 +4,8 @@ import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { exercise } from './exercise';
 import { routine } from './routine';
 
-export type RoutinrExercise = typeof routineExercise.$inferSelect;
+export type RoutineExercise = typeof routineExercise.$inferSelect;
+export type InsertRoutineExercise = typeof routineExercise.$inferInsert;
 
 export const routineExercise = sqliteTable('routine_exercise', {
     id: integer('id').primaryKey({ autoIncrement: true }),
@@ -15,8 +16,9 @@ export const routineExercise = sqliteTable('routine_exercise', {
         .notNull()
         .references(() => exercise.id, { onDelete: 'cascade' }),
     order: integer('order').notNull(),
-    defaultReps: integer('default_reps').notNull().default(0),
-    defaultWeight: real('default_weight').notNull().default(0),
+    minReps: integer('min_reps').notNull().default(0),
+    maxReps: integer('max_reps').notNull().default(0),
+    weight: real('weight').notNull().default(0),
     createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(
         () => new Date()
     ),
@@ -27,4 +29,4 @@ export const routineExercise = sqliteTable('routine_exercise', {
 
 export const routineExerciseSchema = createSelectSchema(routineExercise);
 
-export const insertRoutinrExerciseSchema = createInsertSchema(routineExercise);
+export const insertRoutineExerciseSchema = createInsertSchema(routineExercise);

@@ -1,15 +1,15 @@
 import { createRoute, z } from '@hono/zod-openapi';
 
-import { GET_ALL_EQUIPMENT } from '@repo/core/constants/paths';
+import { ALL_EQUIPMENT } from '@repo/core/constants/paths';
 
 import { equipmentSchema } from '@/db/schema/equipment';
 import { STATUS } from '@/lib/constants/http-status-codes';
-import { jsonContent } from '@/lib/utils/jsonContent';
+import { jsonContent } from '@/lib/utils/json-content';
 
 const tags = ['equipment'];
 
 export const list = createRoute({
-    path: GET_ALL_EQUIPMENT,
+    path: ALL_EQUIPMENT,
     method: 'get',
     tags,
     responses: {

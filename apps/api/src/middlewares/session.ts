@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createMiddleware } from 'hono/factory';
 
 import type { AppBindings } from '@/types';
@@ -8,7 +9,9 @@ export const session = createMiddleware<AppBindings>(async (c, next) => {
         .api.getSession({ headers: c.req.raw.headers });
 
     if (!session) {
+        // @ts-ignore
         c.set('user', null);
+        // @ts-ignore
         c.set('session', null);
 
         return next();

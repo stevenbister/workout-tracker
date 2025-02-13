@@ -12,6 +12,7 @@ export default defineConfig({
             exclude: [
                 ...configDefaults.coverage.exclude!,
                 './*.config.ts',
+                './vitest.*.ts',
                 'src/**/constants.ts',
                 'src/{env,types}.ts',
                 'src/db',

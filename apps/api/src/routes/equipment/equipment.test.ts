@@ -1,7 +1,7 @@
 import type { Context, Next } from 'hono';
 import { testClient } from 'hono/testing';
 
-import { GET_ALL_EQUIPMENT } from '@repo/core/constants/paths';
+import { ALL_EQUIPMENT } from '@repo/core/constants/paths';
 
 import { mockSession, mockUser } from '@/__mocks__/session';
 import { testDB } from '@/db/test/test-adapter';
@@ -44,7 +44,7 @@ beforeEach(() => {
     );
 });
 
-describe(GET_ALL_EQUIPMENT, () => {
+describe(ALL_EQUIPMENT, () => {
     it('returns list of muscle groups', async () => {
         const res = await getAllRoute.$get();
         const data = await res.json();
