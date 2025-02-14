@@ -1,4 +1,4 @@
-import { integer, real, sqliteTable } from 'drizzle-orm/sqlite-core';
+import { integer, sqliteTable } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 
 import { exercise } from './exercise';
@@ -16,9 +16,6 @@ export const routineExercise = sqliteTable('routine_exercise', {
         .notNull()
         .references(() => exercise.id, { onDelete: 'cascade' }),
     order: integer('order').notNull(),
-    minReps: integer('min_reps').notNull().default(0),
-    maxReps: integer('max_reps').notNull().default(0),
-    weight: real('weight').notNull().default(0),
     createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(
         () => new Date()
     ),

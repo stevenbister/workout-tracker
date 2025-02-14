@@ -1,7 +1,6 @@
 export { account } from './account';
 export { exercise } from './exercise';
 export { exerciseMuscleGroup } from './exercise-muscle-group';
-export { exerciseSet } from './exercise-set';
 export { muscleGroup } from './muscle-group';
 export { rateLimit } from './rate-limit';
 export { routine } from './routine';
@@ -12,4 +11,5 @@ export { user } from './users';
 export { verification } from './verification';
 export { workout } from './workout';
 export { workoutExercise } from './workout-exercise';
+export { workoutExerciseSet } from './workout-exercise-set';
 
