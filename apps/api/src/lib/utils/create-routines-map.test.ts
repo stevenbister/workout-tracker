@@ -1,82 +1,72 @@
-import type { RoutineWithExercises } from './create-routines-map';
+import type { Routine } from '@/db/schema/routine';
+import { testDB } from '@/db/test/test-adapter';
+import type { DrizzleD1 } from '@/types';
+
 import { createRoutinesMap } from './create-routines-map';
 
 it('creates a map with routines and their exercises', async () => {
-    const mockRoutines = [
+    const mockRoutines: Pick<Routine, 'id' | 'name' | 'description'>[] = [
         {
             id: 1,
             name: 'Routine 1',
             description: 'Description 1',
-            exercises: {
-                id: 1,
-                routineId: 1,
-            },
         },
         {
             id: 1,
             name: 'Routine 1',
             description: 'Description 1',
-            exercises: {
-                id: 2,
-                routineId: 1,
-            },
         },
         {
             id: 2,
             name: 'Routine 2',
             description: 'Description 2',
-            exercises: {
-                id: 3,
-                routineId: 2,
-            },
         },
-    ] as unknown as RoutineWithExercises[];
+    ];
 
-    const routineMap = await createRoutinesMap(mockRoutines);
+    const routineMap = await createRoutinesMap(
+        testDB as unknown as DrizzleD1,
+        mockRoutines
+    );
 
     expect(routineMap.size).toBe(2);
-    expect(routineMap.get(1)).toEqual({
+    expect(routineMap.get(mockRoutines[0]!.id)).toEqual({
         id: mockRoutines[0]!.id,
         name: mockRoutines[0]!.name,
         description: mockRoutines[0]!.description,
-        exercises: [
-            {
-                id: mockRoutines[0]!.exercises!.id,
-                routineId: mockRoutines[0]!.exercises!.routineId,
-            },
-            {
-                id: mockRoutines[1]!.exercises!.id,
-                routineId: mockRoutines[1]!.exercises!.routineId,
-            },
-        ],
-    });
-    expect(routineMap.get(2)).toEqual({
-        id: mockRoutines[2]!.id,
-        name: mockRoutines[2]!.name,
-        description: mockRoutines[2]!.description,
-        exercises: [
-            {
-                id: mockRoutines[2]!.exercises!.id,
-                routineId: mockRoutines[2]!.exercises!.routineId,
-            },
-        ],
+        exercises: expect.arrayContaining([
+            expect.objectContaining({
+                id: expect.any(Number),
+                name: expect.any(String),
+                sets: expect.arrayContaining([
+                    expect.objectContaining({
+                        id: expect.any(Number),
+                        maxReps: expect.any(Number),
+                        minReps: expect.any(Number),
+                        setNumber: expect.any(Number),
+                        weight: expect.any(Number),
+                    }),
+                ]),
+            }),
+        ]),
     });
 });
 
 it('handles routines with no exercises', async () => {
-    const routines = [
+    const routines: Pick<Routine, 'id' | 'name' | 'description'>[] = [
         {
-            id: 1,
-            name: 'Routine 1',
-            description: 'Description 1',
-            exercises: null,
+            id: 3,
+            name: 'Routine 3',
+            description: 'Description 3',
         },
     ];
 
-    const routineMap = await createRoutinesMap(routines);
+    const routineMap = await createRoutinesMap(
+        testDB as unknown as DrizzleD1,
+        routines
+    );
 
     expect(routineMap.size).toBe(1);
-    expect(routineMap.get(1)).toEqual({
+    expect(routineMap.get(routines[0]!.id)).toEqual({
         id: routines[0]!.id,
         name: routines[0]!.name,
         description: routines[0]!.description,
@@ -85,9 +75,12 @@ it('handles routines with no exercises', async () => {
 });
 
 it('handles an empty array of routines', async () => {
-    const routines: RoutineWithExercises[] = [];
+    const routines: Pick<Routine, 'id' | 'name' | 'description'>[] = [];
 
-    const routineMap = await createRoutinesMap(routines);
+    const routineMap = await createRoutinesMap(
+        testDB as unknown as DrizzleD1,
+        routines
+    );
 
     expect(routineMap.size).toBe(0);
 });

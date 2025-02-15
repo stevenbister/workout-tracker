@@ -11,6 +11,10 @@ import {
     insertRoutineExerciseSchema,
     routineExerciseSchema,
 } from '@/db/schema/routine-exercise';
+import {
+    insertRoutineExerciseSetSchema,
+    routineExerciseSetSchema,
+} from '@/db/schema/routine-exercise-set';
 import { STATUS } from '@/lib/constants/http-status-codes';
 import { errorSchema } from '@/lib/schemas/error-schema';
 import { messageSchema } from '@/lib/schemas/message-schema';
@@ -26,7 +30,26 @@ const modifiedRoutineSchema = routineSchema
     })
     .merge(
         z.object({
-            exercises: z.array(routineExerciseSchema),
+            exercises: z.array(
+                routineExerciseSchema
+                    .pick({
+                        id: true,
+                    })
+                    .merge(
+                        z.object({
+                            name: z.string().optional(),
+                            sets: z.array(
+                                routineExerciseSetSchema.pick({
+                                    id: true,
+                                    maxReps: true,
+                                    minReps: true,
+                                    setNumber: true,
+                                    weight: true,
+                                })
+                            ),
+                        })
+                    )
+            ),
         })
     );
 
@@ -38,13 +61,23 @@ const modifiedInsertRoutineSchema = insertRoutineSchema
     .merge(
         z.object({
             exercises: z.array(
-                insertRoutineExerciseSchema.pick({
-                    exerciseId: true,
-                    order: true,
-                    minReps: true,
-                    maxReps: true,
-                    weight: true,
-                })
+                insertRoutineExerciseSchema
+                    .pick({
+                        exerciseId: true,
+                        order: true,
+                    })
+                    .merge(
+                        z.object({
+                            sets: z.array(
+                                insertRoutineExerciseSetSchema.pick({
+                                    maxReps: true,
+                                    minReps: true,
+                                    setNumber: true,
+                                    weight: true,
+                                })
+                            ),
+                        })
+                    )
             ),
         })
     );

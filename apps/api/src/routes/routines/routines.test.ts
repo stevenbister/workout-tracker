@@ -41,16 +41,20 @@ const mockCreateRoutineInput: InsertRoutineSchema = {
         {
             exerciseId: 1,
             order: 1,
-            minReps: 8,
-            maxReps: 12,
-            weight: 8,
-        },
-        {
-            exerciseId: 2,
-            order: 2,
-            minReps: 10,
-            maxReps: 10,
-            weight: 10,
+            sets: [
+                {
+                    maxReps: 8,
+                    minReps: 6,
+                    setNumber: 1,
+                    weight: 40,
+                },
+                {
+                    maxReps: 8,
+                    minReps: 6,
+                    setNumber: 2,
+                    weight: 40,
+                },
+            ],
         },
     ],
 };
@@ -130,12 +134,16 @@ describe(CREATE_ROUTINE, () => {
             id: expect.any(Number),
             name,
             description,
-            exercises: exercises.map((exercise) => ({
+            exercises: exercises.map(() => ({
                 id: expect.any(Number),
-                routineId: expect.any(Number),
-                createdAt: expect.any(String),
-                updatedAt: expect.any(String),
-                ...exercise,
+                sets: expect.arrayContaining([
+                    expect.objectContaining({
+                        maxReps: expect.any(Number),
+                        minReps: expect.any(Number),
+                        setNumber: expect.any(Number),
+                        weight: expect.any(Number),
+                    }),
+                ]),
             })),
         });
     });
