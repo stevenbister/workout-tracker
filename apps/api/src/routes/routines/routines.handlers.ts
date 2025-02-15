@@ -5,6 +5,10 @@ import {
     type InsertRoutineExercise,
     routineExercise,
 } from '@/db/schema/routine-exercise';
+import {
+    type InsertRoutineExerciseSet,
+    routineExerciseSet,
+} from '@/db/schema/routine-exercise-set';
 import { user as userSchema } from '@/db/schema/users';
 import { STATUS } from '@/lib/constants/http-status-codes';
 import { createRoutinesMap } from '@/lib/utils/create-routines-map';
@@ -16,19 +20,18 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
     const db = c.get('db');
     const user = c.get('user');
 
+    // TODO: Reuse most of this query
     const routines = await db
         .select({
             id: routine.id,
             name: routine.name,
             description: routine.description,
-            exercises: routineExercise,
         })
         .from(routine)
         .leftJoin(userSchema, eq(routine.userId, userSchema.id))
-        .leftJoin(routineExercise, eq(routine.id, routineExercise.routineId))
         .where(eq(userSchema.id, user?.id ?? ''));
 
-    const routineMap = await createRoutinesMap(routines);
+    const routineMap = await createRoutinesMap(db, routines);
 
     const result = Array.from(routineMap.values());
 
@@ -45,11 +48,9 @@ export const getById: AppRouteHandler<GetByIdRoute> = async (c) => {
             id: routine.id,
             name: routine.name,
             description: routine.description,
-            exercises: routineExercise,
         })
         .from(routine)
         .leftJoin(userSchema, eq(routine.userId, userSchema.id))
-        .leftJoin(routineExercise, eq(routine.id, routineExercise.routineId))
         .where(
             and(eq(userSchema.id, user?.id ?? ''), eq(routine.id, parseInt(id)))
         );
@@ -62,11 +63,11 @@ export const getById: AppRouteHandler<GetByIdRoute> = async (c) => {
             STATUS.NOT_FOUND.CODE
         );
 
-    const routineMap = await createRoutinesMap(routines);
+    const routineMap = await createRoutinesMap(db, routines);
 
-    const result = Array.from(routineMap.values());
+    const [result] = Array.from(routineMap.values());
 
-    return c.json(result[0], STATUS.OK.CODE);
+    return c.json(result, STATUS.OK.CODE);
 };
 
 export const create: AppRouteHandler<CreateRoute> = async (c) => {
@@ -97,8 +98,9 @@ export const create: AppRouteHandler<CreateRoute> = async (c) => {
     const insertRoutineExercise: Omit<
         InsertRoutineExercise,
         'id' | 'createdAt' | 'updatedAt'
-    >[] = exercises.map((exercise) => ({
-        ...exercise,
+    >[] = exercises.map(({ exerciseId, order }) => ({
+        exerciseId,
+        order,
         routineId: newRoutine.id,
     }));
 
@@ -107,12 +109,42 @@ export const create: AppRouteHandler<CreateRoute> = async (c) => {
         .values(insertRoutineExercise)
         .returning();
 
+    const insertSets: Omit<
+        InsertRoutineExerciseSet,
+        'id' | 'createdAt' | 'updatedAt'
+    >[] = exercises.flatMap(({ exerciseId, sets }) => {
+        const routineExerciseId = newRoutineExercise.find(
+            (e) => e.exerciseId === exerciseId
+        )!.id;
+
+        return sets.map((set) => ({
+            ...set,
+            routineExerciseId,
+        }));
+    });
+
+    const newSets = await db
+        .insert(routineExerciseSet)
+        .values(insertSets)
+        .returning();
+
     return c.json(
         {
             id: newRoutine.id,
             name: newRoutine.name,
             description: newRoutine?.description,
-            exercises: newRoutineExercise,
+            exercises: newRoutineExercise.map(({ id }) => ({
+                id,
+                sets: newSets
+                    .filter((set) => set.routineExerciseId === id)
+                    .map(({ id, maxReps, minReps, setNumber, weight }) => ({
+                        id,
+                        maxReps,
+                        minReps,
+                        setNumber,
+                        weight,
+                    })),
+            })),
         },
         STATUS.OK.CODE
     );
