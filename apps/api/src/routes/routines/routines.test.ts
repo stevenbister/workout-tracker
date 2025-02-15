@@ -130,8 +130,6 @@ describe(CREATE_ROUTINE, () => {
 
         const { name, description, exercises } = mockCreateRoutineInput;
 
-        console.log(data);
-
         expect(data).toEqual({
             id: expect.any(Number),
             name,

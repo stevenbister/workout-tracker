@@ -4,6 +4,7 @@ import {
     muscleGroup,
     routine,
     routineExercise,
+    user,
 } from '@/db/schema';
 import type { DrizzleD1, DrizzleSqlite } from '@/types';
 
@@ -18,12 +19,13 @@ import { muscleGroupData } from './data/muscle-groups';
 import { routineData } from './data/routine';
 import { routineExerciseData } from './data/routine-exercise';
 import { routineExerciseSetData } from './data/routine-exercise-set';
+import { userData } from './data/user';
 
 const schemas = [
-    // {
-    //     schema: user,
-    //     data: userData,
-    // },
+    {
+        schema: user,
+        data: userData,
+    },
     {
         schema: muscleGroup,
         data: muscleGroupData,
