@@ -4,6 +4,7 @@ import { ALL_EXERCISES, EXERCISE_BY_ID } from '@repo/core/constants/paths';
 
 import { exerciseSchema } from '@/db/schema/exercise';
 import { STATUS } from '@/lib/constants/http-status-codes';
+import { headersSchemaWithCookie } from '@/lib/schemas/headers-schema';
 import { jsonContent } from '@/lib/utils/json-content';
 
 const tags = ['exercises'];
@@ -26,6 +27,13 @@ export const list = createRoute({
     path: ALL_EXERCISES,
     method: 'get',
     tags,
+    request: {
+        ...headersSchemaWithCookie,
+        query: z.object({
+            limit: z.string().optional(),
+            offset: z.string().optional(),
+        }),
+    },
     responses: {
         [STATUS.OK.CODE]: jsonContent(
             exerciseWithMuscleGroupsSchema,
@@ -38,6 +46,7 @@ export const getById = createRoute({
     path: EXERCISE_BY_ID,
     method: 'get',
     tags,
+    request: headersSchemaWithCookie,
     responses: {
         [STATUS.OK.CODE]: jsonContent(
             exerciseWithMuscleGroupsSchema,

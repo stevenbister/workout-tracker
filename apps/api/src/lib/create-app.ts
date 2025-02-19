@@ -6,10 +6,10 @@ import { csrf } from 'hono/csrf';
 import { logger } from 'hono/logger';
 import { secureHeaders } from 'hono/secure-headers';
 
-import { AUTH } from '@repo/core/constants/paths';
 
 import { authAdapter } from '@/middlewares/auth-adapter';
-import { checkIsAuthenticated } from '@/middlewares/check-is-authenticated';
+import { checkApiKey } from '@/middlewares/check-api-key';
+import { checkIsUserAuthenticated } from '@/middlewares/check-is-user-authenticated';
 import { dbConnect } from '@/middlewares/db-connect';
 import { notFound } from '@/middlewares/not-found';
 import { onError } from '@/middlewares/on-error';
@@ -17,6 +17,7 @@ import { session } from '@/middlewares/session';
 import type { AppBindings } from '@/types';
 
 import { STATUS } from './constants/http-status-codes';
+import { USER_AUTHENTICATED_ROUTES } from './constants/routes';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const defaultHook: Hook<any, any, any, any> = async (result, c) => {
@@ -45,7 +46,6 @@ export default function createApp() {
 
     app.use(
         cors({
-            // TODO: Update process.env references
             origin: (_, c) =>
                 process.env.NODE_ENV === 'test' ? '' : c.env.BASE_CLIENT_URL,
             allowHeaders: ['Content-Type', 'Authorization'],
@@ -67,13 +67,15 @@ export default function createApp() {
 
     app.use(secureHeaders());
 
+    app.use('*', except(['doc', 'reference'], checkApiKey));
+
     app.use(dbConnect);
     app.use(authAdapter);
 
     app.use(session);
-    app.use(
-        '*',
-        except([`${AUTH}/*`, 'doc', 'reference'], checkIsAuthenticated)
+
+    USER_AUTHENTICATED_ROUTES.forEach((r) =>
+        app.use(r, checkIsUserAuthenticated)
     );
 
     app.use(logger());

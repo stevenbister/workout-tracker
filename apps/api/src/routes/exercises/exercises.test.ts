@@ -3,6 +3,7 @@ import { testClient } from 'hono/testing';
 
 import { ALL_EXERCISES, EXERCISE_BY_ID } from '@repo/core/constants/paths';
 
+import { mockApiKey, mockHeaders } from '@/__mocks__/headers';
 import { mockSession, mockUser } from '@/__mocks__/session';
 import { testDB } from '@/db/test/test-adapter';
 import { STATUS } from '@/lib/constants/http-status-codes';
@@ -29,7 +30,9 @@ vi.mock('@/middlewares/auth-adapter', () => ({
 
 vi.mock('@/middlewares/session');
 
-const client = testClient(createApp().route('/', exercises));
+const client = testClient(createApp().route('/', exercises), {
+    API_KEY: mockApiKey,
+});
 const getAllRoute = client.api.v1.exercises;
 const getByIdRoute = client.api.v1.exercises[':id'];
 
@@ -56,7 +59,7 @@ beforeEach(() => vi.resetAllMocks());
 describe(ALL_EXERCISES, () => {
     it(`returns ${STATUS.UNAUTHORIZED.MESSAGE} if user is not logged in`, async () => {
         setup();
-        const res = await getAllRoute.$get();
+        const res = await getAllRoute.$get({ ...mockHeaders, query: {} });
         const data = await res.json();
 
         expect(res.status).toBe(STATUS.UNAUTHORIZED.CODE);
@@ -71,7 +74,7 @@ describe(ALL_EXERCISES, () => {
             user: mockUser,
             session: mockSession,
         });
-        const res = await getAllRoute.$get();
+        const res = await getAllRoute.$get({ ...mockHeaders, query: {} });
         const data = await res.json();
 
         expect(res.status).toBe(STATUS.OK.CODE);
@@ -99,8 +102,9 @@ describe(ALL_EXERCISES, () => {
             session: mockSession,
         });
         const res = await getAllRoute.$get({
+            ...mockHeaders,
             query: {
-                limit: 1,
+                limit: '1',
             },
         });
         const data = await res.json();
@@ -115,9 +119,10 @@ describe(ALL_EXERCISES, () => {
             session: mockSession,
         });
         const res = await getAllRoute.$get({
+            ...mockHeaders,
             query: {
-                limit: 1,
-                offset: 4,
+                limit: '1',
+                offset: '4',
             },
         });
         const data = await res.json();
@@ -134,6 +139,7 @@ describe(EXERCISE_BY_ID, () => {
             session: mockSession,
         });
         const res = await getByIdRoute.$get({
+            ...mockHeaders,
             param: {
                 id: '1',
             },
