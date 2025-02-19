@@ -59,7 +59,7 @@ beforeEach(() => vi.resetAllMocks());
 describe(ALL_EXERCISES, () => {
     it(`returns ${STATUS.UNAUTHORIZED.MESSAGE} if user is not logged in`, async () => {
         setup();
-        const res = await getAllRoute.$get(mockHeaders);
+        const res = await getAllRoute.$get({ ...mockHeaders, query: {} });
         const data = await res.json();
 
         expect(res.status).toBe(STATUS.UNAUTHORIZED.CODE);
@@ -74,7 +74,7 @@ describe(ALL_EXERCISES, () => {
             user: mockUser,
             session: mockSession,
         });
-        const res = await getAllRoute.$get(mockHeaders);
+        const res = await getAllRoute.$get({ ...mockHeaders, query: {} });
         const data = await res.json();
 
         expect(res.status).toBe(STATUS.OK.CODE);
