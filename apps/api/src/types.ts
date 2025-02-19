@@ -24,6 +24,7 @@ export type AppBindings = {
         DB: D1Database;
         BASE_API_URL: string;
         BETTER_AUTH_SECRET: string;
+        API_KEY: string;
     };
     Variables: {
         db: DrizzleD1;

@@ -43,6 +43,12 @@ TODO...
 
 ## Developing
 
+Before you start development you'll need to add an api-key to access the api.
+
+Create a `.dev.vars` file and add `API_KEY` with any value you want to develop with.
+
+Then whenever you make a call to the api set the `x-api-key` header with the value of `API_KEY`.
+
 ```
 pnpm install
 pnpm dev
