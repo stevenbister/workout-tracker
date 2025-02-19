@@ -17,6 +17,7 @@ import {
 } from '@/db/schema/routine-exercise-set';
 import { STATUS } from '@/lib/constants/http-status-codes';
 import { errorSchema } from '@/lib/schemas/error-schema';
+import { headersSchemaWithCookie } from '@/lib/schemas/headers-schema';
 import { messageSchema } from '@/lib/schemas/message-schema';
 import { jsonContent } from '@/lib/utils/json-content';
 
@@ -86,6 +87,7 @@ export const list = createRoute({
     path: ALL_ROUTINES,
     method: 'get',
     tags,
+    request: headersSchemaWithCookie,
     responses: {
         [STATUS.OK.CODE]: jsonContent(
             z.array(modifiedRoutineSchema),
@@ -98,6 +100,7 @@ export const getById = createRoute({
     path: ROUTINE_BY_ID,
     method: 'get',
     tags,
+    request: headersSchemaWithCookie,
     responses: {
         [STATUS.OK.CODE]: jsonContent(
             modifiedRoutineSchema,
@@ -115,6 +118,7 @@ export const create = createRoute({
     method: 'post',
     tags,
     request: {
+        ...headersSchemaWithCookie,
         body: jsonContent(
             modifiedInsertRoutineSchema,
             'The routine to create',

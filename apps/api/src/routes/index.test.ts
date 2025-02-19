@@ -32,7 +32,9 @@ vi.mock('@/middlewares/session', () => ({
     },
 }));
 
-const client = testClient(createApp().route('/', index));
+const client = testClient(createApp().route('/', index), {
+    API_KEY: undefined,
+});
 
 beforeEach(() => vi.clearAllMocks());
 

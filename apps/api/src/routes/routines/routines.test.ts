@@ -16,6 +16,7 @@ import type { AppBindings, DrizzleD1 } from '@/types';
 
 import { routines } from './routines.index';
 import type { InsertRoutineSchema } from './routines.routes';
+import { mockApiKey, mockHeaders } from '@/__mocks__/headers';
 
 vi.mock('@/middlewares/db-connect', () => ({
     dbConnect: (c: Context<AppBindings, string, object>, next: Next) => {
@@ -59,7 +60,9 @@ const mockCreateRoutineInput: InsertRoutineSchema = {
     ],
 };
 
-const client = testClient(createApp().route('/', routines));
+const client = testClient(createApp().route('/', routines), {
+    API_KEY: mockApiKey,
+});
 
 const getAllRoute = client.api.v1.routines;
 const getByIdRoute = client.api.v1.routines[':id'];
@@ -79,7 +82,7 @@ beforeEach(() => {
 
 describe(ALL_ROUTINES, () => {
     it('returns list of routines linked to the current user', async () => {
-        const res = await getAllRoute.$get();
+        const res = await getAllRoute.$get(mockHeaders);
         const data = await res.json();
 
         expect(res.status).toBe(STATUS.OK.CODE);
@@ -100,6 +103,7 @@ describe(ALL_ROUTINES, () => {
 describe(ROUTINE_BY_ID, () => {
     it('returns a single routine by its id', async () => {
         const res = await getByIdRoute.$get({
+            ...mockHeaders,
             param: {
                 id: '1',
             },
@@ -122,6 +126,7 @@ describe(ROUTINE_BY_ID, () => {
 describe(CREATE_ROUTINE, () => {
     it('creates a new workout routine', async () => {
         const res = await createRoute.$post({
+            ...mockHeaders,
             json: mockCreateRoutineInput,
         });
         const data = await res.json();

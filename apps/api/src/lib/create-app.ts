@@ -6,9 +6,9 @@ import { csrf } from 'hono/csrf';
 import { logger } from 'hono/logger';
 import { secureHeaders } from 'hono/secure-headers';
 
-import { AUTH } from '@repo/core/constants/paths';
 
 import { authAdapter } from '@/middlewares/auth-adapter';
+import { checkApiKey } from '@/middlewares/check-api-key';
 import { checkIsUserAuthenticated } from '@/middlewares/check-is-user-authenticated';
 import { dbConnect } from '@/middlewares/db-connect';
 import { notFound } from '@/middlewares/not-found';
@@ -65,6 +65,8 @@ export default function createApp() {
     );
 
     app.use(secureHeaders());
+
+    app.use('*', except(['doc', 'reference'], checkApiKey));
 
     app.use(dbConnect);
     app.use(authAdapter);

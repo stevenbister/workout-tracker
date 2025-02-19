@@ -3,6 +3,7 @@ import { testClient } from 'hono/testing';
 
 import { ALL_EQUIPMENT } from '@repo/core/constants/paths';
 
+import { mockApiKey, mockHeaders } from '@/__mocks__/headers';
 import { mockSession, mockUser } from '@/__mocks__/session';
 import { testDB } from '@/db/test/test-adapter';
 import { STATUS } from '@/lib/constants/http-status-codes';
@@ -29,7 +30,9 @@ vi.mock('@/middlewares/auth-adapter', () => ({
 
 vi.mock('@/middlewares/session');
 
-const client = testClient(createApp().route('/', equipment));
+const client = testClient(createApp().route('/', equipment), {
+    API_KEY: mockApiKey,
+});
 const getAllRoute = client.api.v1.equipment;
 
 beforeEach(() => {
@@ -46,7 +49,7 @@ beforeEach(() => {
 
 describe(ALL_EQUIPMENT, () => {
     it('returns list of muscle groups', async () => {
-        const res = await getAllRoute.$get();
+        const res = await getAllRoute.$get(mockHeaders);
         const data = await res.json();
 
         expect(res.status).toBe(STATUS.OK.CODE);

@@ -49,7 +49,13 @@ const setup = async (options?: SetupOptions) => {
         return c.json({ dbConnected: !!db });
     });
 
-    const res = await app.request(options?.route ?? '/', {});
+    const res = await app.request(
+        options?.route ?? '/',
+        {},
+        {
+            API_KEY: undefined,
+        }
+    );
 
     return res;
 };
@@ -108,10 +114,16 @@ it('handles validation errors with defaultHook', async () => {
     const headers = new Headers();
     headers.set('Origin', 'http://localhost');
 
-    const res = await app.request('/test-validation', {
-        method: 'POST',
-        headers,
-    });
+    const res = await app.request(
+        '/test-validation',
+        {
+            method: 'POST',
+            headers,
+        },
+        {
+            API_KEY: undefined,
+        }
+    );
 
     expect(res.status).toBe(STATUS.UNPROCESSABLE_ENTITY.CODE);
 
