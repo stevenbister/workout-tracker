@@ -17,6 +17,7 @@ import { session } from '@/middlewares/session';
 import type { AppBindings } from '@/types';
 
 import { STATUS } from './constants/http-status-codes';
+import { USER_AUTHENTICATED_ROUTES } from './constants/routes';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const defaultHook: Hook<any, any, any, any> = async (result, c) => {
@@ -72,9 +73,9 @@ export default function createApp() {
     app.use(authAdapter);
 
     app.use(session);
-    app.use(
-        '*',
-        except([`${AUTH}/*`, 'doc', 'reference'], checkIsUserAuthenticated)
+
+    USER_AUTHENTICATED_ROUTES.forEach((r) =>
+        app.use(r, checkIsUserAuthenticated)
     );
 
     app.use(logger());
