@@ -9,7 +9,7 @@ import { secureHeaders } from 'hono/secure-headers';
 import { AUTH } from '@repo/core/constants/paths';
 
 import { authAdapter } from '@/middlewares/auth-adapter';
-import { checkIsAuthenticated } from '@/middlewares/check-is-authenticated';
+import { checkIsUserAuthenticated } from '@/middlewares/check-is-user-authenticated';
 import { dbConnect } from '@/middlewares/db-connect';
 import { notFound } from '@/middlewares/not-found';
 import { onError } from '@/middlewares/on-error';
@@ -45,7 +45,6 @@ export default function createApp() {
 
     app.use(
         cors({
-            // TODO: Update process.env references
             origin: (_, c) =>
                 process.env.NODE_ENV === 'test' ? '' : c.env.BASE_CLIENT_URL,
             allowHeaders: ['Content-Type', 'Authorization'],
@@ -73,7 +72,7 @@ export default function createApp() {
     app.use(session);
     app.use(
         '*',
-        except([`${AUTH}/*`, 'doc', 'reference'], checkIsAuthenticated)
+        except([`${AUTH}/*`, 'doc', 'reference'], checkIsUserAuthenticated)
     );
 
     app.use(logger());

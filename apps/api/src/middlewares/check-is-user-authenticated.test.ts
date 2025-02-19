@@ -3,7 +3,7 @@ import type { Context } from 'hono';
 import { STATUS } from '@/lib/constants/http-status-codes';
 import type { AppBindings } from '@/types';
 
-import { checkIsAuthenticated } from './check-is-authenticated';
+import { checkIsUserAuthenticated } from './check-is-user-authenticated';
 
 const mockContext = () =>
     ({
@@ -16,7 +16,7 @@ beforeEach(() => vi.clearAllMocks());
 
 it('returns unauthorized if c.get(user) returns null', async () => {
     const c = mockContext();
-    await checkIsAuthenticated(c, async () => {});
+    await checkIsUserAuthenticated(c, async () => {});
 
     expect(c.json).toHaveBeenCalledWith(
         {
