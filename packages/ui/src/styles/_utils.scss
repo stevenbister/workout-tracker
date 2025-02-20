@@ -1,0 +1,181 @@
+@use 'sass:map';
+@use 'sass:list';
+@use './variables' as *;
+@use './functions/t-shirt-sizes' as *;
+@use './functions/get-by-index' as *;
+
+@function map-space-scale-properties($start, $end, $prefix) {
+    $map: ();
+    $sizes: generate-tshirt-sizes($end, $start);
+
+    @for $i from 0 through $start + $end {
+        $size: get-by-index($sizes, $i);
+        $map: map.set($map, $size, var(--#{$prefix}#{$size}));
+    }
+
+    @return $map;
+}
+
+@function map-type-scale-properties($start, $end, $prefix) {
+    $map: ();
+
+    @for $i from $start through $end {
+        $map: map.set($map, #{$i}, var(--#{$prefix}#{$i}));
+    }
+
+    @return $map;
+}
+
+$config: (
+    margin: (
+        prefix: 'm',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    margin-block: (
+        prefix: 'my',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    margin-inline: (
+        prefix: 'mx',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    margin-block-start: (
+        prefix: 'mt',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    margin-block-end: (
+        prefix: 'mb',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    margin-inline-start: (
+        prefix: 'ml',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    margin-inline-end: (
+        prefix: 'mr',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    padding: (
+        prefix: 'p',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    padding-block: (
+        prefix: 'py',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    padding-inline: (
+        prefix: 'px',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    padding-block-start: (
+        prefix: 'pt',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    padding-block-end: (
+        prefix: 'pb',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    padding-inline-start: (
+        prefix: 'pl',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    padding-inline-end: (
+        prefix: 'pr',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    gap: (
+        prefix: 'gap',
+        values: map-space-scale-properties(
+                list.length($space-scale-negative-steps),
+                list.length($space-scale-positive-steps),
+                $space-scale-prefix
+            ),
+    ),
+    font-size: (
+        prefix: 'fs',
+        values: map-type-scale-properties(
+                $type-scale-negative-steps * -1,
+                $type-scale-positive-steps,
+                $type-scale-prefix
+            ),
+    ),
+    font-weight: (
+        prefix: 'fw',
+        values: map-type-scale-properties(1, list.length($font-weights), 'fw-'),
+    ),
+    line-height: (
+        prefix: 'lh',
+        values: map-type-scale-properties(1, list.length($line-heights), 'lh-'),
+    ),
+);
+
+@each $property, $values in $config {
+    $prefix: map.get($values, prefix);
+    $values: map.get($values, values);
+
+    @each $key, $value in $values {
+        .#{$prefix}-#{$key} {
+            @if $value {
+                #{$property}: $value;
+            } @else {
+                #{$property}: $key;
+            }
+        }
+    }
+}

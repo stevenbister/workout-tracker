@@ -1,0 +1,32 @@
+@use 'sass:list';
+
+@function generate-tshirt-sizes($positive-steps, $negative-steps) {
+    $sizes: ();
+
+    // Add negative steps (xs sizes)
+    @for $i from $negative-steps through 1 {
+        $sizes: list.append($sizes, #{$i}xs);
+    }
+
+    // Add base size (s, m, l)
+    @for $i from 1 through $positive-steps {
+        @if $i == 1 {
+            $sizes: list.append($sizes, s);
+        }
+
+        @if $i == 2 {
+            $sizes: list.append($sizes, m);
+        }
+
+        @if $i == 3 {
+            $sizes: list.append($sizes, l);
+        }
+    }
+
+    // Add positive steps (xl sizes)
+    @for $i from 1 through $positive-steps - 2 {
+        $sizes: list.append($sizes, #{$i}xl);
+    }
+
+    @return $sizes;
+}
