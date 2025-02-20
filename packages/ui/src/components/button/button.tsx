@@ -8,7 +8,13 @@ import {
     forwardRef,
 } from 'react';
 
-export type ButtonProps = unknown;
+import { classList } from '../../utils/class-list';
+import styles from './button.module.scss';
+
+export type ButtonProps = {
+    variant?: 'ghost';
+    status?: 'info' | 'success' | 'danger';
+};
 
 type Merge<P1 = object, P2 = object> = Omit<P1, keyof P2> & P2;
 type MergeProps<E, P = object> = P &
@@ -35,8 +41,17 @@ interface ForwardRefComponent<IntrinsicElementString, OwnProps = ButtonProps>
 
 export const Button = forwardRef(
     // eslint-disable-next-line react/prop-types
-    ({ as: Element = 'button', ...rest }, forwardedRef) => (
-        <Element {...rest} ref={forwardedRef} />
+    ({ as: Element = 'button', variant, status, ...rest }, forwardedRef) => (
+        <Element
+            {...rest}
+            className={classList(
+                styles.btn,
+                variant && styles[variant],
+                status && styles[status],
+                rest.className
+            )}
+            ref={forwardedRef}
+        />
     )
 ) as ForwardRefComponent<'button'>;
 
