@@ -9,7 +9,7 @@
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
-        "storybook": "storybook dev -p 6006",
+        "dev": "storybook dev -p 6006",
         "build-storybook": "storybook build",
         "typecheck": "tsc --noEmit",
         "test": "vitest run",
