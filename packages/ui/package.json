@@ -4,12 +4,13 @@
     "version": "0.0.0",
     "type": "module",
     "exports": {
-        "./components/*": "./src/components/*/*.tsx"
+        "./components/*": "./src/components/*/*.tsx",
+        "./styles/main.scss": "./src/styles/main.scss"
     },
     "scripts": {
-        "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
-        "storybook": "storybook dev -p 6006",
+        "lint": "eslint . && stylelint **/*.scss",
+        "lint:fix": "eslint . --fix && stylelint **/*.scss --fix",
+        "dev": "storybook dev -p 6006",
         "build-storybook": "storybook build",
         "typecheck": "tsc --noEmit",
         "test": "vitest run",
@@ -48,9 +49,14 @@
         "eslint-plugin-storybook": "^0.11.2",
         "globals": "^15.14.0",
         "jsdom": "^26.0.0",
+        "sass": "^1.85.0",
         "storybook": "^8.5.1",
+        "stylelint": "^16.14.1",
+        "stylelint-config-idiomatic-order": "^10.0.0",
+        "stylelint-config-standard-scss": "^14.0.0",
         "typescript": "~5.6.2",
         "typescript-eslint": "^8.18.2",
+        "utopia-core-scss": "^1.2.1",
         "vite": "^6.0.5",
         "vitest": "^3.0.4"
     },

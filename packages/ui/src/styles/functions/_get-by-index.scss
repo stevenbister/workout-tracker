@@ -1,0 +1,5 @@
+@use 'sass:list';
+
+@function get-by-index($sizes, $index) {
+    @return list.nth($sizes, $index + 1); // +1 because SASS lists are 1-indexed
+}

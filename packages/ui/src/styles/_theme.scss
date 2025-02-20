@@ -1,0 +1,85 @@
+@use './variables' as *;
+@use 'utopia-core-scss/src/utopia' as utopia;
+
+:root {
+    /* -------------------------------------------------------------------------------------------------
+     * Colors
+     * ----------------------------------------------------------------------------------------------- */
+    --c-dark-10: hsl(0deg 0% 45%);
+    --c-dark-15: hsl(0deg 0% 45% / 50%);
+    --c-dark-20: hsl(0deg 0% 26%);
+    --c-dark-25: hsl(0deg 0% 26% / 50%);
+    --c-dark-30: hsl(0deg 0% 16%);
+    --c-dark-35: hsl(0deg 0% 16% / 50%);
+    --c-dark-40: hsl(0deg 0% 1%);
+    --c-dark-45: hsl(0deg 0% 1% / 50%);
+    --c-light-10: hsl(0deg 0% 97%);
+    --c-success-10: hsl(155deg 54% 45%);
+    --c-success-15: hsl(155deg 54% 45% / 50%);
+    --c-error-10: hsl(3deg 68% 57%);
+    --c-error-15: hsl(3deg 68% 57% / 50%);
+    --c-info-10: hsl(266deg 71% 56%);
+    --c-info-15: hsl(266deg 71% 56% / 50%);
+    --gradient-primary: linear-gradient(
+        90deg,
+        var(--c-dark-40) 0%,
+        var(--c-dark-30) 100%
+    );
+    --c-global-text: var(--c-light-10);
+    --c-global-bg: var(--c-dark-40);
+
+    /* -------------------------------------------------------------------------------------------------
+     * Spacing
+	 * @link https://utopia.fyi/space/calculator?c=320,16,1.2,1240,18,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12
+     * ----------------------------------------------------------------------------------------------- */
+    @include utopia.generateSpaceScale(
+        (
+            'minWidth': $scale-min-width,
+            'maxWidth': $scale-max-width,
+            'minSize': $scale-min-size,
+            'maxSize': $scale-max-size,
+            'positiveSteps': $space-scale-positive-steps,
+            'negativeSteps': $space-scale-negative-steps,
+            'customSizes': (),
+            'prefix': $space-scale-prefix,
+            'relativeTo': 'viewport-width',
+        )
+    );
+
+    /* -------------------------------------------------------------------------------------------------
+     * Typography
+     * @link https://utopia.fyi/type/calculator?c=320,16,1.2,1240,18,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12
+     * ----------------------------------------------------------------------------------------------- */
+    --f-primary: system-ui, -apple-system, segoe ui, roboto, ubuntu, cantarell,
+        noto sans, sans-serif;
+
+    @each $fw in $font-weights {
+        --fw-#{$fw}: #{$fw};
+    }
+
+    @each $key, $lh in $line-heights {
+        --lh-#{$key}: #{$lh};
+    }
+
+    @include utopia.generateTypeScale(
+        (
+            'minWidth': $scale-min-width,
+            'maxWidth': $scale-max-width,
+            'minFontSize': $scale-min-size,
+            'maxFontSize': $scale-max-size,
+            'minTypeScale': $type-scale-min-size,
+            'maxTypeScale': $type-scale-max-size,
+            'positiveSteps': $type-scale-positive-steps,
+            'negativeSteps': $type-scale-negative-steps,
+            'prefix': $type-scale-prefix,
+            'relativeTo': 'viewport-width',
+        )
+    );
+
+    /* -------------------------------------------------------------------------------------------------
+	 * Radius
+	 * ----------------------------------------------------------------------------------------------- */
+    --r-10: 10px;
+    --r-50: 50px;
+    --r-global: var(--r-10);
+}

@@ -16,7 +16,9 @@ export default mergeConfig(
                 ...vitestConfig.test?.coverage,
                 exclude: [
                     ...configDefaults.coverage.exclude!,
+                    './*.config.{ts,js}',
                     './src/**/*.stories.{ts,tsx}',
+                    './stories/**/*',
                 ],
             },
         },
