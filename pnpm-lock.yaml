@@ -378,6 +378,9 @@ importers:
       typescript-eslint:
         specifier: ^8.18.2
         version: 8.21.0(eslint@9.18.0)(typescript@5.6.3)
+      utopia-core-scss:
+        specifier: ^1.2.1
+        version: 1.2.1
       vite:
         specifier: ^6.0.5
         version: 6.0.11(@types/node@22.12.0)(sass@1.85.0)(yaml@2.7.0)
@@ -4714,6 +4717,9 @@ packages:
 
   util@0.12.5:
     resolution: {integrity: sha512-kZf/K6hEIrWHI6XqOFUiiMa+79wE/D8Q+NCNAWclkyg3b4d2k7s0QGepNjiABc+aR3N1PAyHL7p6UcLY6LmrnA==}
+
+  utopia-core-scss@1.2.1:
+    resolution: {integrity: sha512-PGPHFWOBSfcFn2d9i9AL8RDVQPLcxGbtKyVQU71r6FfAwrPpN+OZiAqcNzMb/rgaYwDW725NVzu/z5NISbGk+Q==}
 
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
@@ -9549,6 +9555,8 @@ snapshots:
       is-generator-function: 1.1.0
       is-typed-array: 1.1.15
       which-typed-array: 1.1.18
+
+  utopia-core-scss@1.2.1: {}
 
   uuid@9.0.1: {}
 
