@@ -1,0 +1,57 @@
+import { ColorItem, ColorPalette, Meta } from '@storybook/blocks';
+
+<Meta title="Tokens/Colors" />
+
+# Colors
+
+{/* TODO: would be nice to generate colours from json config we can use here and turn into scss. But for now we'll just do it manually */}
+
+<ColorPalette>
+    <ColorItem
+        title="Darks"
+        colors={{
+            '--c-dark-10': 'hsl(0deg 0% 45%)',
+            '--c-dark-15': 'hsl(0deg 0% 45% / 50%)',
+            '--c-dark-20': 'hsl(0deg 0% 26%)',
+            '--c-dark-25': 'hsl(0deg 0% 26% / 50%)',
+            '--c-dark-30': 'hsl(0deg 0% 16%)',
+            '--c-dark-35': 'hsl(0deg 0% 16% / 50%)',
+            '--c-dark-40': 'hsl(0deg 0% 1%)',
+            '--c-dark-45': 'hsl(0deg 0% 1% / 50%)',
+        }}
+    />
+    <ColorItem
+        title="Lights"
+        colors={{
+            '--c-light-10': 'hsl(0deg 0% 97%)',
+        }}
+    />
+    <ColorItem
+        title="Success"
+        colors={{
+            '--c-success-10': 'hsl(155deg 54% 45%)',
+            '--c-success-15': 'hsl(155deg 54% 45% / 50%)',
+        }}
+    />
+    <ColorItem
+        title="Error"
+        colors={{
+            '--c-error-10': 'hsl(3deg 68% 57%)',
+            '--c-error-15': 'hsl(3deg 68% 57% / 50%)',
+        }}
+    />
+    <ColorItem
+        title="Info"
+        colors={{
+            '--c-info-10': 'hsl(266deg 71% 56%)',
+            '--c-info-15': 'hsl(266deg 71% 56% / 50%)',
+        }}
+    />
+    <ColorItem
+        title="Gradients"
+        colors={{
+            '--gradient-primary':
+                'linear-gradient(90deg, var(--c-dark-40) 0%, var(--c-dark-30) 100%)',
+        }}
+    />
+</ColorPalette>
