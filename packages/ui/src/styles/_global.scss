@@ -1,0 +1,13 @@
+body {
+    background: var(--c-global-bg);
+    color: var(--c-global-text);
+    font-family: var(--f-primary);
+    font-size: var(--fs-0);
+    font-weight: var(--fw-4);
+    line-height: var(--lh-1);
+}
+
+:focus-visible {
+    outline: 2px solid var(--c-info);
+    outline-offset: 2px;
+}

@@ -4,7 +4,8 @@
     "version": "0.0.0",
     "type": "module",
     "exports": {
-        "./components/*": "./src/components/*/*.tsx"
+        "./components/*": "./src/components/*/*.tsx",
+        "./styles/main.scss": "./src/styles/main.scss"
     },
     "scripts": {
         "lint": "eslint . && stylelint **/*.scss",
