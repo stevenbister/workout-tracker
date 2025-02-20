@@ -1,0 +1,112 @@
+@layer components {
+    .btn {
+        --_btn-color-bg: var(--c-dark-30);
+        --_btn-color-fg: var(--c-light-10);
+        --_btn-gap-s: var(--space-2xs);
+        --_btn-gap-m: var(--space-l);
+        --_btn-radius: var(--r-10);
+        --_btn-ease: 0.2s ease-in-out;
+
+        all: unset;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--_btn-gap-s) var(--_btn-gap-m);
+        border-radius: var(--_btn-radius);
+        background-color: var(--_btn-color-bg);
+        color: var(--_btn-color-fg);
+        cursor: pointer;
+        gap: var(--_btn-gap-s);
+        transition:
+            background-color var(--_btn-ease),
+            color var(--_btn-ease);
+
+        &:focus-visible {
+            outline: 2px solid var(--c-info-10);
+            outline-offset: 2px;
+        }
+
+        @media (hover: hover) {
+            &:hover {
+                --_btn-color-bg: var(--c-dark-20);
+            }
+        }
+
+        &:active {
+            --_btn-color-bg: var(--c-dark-2);
+        }
+
+        &[disabled] {
+            opacity: 0.75;
+            pointer-events: none;
+        }
+    }
+
+    .info {
+        &:not(.ghost) {
+            --_btn-color-bg: var(--c-info-10);
+
+            @media (hover: hover) {
+                &:hover {
+                    --_btn-color-bg: var(--c-info-15);
+                }
+            }
+
+            &:active {
+                --_btn-color-bg: var(--c-info-15);
+            }
+        }
+    }
+
+    .success {
+        &:not(.ghost) {
+            --_btn-color-bg: var(--c-success-10);
+
+            @media (hover: hover) {
+                &:hover {
+                    --_btn-color-bg: var(--c-success-15);
+                }
+            }
+
+            &:active {
+                --_btn-color-bg: var(--c-success-15);
+            }
+        }
+    }
+
+    .danger {
+        &:not(.ghost) {
+            --_btn-color-bg: var(--c-error-10);
+
+            @media (hover: hover) {
+                &:hover {
+                    --_btn-color-bg: var(--c-error-15);
+                }
+            }
+
+            &:active {
+                --_btn-color-bg: var(--c-error-15);
+            }
+        }
+    }
+
+    .ghost {
+        --_btn-color-bg: transparent;
+        --_btn-color-fg: var(--c-light-10);
+        --_btn-radius: var(--r-50);
+
+        border: 1px solid currentcolor;
+
+        @media (hover: hover) {
+            &:hover {
+                --_btn-color-bg: var(--c-light-10);
+                --_btn-color-fg: var(--c-dark-30);
+            }
+        }
+
+        &:active {
+            --_btn-color-bg: var(--c-light-10);
+            --_btn-color-fg: var(--c-dark-30);
+        }
+    }
+}
