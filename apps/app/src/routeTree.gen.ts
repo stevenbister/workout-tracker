@@ -10,8 +10,9 @@
 
 // Import Routes
 
-import { Route as authLoginImport, Route as IndexImport } from './routes/(auth)/login'
 import { Route as rootRoute } from './routes/__root'
+import { Route as IndexImport } from './routes/index'
+import { Route as authLoginImport } from './routes/(auth)/login'
 
 // Create/Update Routes
 

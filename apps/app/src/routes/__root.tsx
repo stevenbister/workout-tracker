@@ -1,4 +1,4 @@
-import { Outlet, createRootRoute } from '@tanstack/react-router';
+import { HeadContent, Outlet, createRootRoute } from '@tanstack/react-router';
 import { lazy } from 'react';
 
 const TanStackRouterDevtools =
@@ -11,12 +11,20 @@ const TanStackRouterDevtools =
           );
 
 export const Route = createRootRoute({
+    head: () => ({
+        meta: [
+            {
+                title: 'Workout Tracker',
+            },
+        ],
+    }),
     component: RootComponent,
 });
 
 function RootComponent() {
     return (
         <>
+            <HeadContent />
             <Outlet />
             <TanStackRouterDevtools />
         </>
