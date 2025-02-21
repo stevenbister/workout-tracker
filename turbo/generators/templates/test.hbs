@@ -1,0 +1,13 @@
+import { render, screen } from '@testing-library/react';
+
+import type { {{pascalCase name}}Props } from './{{name}}';
+import { {{pascalCase name}} } from './{{name}}';
+
+const defaultProps = {};
+
+const setup = (props?: Partial<{{pascalCase name}}Props>) =>
+    render(<{{pascalCase name}} {...defaultProps} {...props} />);
+
+it('renders the component', () => {
+    setup();
+});
