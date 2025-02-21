@@ -3,7 +3,7 @@ import { type ComponentPropsWithoutRef, useId } from 'react';
 import { classList } from '../../utils/class-list';
 import styles from './input.module.scss';
 
-interface InputProps
+export interface InputProps
     extends Omit<ComponentPropsWithoutRef<'input'>, 'id' | 'type'> {
     label: string;
     type?: 'text' | 'email' | 'password';
