@@ -8,12 +8,13 @@ import {
     forwardRef,
 } from 'react';
 
+import type { Status } from '../../types';
 import { classList } from '../../utils/class-list';
 import styles from './button.module.scss';
 
 export type ButtonProps = {
     variant?: 'ghost';
-    status?: 'info' | 'success' | 'danger';
+    status: Extract<Status, 'info' | 'success'> | 'danger';
 };
 
 type Merge<P1 = object, P2 = object> = Omit<P1, keyof P2> & P2;
