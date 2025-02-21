@@ -17,6 +17,8 @@ export default mergeConfig(
                 exclude: [
                     ...configDefaults.coverage.exclude!,
                     './src/main.tsx',
+                    './src/routes/__root.tsx',
+                    './src/routeTree.gen.ts',
                 ],
             },
         },
