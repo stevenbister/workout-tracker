@@ -27,6 +27,7 @@
         "@repo/typescript-config": "workspace:*",
         "@repo/ui": "workspace:*",
         "@repo/vite-config": "workspace:*",
+        "@tanstack/eslint-plugin-router": "^1.105.0",
         "@tanstack/router-devtools": "^1.109.2",
         "@tanstack/router-plugin": "^1.109.2",
         "@testing-library/jest-dom": "^6.6.3",
