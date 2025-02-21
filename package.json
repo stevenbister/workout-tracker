@@ -9,10 +9,12 @@
         "lint": "turbo lint",
         "typecheck": "turbo typecheck",
         "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
-        "gen:workspace": "turbo gen workspace"
+        "gen:workspace": "turbo gen workspace",
+        "gen:component": "turbo gen component"
     },
     "devDependencies": {
         "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+        "@turbo/gen": "^2.4.2",
         "prettier": "^3.4.2",
         "turbo": "^2.3.4",
         "typescript": "5.7.3"
