@@ -1,5 +1,5 @@
 {
     "extends": "@repo/typescript-config/react.json",
     "compilerOptions": {},
-    "include": ["src", "vite.d.ts"]
+    "include": ["src"]
 }

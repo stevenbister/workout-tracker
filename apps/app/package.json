@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@repo/core": "workspace:*",
+        "@tanstack/react-router": "^1.109.2",
         "react": "^19.0.0",
         "react-dom": "^19.0.0"
     },
@@ -26,6 +27,8 @@
         "@repo/typescript-config": "workspace:*",
         "@repo/ui": "workspace:*",
         "@repo/vite-config": "workspace:*",
+        "@tanstack/router-devtools": "^1.109.2",
+        "@tanstack/router-plugin": "^1.109.2",
         "@testing-library/jest-dom": "^6.6.3",
         "@testing-library/react": "^16.2.0",
         "@testing-library/user-event": "^14.5.2",
