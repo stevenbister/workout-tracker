@@ -37,7 +37,7 @@ beforeEach(() => (history = createBrowserHistory()));
 
 afterEach(() => {
     history.destroy();
-    window.history.replaceState(null, 'root', '/');
+    window.history.replaceState(null, 'root', ROUTES.ROOT);
     vi.clearAllMocks();
     vi.restoreAllMocks();
 });

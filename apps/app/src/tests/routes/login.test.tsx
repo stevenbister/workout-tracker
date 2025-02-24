@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-router';
 import { render, screen, waitFor } from '@testing-library/react';
 
+import { ROUTES } from '../../constants';
 import { Route as loginRoute } from '../../routes/login';
 
 let history: RouterHistory;
@@ -14,7 +15,7 @@ beforeEach(() => (history = createBrowserHistory()));
 
 afterEach(() => {
     history.destroy();
-    window.history.replaceState(null, 'login', '/login');
+    window.history.replaceState(null, 'login', ROUTES.LOGIN);
     vi.clearAllMocks();
 });
 
