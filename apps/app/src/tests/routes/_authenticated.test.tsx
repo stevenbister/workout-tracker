@@ -8,8 +8,8 @@ import { render, waitFor } from '@testing-library/react';
 
 import { type AuthClient, authClient } from '@repo/core/auth/client';
 
-import { ROUTES } from '../../constants';
-import { Route as _authenticatedRoute } from '../../routes/_authenticated';
+import { ROUTES } from '@/constants';
+import { Route as _authenticatedRoute } from '@/routes/_authenticated';
 
 vi.mock('@repo/core/auth/client', () => ({
     authClient: {
