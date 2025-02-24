@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-router';
 import { render, screen, waitFor } from '@testing-library/react';
 
-import { Route as loginRoute } from '../../routes/(auth)/login';
+import { Route as loginRoute } from '../../routes/login';
 
 let history: RouterHistory;
 
