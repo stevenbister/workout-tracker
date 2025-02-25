@@ -9,6 +9,11 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { ROUTES } from '@/constants';
 import { Route as loginRoute } from '@/routes/login';
 
+vi.mock('@tanstack/react-router', async (importOriginal) => ({
+    ...(await importOriginal()),
+    useSearch: vi.fn(),
+}));
+
 let history: RouterHistory;
 
 beforeEach(() => (history = createBrowserHistory()));
@@ -24,5 +29,11 @@ it('renders the login route', async () => {
 
     await waitFor(() => render(<RouterProvider router={router} />));
 
-    expect(screen.getByText('login')).toBeInTheDocument();
+    screen.debug();
+
+    expect(
+        screen.getByRole('heading', {
+            name: 'Login',
+        })
+    ).toBeInTheDocument();
 });

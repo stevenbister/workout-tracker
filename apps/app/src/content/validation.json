@@ -1,0 +1,9 @@
+{
+    "email": {
+        "empty": "Please enter an email",
+        "invalid": "Please enter a valid email"
+    },
+    "password": {
+        "empty": "Please enter a password"
+    }
+}

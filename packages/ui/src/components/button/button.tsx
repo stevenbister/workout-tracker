@@ -14,7 +14,7 @@ import styles from './button.module.scss';
 
 export type ButtonProps = {
     variant?: 'ghost';
-    status: Extract<Status, 'info' | 'success'> | 'danger';
+    status?: Extract<Status, 'info' | 'success'> | 'danger';
 };
 
 type Merge<P1 = object, P2 = object> = Omit<P1, keyof P2> & P2;
