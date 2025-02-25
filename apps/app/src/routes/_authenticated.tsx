@@ -8,7 +8,7 @@ export const Route = createFileRoute('/_authenticated')({
     beforeLoad: async ({ location }) => {
         const session = await authClient.getSession();
 
-        if (session.error?.status === 401) {
+        if (session.error?.status === 401 || !session?.data) {
             throw redirect({
                 to: ROUTES.LOGIN,
                 search: {

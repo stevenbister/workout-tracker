@@ -6,7 +6,6 @@ import { csrf } from 'hono/csrf';
 import { logger } from 'hono/logger';
 import { secureHeaders } from 'hono/secure-headers';
 
-
 import { authAdapter } from '@/middlewares/auth-adapter';
 import { checkApiKey } from '@/middlewares/check-api-key';
 import { checkIsUserAuthenticated } from '@/middlewares/check-is-user-authenticated';
@@ -48,7 +47,7 @@ export default function createApp() {
         cors({
             origin: (_, c) =>
                 process.env.NODE_ENV === 'test' ? '' : c.env.BASE_CLIENT_URL,
-            allowHeaders: ['Content-Type', 'Authorization'],
+            allowHeaders: ['Content-Type', 'Authorization', 'x-api-key'],
             allowMethods: ['POST', 'GET', 'OPTIONS'],
             exposeHeaders: ['Content-Length'],
             maxAge: 600,

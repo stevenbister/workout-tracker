@@ -8,4 +8,9 @@ export type AuthClient = ReturnType<typeof createAuthClient>;
 export const authClient: AuthClient = createAuthClient({
     // TODO: make this dynamic or update with env var
     baseURL: `http://localhost:8787${API_PREFIX}/auth`, // the base url of your auth server
+    fetchOptions: {
+        headers: {
+            'x-api-key': import.meta.env.VITE_API_KEY,
+        },
+    },
 });
