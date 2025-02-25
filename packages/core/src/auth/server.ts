@@ -27,6 +27,8 @@ export const getAuth = (db: DB, options: Options) => {
         }),
         baseURL,
         basePath: `${API_PREFIX}/auth`,
+        // TODO: env var here
+        trustedOrigins: ['http://localhost:5173'],
         emailAndPassword: {
             enabled: true,
             password: {
