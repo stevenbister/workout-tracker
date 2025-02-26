@@ -1,9 +1,10 @@
 @use '../../styles/mixins/outline' as *;
+@use '../../styles/mixins/hover' as *;
 
 @layer components {
     .btn {
-        --_btn-color-bg: var(--c-dark-30);
-        --_btn-color-fg: var(--c-light-10);
+        --_btn-color-bg: var(--c-grey-500);
+        --_btn-color-fg: var(--c-grey-200);
         --_btn-gap-s: var(--space-2xs);
         --_btn-gap-m: var(--space-l);
         --_btn-radius: var(--r-10);
@@ -27,14 +28,12 @@
             @include outline;
         }
 
-        @media (hover: hover) {
-            &:hover {
-                --_btn-color-bg: var(--c-dark-20);
-            }
+        @include hover {
+            --_btn-color-bg: var(--c-grey-400);
         }
 
         &:active {
-            --_btn-color-bg: var(--c-dark-2);
+            --_btn-color-bg: var(--c-grey-400);
         }
 
         &[disabled] {
@@ -43,71 +42,49 @@
         }
     }
 
-    .info {
-        &:not(.ghost) {
-            --_btn-color-bg: var(--c-info-10);
-
-            @media (hover: hover) {
-                &:hover {
-                    --_btn-color-bg: var(--c-info-15);
-                }
-            }
-
-            &:active {
-                --_btn-color-bg: var(--c-info-15);
-            }
-        }
-    }
-
     .success {
         &:not(.ghost) {
-            --_btn-color-bg: var(--c-success-10);
+            --_btn-color-bg: var(--c-success-100);
 
-            @media (hover: hover) {
-                &:hover {
-                    --_btn-color-bg: var(--c-success-15);
-                }
+            @include hover {
+                --_btn-color-bg: var(--c-success-150);
             }
 
             &:active {
-                --_btn-color-bg: var(--c-success-15);
+                --_btn-color-bg: var(--c-success-150);
             }
         }
     }
 
     .danger {
         &:not(.ghost) {
-            --_btn-color-bg: var(--c-error-10);
+            --_btn-color-bg: var(--c-error-100);
 
-            @media (hover: hover) {
-                &:hover {
-                    --_btn-color-bg: var(--c-error-15);
-                }
+            @include hover {
+                --_btn-color-bg: var(--c-error-150);
             }
 
             &:active {
-                --_btn-color-bg: var(--c-error-15);
+                --_btn-color-bg: var(--c-error-150);
             }
         }
     }
 
     .ghost {
         --_btn-color-bg: transparent;
-        --_btn-color-fg: var(--c-light-10);
+        --_btn-color-fg: var(--c-grey-500);
         --_btn-radius: var(--r-50);
 
         border: 1px solid currentcolor;
 
-        @media (hover: hover) {
-            &:hover {
-                --_btn-color-bg: var(--c-light-10);
-                --_btn-color-fg: var(--c-dark-30);
-            }
+        @include hover {
+            --_btn-color-bg: var(--c-grey-500);
+            --_btn-color-fg: var(--c-grey-200);
         }
 
         &:active {
-            --_btn-color-bg: var(--c-light-10);
-            --_btn-color-fg: var(--c-dark-30);
+            --_btn-color-bg: var(--c-grey-500);
+            --_btn-color-fg: var(--c-grey-200);
         }
     }
 }

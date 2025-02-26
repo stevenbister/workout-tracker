@@ -24,7 +24,7 @@ export const Input = ({
     return (
         <>
             <label className={classList(styles.input, styles[state])}>
-                {label}
+                <span>{label}</span>
                 <input
                     {...rest}
                     id={inputId}

@@ -1,7 +1,7 @@
 @layer components {
     .alert {
-        --_alert-color-bg: var(--c-info-15);
-        --_alert-color-border: var(--c-info-10);
+        --_alert-color-bg: var(--c-primary-light);
+        --_alert-color-border: var(--c-primary);
         --_alert-gap: var(--space-xs);
         --_alert-radius: var(--r-10);
 
@@ -20,22 +20,22 @@
     }
 
     .info {
-        --_alert-color-bg: var(--c-info-15);
-        --_alert-color-border: var(--c-info-10);
+        --_alert-color-bg: var(--c-primary-light);
+        --_alert-color-border: var(--c-primary);
     }
 
     .success {
-        --_alert-color-bg: var(--c-success-15);
-        --_alert-color-border: var(--c-success-10);
+        --_alert-color-bg: var(--c-success-150);
+        --_alert-color-border: var(--c-success-100);
     }
 
     .error {
-        --_alert-color-bg: var(--c-error-15);
-        --_alert-color-border: var(--c-error-10);
+        --_alert-color-bg: var(--c-error-150);
+        --_alert-color-border: var(--c-error-100);
     }
 
     .heading {
-        --_alert-heading-fw: var(--fw-700);
+        --_alert-heading-fw: var(--fw-500);
 
         font-weight: var(--_alert-heading-fw);
         grid-column: 1 / 2;

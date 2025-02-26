@@ -45,12 +45,6 @@ export const Ghost: Story = {
     },
 };
 
-export const Info: Story = {
-    args: {
-        status: 'info',
-    },
-};
-
 export const Success: Story = {
     args: {
         status: 'success',
