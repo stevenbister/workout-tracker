@@ -10,7 +10,7 @@
     "scripts": {
         "lint": "eslint . && stylelint **/*.scss",
         "lint:fix": "eslint . --fix && stylelint **/*.scss --fix",
-        "dev": "storybook dev -p 6006",
+        "dev": "storybook dev -p 6006 --no-open",
         "build-storybook": "storybook build",
         "typecheck": "tsc --noEmit",
         "test": "vitest run",

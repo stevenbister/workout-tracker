@@ -29,6 +29,7 @@
             position: absolute;
             top: calc(var(--space-2xs) * -1);
             background-color: var(--c-grey-200);
+            padding-inline: var(--space-3xs);
         }
 
         input {
