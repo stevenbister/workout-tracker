@@ -4,50 +4,46 @@
 
 @layer components {
     .input {
-        --_input-border: var(--c-dark-20);
-        --_input-bg: var(--c-dark-35);
+        --_input-border: var(--c-grey-400);
+        --_input-bg: transparent;
         --_input-radius: var(--r-global);
         --_input-gap: var(--space-xs);
-        --_input-fs: var(--fs-0);
+        --_input-fs: var(--fs--1);
         --_input-color: var(--c-global-text);
 
-        display: flex;
-        flex-direction: column;
+        position: relative;
+        display: block;
         padding: var(--_input-gap);
         border: solid 1px var(--_input-border);
         border-radius: var(--_input-radius);
         background-color: var(--_input-bg);
         color: var(--_input-color);
         font-size: var(--_input-fs);
-        gap: var(--_input-gap);
-
-        @include mq(map.get($breakpoints, sm)) {
-            --_input-fs: var(--fs--1);
-            --_input-gap: var(--space-2xs);
-        }
+        margin-block-start: var(--space-2xs);
 
         &:has(input:focus-visible) {
             @include outline;
         }
 
-        &:has(input:focus-within),
-        &:has(input:active) {
-            --_input-bg: var(--c-dark-25);
+        span {
+            position: absolute;
+            top: calc(var(--space-2xs) * -1);
+            background-color: var(--c-grey-200);
         }
 
         input {
             all: unset;
+            width: 100%;
             cursor: auto;
         }
     }
 
     .invalid {
-        --_input-border: var(--c-error-10);
-        --_input-bg: var(--c-error-15);
+        --_input-border: var(--c-error-100);
     }
 
     .validation-message {
-        color: var(--c-error-10);
+        color: var(--c-error-100);
         font-size: var(--fs--1);
         padding-block-start: var(--space-2xs);
         padding-inline: var(--space-xs);

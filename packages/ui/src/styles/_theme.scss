@@ -5,28 +5,19 @@
     /* -------------------------------------------------------------------------------------------------
      * Colors
      * ----------------------------------------------------------------------------------------------- */
-    --c-dark-10: hsl(0deg 0% 45%);
-    --c-dark-15: hsl(0deg 0% 45% / 50%);
-    --c-dark-20: hsl(0deg 0% 26%);
-    --c-dark-25: hsl(0deg 0% 26% / 50%);
-    --c-dark-30: hsl(0deg 0% 16%);
-    --c-dark-35: hsl(0deg 0% 16% / 50%);
-    --c-dark-40: hsl(0deg 0% 1%);
-    --c-dark-45: hsl(0deg 0% 1% / 50%);
-    --c-light-10: hsl(0deg 0% 97%);
-    --c-success-10: hsl(155deg 54% 45%);
-    --c-success-15: hsl(155deg 54% 45% / 50%);
-    --c-error-10: hsl(3deg 68% 57%);
-    --c-error-15: hsl(3deg 68% 57% / 50%);
-    --c-info-10: hsl(266deg 71% 56%);
-    --c-info-15: hsl(266deg 71% 56% / 50%);
-    --gradient-primary: linear-gradient(
-        90deg,
-        var(--c-dark-40) 0%,
-        var(--c-dark-30) 100%
-    );
-    --c-global-text: var(--c-light-10);
-    --c-global-bg: var(--c-dark-40);
+    --c-grey-200: hsl(0deg 0% 97%);
+    --c-grey-300: hsl(0deg 0% 82%);
+    --c-grey-400: hsl(0deg 0% 40%);
+    --c-grey-500: hsl(0deg 0% 11%);
+    --c-grey-600: hsl(0deg 0% 2%);
+    --c-primary: hsl(48deg 100% 50%);
+    --c-primary-light: hsl(48deg 100% 94%);
+    --c-success-100: hsl(155deg 54% 45%);
+    --c-success-150: hsl(155deg 54% 45% / 50%);
+    --c-error-100: hsl(3deg 68% 57%);
+    --c-error-150: hsl(3deg 68% 57% / 50%);
+    --c-global-text: var(--c-grey-600);
+    --c-global-bg: var(--c-grey-200);
 
     /* -------------------------------------------------------------------------------------------------
      * Spacing

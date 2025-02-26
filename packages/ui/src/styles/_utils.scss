@@ -166,21 +166,17 @@ $config: (
     color: (
         prefix: 'c',
         values: (
-            dark-1: var(--c-dark-10),
-            dark-2: var(--c-dark-20),
-            dark-3: var(--c-dark-30),
-            dark-4: var(--c-dark-40),
-            light-1: var(--c-light-10),
-            success: var(--c-success-10),
-            success-0-5: var(--c-success-15),
-            error: var(--c-error-10),
-            error-0-5: var(--c-error-15),
-        ),
-    ),
-    background: (
-        prefix: 'gradient',
-        values: (
-            primary: var(--gradient-primary),
+            grey-200: var(--c-grey-200),
+            grey-300: var(--c-grey-300),
+            grey-400: var(--c-grey-400),
+            grey-500: var(--c-grey-500),
+            grey-600: var(--c-grey-600),
+            primary: var(--c-primary),
+            primary-light: var(--c-primary-light),
+            success-100: var(--c-success-10),
+            success-150: var(--c-success-15),
+            error-100: var(--c-error-10),
+            error-150: var(--c-error-15),
         ),
     ),
 );
