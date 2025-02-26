@@ -1,6 +1,22 @@
 @use './variables' as *;
 @use 'utopia-core-scss/src/utopia' as utopia;
 
+@font-face {
+    font-display: swap;
+    font-family: Geist;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/Geist-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: Geist;
+    font-style: normal;
+    font-weight: 600;
+    src: url('../fonts/Geist-SemiBold.woff2') format('woff2');
+}
+
 :root {
     /* -------------------------------------------------------------------------------------------------
      * Colors
@@ -41,8 +57,8 @@
      * Typography
      * @link https://utopia.fyi/type/calculator?c=320,16,1.2,1240,18,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12
      * ----------------------------------------------------------------------------------------------- */
-    --f-primary: system-ui, -apple-system, segoe ui, roboto, ubuntu, cantarell,
-        noto sans, sans-serif;
+    --f-primary: 'Geist', system-ui, -apple-system, segoe ui, roboto, ubuntu,
+        cantarell, noto sans, sans-serif;
 
     @each $fw in $font-weights {
         --fw-#{$fw}: #{$fw};
