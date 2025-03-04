@@ -2,6 +2,7 @@ import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
 
 import { authClient } from '@repo/core/auth/client';
 
+import { Layout } from '@/components/layout/layout';
 import { ROUTES } from '@/constants';
 
 export const Route = createFileRoute('/_authenticated')({
@@ -24,5 +25,9 @@ export const Route = createFileRoute('/_authenticated')({
 });
 
 function RouteComponent() {
-    return <Outlet />;
+    return (
+        <Layout>
+            <Outlet />
+        </Layout>
+    );
 }
