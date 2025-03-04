@@ -21,10 +21,16 @@
 
 /* Set core body defaults */
 :where(body) {
-    min-height: 100dvh;
     line-height: 1.5;
     /* stylelint-disable-next-line order/properties-order */
     -webkit-font-smoothing: antialiased;
+}
+
+/* stylelint-disable-next-line selector-max-id */
+:where(#root) {
+    display: flex;
+    min-height: 100dvh;
+    flex-direction: column;
 }
 
 /* Make media easier to work with */

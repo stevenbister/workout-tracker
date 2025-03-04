@@ -2,6 +2,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 
 import { authClient } from '@repo/core/auth/client';
 
+import { Layout } from '@/components/layout/layout';
 import { LoginForm } from '@/components/login-form/login-form';
 import { ROUTES } from '@/constants';
 
@@ -20,9 +21,9 @@ export const Route = createFileRoute('/login')({
 
 export function RouteComponent() {
     return (
-        <>
-            <h1>Login</h1>
+        <Layout>
+            <h1 className="mx-auto mb-2xl">Login</h1>
             <LoginForm />
-        </>
+        </Layout>
     );
 }

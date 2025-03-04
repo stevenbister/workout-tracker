@@ -11,6 +11,8 @@ import { ROUTES } from '@/constants';
 import data from '@/content/validation.json';
 import { validateEmail } from '@/utils/validate-email';
 
+import styles from './login-form.module.scss';
+
 type FormFields = {
     email?: string | undefined;
     password?: string | undefined;
@@ -109,17 +111,19 @@ export const LoginForm = () => {
     ];
 
     return (
-        <form method="post" onSubmit={handleSubmit} noValidate>
+        <form
+            method="post"
+            onSubmit={handleSubmit}
+            noValidate
+            className={styles.form}
+        >
             {formFields.map((field) => (
                 <Input key={field.name} {...field} />
             ))}
 
             <Alert status="error" heading={formError} />
 
-            <Button status="info">
-                {/* TODO: Add a spinner */}
-                {isLoading ? 'Logging in...' : 'Log in'}
-            </Button>
+            <Button isLoading={isLoading}>Log in</Button>
         </form>
     );
 };

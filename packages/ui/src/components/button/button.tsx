@@ -10,11 +10,13 @@ import {
 
 import type { Status } from '../../types';
 import { classList } from '../../utils/class-list';
+import { Spinner } from '../spinner/spinner';
 import styles from './button.module.scss';
 
 export type ButtonProps = {
     variant?: 'ghost';
     status?: Extract<Status, 'success'> | 'danger';
+    isLoading?: boolean;
 };
 
 type Merge<P1 = object, P2 = object> = Omit<P1, keyof P2> & P2;
@@ -41,10 +43,13 @@ interface ForwardRefComponent<IntrinsicElementString, OwnProps = ButtonProps>
 }
 
 export const Button = forwardRef(
-    // eslint-disable-next-line react/prop-types
-    ({ as: Element = 'button', variant, status, ...rest }, forwardedRef) => (
+    (
+        { as: Element = 'button', variant, status, isLoading, ...rest },
+        forwardedRef
+    ) => (
         <Element
             {...rest}
+            disabled={isLoading}
             className={classList(
                 styles.btn,
                 variant && styles[variant],
@@ -52,7 +57,16 @@ export const Button = forwardRef(
                 rest.className
             )}
             ref={forwardedRef}
-        />
+        >
+            {isLoading ? (
+                <>
+                    <Spinner className={styles.spinner} />
+                    <span className="sr-only">Loading</span>
+                </>
+            ) : (
+                rest.children
+            )}
+        </Element>
     )
 ) as ForwardRefComponent<'button'>;
 

@@ -45,10 +45,15 @@ $config: (
     ),
     margin-inline: (
         prefix: 'mx',
-        values: map-space-scale-properties(
-                list.length($space-scale-negative-steps),
-                list.length($space-scale-positive-steps),
-                $space-scale-prefix
+        values: map.merge(
+                map-space-scale-properties(
+                    list.length($space-scale-negative-steps),
+                    list.length($space-scale-positive-steps),
+                    $space-scale-prefix
+                ),
+                (
+                    'auto': auto,
+                )
             ),
     ),
     margin-block-start: (
@@ -194,4 +199,18 @@ $config: (
             }
         }
     }
+}
+
+.stack > * + * {
+    margin-block-start: var(--space-m);
+}
+
+.sr-only:not(:focus, :active) {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
 }
