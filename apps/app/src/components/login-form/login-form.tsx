@@ -123,10 +123,7 @@ export const LoginForm = () => {
 
             <Alert status="error" heading={formError} />
 
-            <Button>
-                {/* TODO: Add a spinner */}
-                {isLoading ? 'Logging in...' : 'Log in'}
-            </Button>
+            <Button isLoading={isLoading}>Log in</Button>
         </form>
     );
 };

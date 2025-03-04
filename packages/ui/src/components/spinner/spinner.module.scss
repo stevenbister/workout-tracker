@@ -1,0 +1,25 @@
+@layer components {
+    .spinner {
+        --_spinner-radius: var(--r-circle);
+        --_spinner-thickness: var(--space-3xs);
+
+        display: inline-block;
+        height: var(--spinner-height, 2rem);
+        box-sizing: border-box;
+        border: var(--_spinner-thickness) solid currentcolor;
+        border-radius: var(--_spinner-radius);
+        border-bottom-color: transparent;
+        animation: spin 1s linear infinite;
+        aspect-ratio: 1;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}

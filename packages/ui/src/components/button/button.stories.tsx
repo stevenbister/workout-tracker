@@ -64,3 +64,9 @@ export const Anchor: Story = {
         href: '/',
     },
 };
+
+export const isLoading: Story = {
+    args: {
+        isLoading: true,
+    },
+};
