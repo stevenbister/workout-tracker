@@ -1,7 +1,9 @@
-.form {
-    --_form-gap: var(--space-xl);
+@layer components {
+    .form {
+        --_form-gap: var(--space-xl);
 
-    display: flex;
-    flex-direction: column;
-    gap: var(--_form-gap);
+        display: flex;
+        flex-direction: column;
+        gap: var(--_form-gap);
+    }
 }

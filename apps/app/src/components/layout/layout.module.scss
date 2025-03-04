@@ -1,6 +1,8 @@
-.layout {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1 0 auto;
+@layer components {
+    .layout {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1 0 auto;
+    }
 }
