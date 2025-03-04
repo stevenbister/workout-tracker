@@ -22,7 +22,7 @@ export const Input = ({
     const validationMessageId = useId();
 
     return (
-        <div>
+        <div className={styles.container}>
             <label className={classList(styles.input, styles[state])}>
                 <span>{label}</span>
                 <input

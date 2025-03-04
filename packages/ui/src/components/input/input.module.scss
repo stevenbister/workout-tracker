@@ -3,6 +3,10 @@
 @use '../../styles/mixins/outline' as *;
 
 @layer components {
+    .container {
+        position: relative;
+    }
+
     .input {
         --_input-border: var(--c-grey-400);
         --_input-bg: transparent;
@@ -44,6 +48,7 @@
     }
 
     .validation-message {
+        position: absolute;
         color: var(--c-error-100);
         font-size: var(--fs--1);
         padding-block-start: var(--space-2xs);
