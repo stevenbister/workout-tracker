@@ -22,7 +22,7 @@ export const Input = ({
     const validationMessageId = useId();
 
     return (
-        <>
+        <div>
             <label className={classList(styles.input, styles[state])}>
                 <span>{label}</span>
                 <input
@@ -38,6 +38,6 @@ export const Input = ({
             >
                 {validationMessage}
             </div>
-        </>
+        </div>
     );
 };
