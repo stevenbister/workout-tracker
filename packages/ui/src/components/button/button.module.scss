@@ -90,6 +90,21 @@
         }
     }
 
+    .link {
+        --_btn-color-bg: transparent;
+        --_btn-color-fg: var(--c-grey-500);
+        --_btn-gap-s: 0;
+        --_btn-gap-m: 0;
+
+        @include hover {
+            --_btn-color-bg: transparent;
+        }
+
+        &:active {
+            --_btn-color-bg: transparent;
+        }
+    }
+
     .spinner {
         --spinner-height: var(--_btn-height);
     }
