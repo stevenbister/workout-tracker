@@ -1,0 +1,8 @@
+@layer components {
+    .icon {
+        --_icon-size: 1em;
+
+        width: var(--_icon-size);
+        height: var(--_icon-size);
+    }
+}
