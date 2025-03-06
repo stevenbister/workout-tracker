@@ -19,6 +19,7 @@ export default mergeConfig(
                     './*.config.{ts,js}',
                     './src/**/*.stories.{ts,tsx}',
                     './stories/**/*',
+                    './plugins/**/*',
                 ],
             },
         },
