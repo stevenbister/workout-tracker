@@ -4,9 +4,10 @@ import {
     createBrowserHistory,
     createRouter,
 } from '@tanstack/react-router';
-import { render, waitFor } from '@testing-library/react';
 
 import { type AuthClient, authClient } from '@repo/core/auth/client';
+
+import { render, waitFor } from '@repo/ui/tests/utils';
 
 import { ROUTES } from '@/constants';
 import { Route as logoutRoute } from '@/routes/logout';
@@ -58,6 +59,19 @@ it('redirects unauthenticated users to the login page when logout is successful'
                 success: true,
             },
             error: null,
+        },
+    });
+
+    expect(window.location.pathname).toBe(ROUTES.LOGIN);
+});
+
+it('redirects unauthenticated users to the login page if an error occurs', async () => {
+    await setup({
+        signOut: {
+            data: null,
+            error: {
+                code: 'FAILED_TO_GET_SESSION',
+            },
         },
     });
 

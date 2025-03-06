@@ -4,9 +4,10 @@ import {
     createBrowserHistory,
     createRouter,
 } from '@tanstack/react-router';
-import { render, waitFor } from '@testing-library/react';
 
 import { type AuthClient, authClient } from '@repo/core/auth/client';
+
+import { render, waitFor } from '@repo/ui/tests/utils';
 
 import { ROUTES } from '@/constants';
 import { Route as _authenticatedRoute } from '@/routes/_authenticated';

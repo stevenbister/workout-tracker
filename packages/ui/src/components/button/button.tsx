@@ -14,7 +14,7 @@ import { Spinner } from '../spinner/spinner';
 import styles from './button.module.scss';
 
 export type ButtonProps = {
-    variant?: 'ghost';
+    variant?: 'ghost' | 'link';
     status?: Extract<Status, 'success'> | 'danger';
     isLoading?: boolean;
 };

@@ -22,7 +22,7 @@ export const config = [
             '@typescript-eslint/consistent-type-imports': [
                 'error',
                 {
-                    disallowTypeAnnotations: true,
+                    disallowTypeAnnotations: false,
                     fixStyle: 'separate-type-imports',
                     prefer: 'type-imports',
                 },

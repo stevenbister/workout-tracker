@@ -3,9 +3,9 @@ import { type FormEvent, useState } from 'react';
 
 import { authClient } from '@repo/core/auth/client';
 
-import { Alert } from '@repo/ui/components/alert';
 import { Button } from '@repo/ui/components/button';
 import { Input, type InputProps } from '@repo/ui/components/input';
+import { toast } from '@repo/ui/components/toast';
 
 import { ROUTES } from '@/constants';
 import data from '@/content/validation.json';
@@ -22,7 +22,6 @@ export const LoginForm = () => {
     const [email, setEmail] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const [formError, setFormError] = useState<string | undefined>(undefined);
     const [validationMessage, setValidationMessage] = useState<
         FormFields | undefined
     >(undefined);
@@ -40,8 +39,8 @@ export const LoginForm = () => {
 
         if (!entries?.email || !entries?.password) {
             setValidationMessage({
-                email: !entries?.email ? data.email.empty : '',
-                password: !entries?.password ? data.password.empty : '',
+                email: data.email.empty,
+                password: data.password.empty,
             });
             return;
         }
@@ -53,7 +52,6 @@ export const LoginForm = () => {
                 ...validationMessage,
                 email: data.email.invalid,
             });
-            setFormError(undefined);
             return;
         }
 
@@ -64,12 +62,19 @@ export const LoginForm = () => {
             fetchOptions: {
                 onRequest: () => setIsLoading(true),
                 onError: (e) => {
-                    setFormError(e.error.message);
+                    console.error(e);
+                    toast.render({
+                        title: 'Oops, something went wrong',
+                        description:
+                            e.error.message ?? 'Please try again later',
+                        status: 'error',
+                        button: {},
+                    });
+
                     setIsLoading(false);
                 },
                 onSuccess: () => {
                     setIsLoading(false);
-                    setFormError(undefined);
                     setValidationMessage(undefined);
                 },
             },
@@ -120,8 +125,6 @@ export const LoginForm = () => {
             {formFields.map((field) => (
                 <Input key={field.name} {...field} />
             ))}
-
-            <Alert status="error" heading={formError} />
 
             <Button isLoading={isLoading}>Log in</Button>
         </form>

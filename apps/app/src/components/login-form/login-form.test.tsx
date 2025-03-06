@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { authClient } from '@repo/core/auth/client';
+
+import { render, screen } from '@repo/ui/tests/utils';
 
 import { ROUTES } from '@/constants';
 import data from '@/content/validation.json';
@@ -21,6 +22,7 @@ vi.mock('@repo/core/auth/client', () => ({
 }));
 
 const mockErrorMessage = 'Invalid credentials';
+const mockPassword = 'Password1234';
 
 const setup = () => {
     vi.mocked(authClient.signIn.email).mockImplementation(
@@ -53,7 +55,6 @@ it('renders the login form', () => {
         })
     ).toBeInTheDocument();
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
-    expect(screen.getByRole('alert')).toBeInTheDocument();
     expect(
         screen.getByRole('button', {
             name: 'Log in',
@@ -74,6 +75,26 @@ it('displays validation errors when email and password are empty', async () => {
     );
 });
 
+it('clears validation errors when email and password are no longer empty', async () => {
+    const { user } = setup();
+
+    const emailInput = screen.getByLabelText('Email');
+    const passwordInput = screen.getByLabelText('Password');
+
+    await user.click(screen.getByRole('button'));
+
+    expect(emailInput).toHaveAccessibleDescription(data.email.empty);
+    expect(passwordInput).toHaveAccessibleDescription(data.password.empty);
+
+    await user.type(screen.getByLabelText('Email'), 'test@test.com');
+    await user.type(screen.getByLabelText('Password'), mockPassword);
+
+    await user.click(document.body);
+
+    expect(emailInput).not.toHaveAccessibleDescription(data.email.empty);
+    expect(passwordInput).not.toHaveAccessibleDescription(data.password.empty);
+});
+
 it('displays validation message when email is invalid', async () => {
     const { user } = setup();
 
@@ -90,21 +111,22 @@ it('displays a form error when the form is submitted with invalid credentials', 
     const { user } = setup();
 
     await user.type(screen.getByLabelText('Email'), 'test@test.com');
-    await user.type(screen.getByLabelText('Password'), 'Password123');
+    await user.type(screen.getByLabelText('Password'), mockPassword);
     await user.click(screen.getByRole('button'));
 
     expect(
-        screen.getByRole('alert', {
-            name: mockErrorMessage,
+        screen.getByRole('region', {
+            name: 'Notifications alt+T',
         })
     ).toBeInTheDocument();
+    expect(screen.getByText('Invalid credentials')).toBeInTheDocument();
 });
 
 it('calls signIn when the form is submitted with valid credentials', async () => {
     const { user } = setup();
 
     await user.type(screen.getByLabelText('Email'), 'test@test.com');
-    await user.type(screen.getByLabelText('Password'), 'Password123');
+    await user.type(screen.getByLabelText('Password'), mockPassword);
     await user.click(screen.getByRole('button'));
 
     expect(authClient.signIn.email).toHaveBeenNthCalledWith(
@@ -112,7 +134,7 @@ it('calls signIn when the form is submitted with valid credentials', async () =>
         expect.objectContaining({
             callbackURL: ROUTES.ROOT,
             email: 'test@test.com',
-            password: 'Password123',
+            password: mockPassword,
             fetchOptions: {
                 onSuccess: expect.any(Function),
                 onError: expect.any(Function),
@@ -126,17 +148,18 @@ it('clears validation errors when the form is submitted with valid credentials',
     const { user } = setup();
 
     const emailInput = screen.getByLabelText('Email');
+    const passwordInput = screen.getByLabelText('Password');
+    const button = screen.getByRole('button');
 
     await user.type(emailInput, 'test@');
-    await user.type(screen.getByLabelText('Password'), 'Password123');
-    await user.click(screen.getByRole('button'));
+    await user.type(passwordInput, mockPassword);
+    await user.click(button);
 
     expect(emailInput).toHaveAccessibleDescription(data.email.invalid);
 
-    await user.clear(emailInput);
-    await user.type(emailInput, 'test@test.com');
-    await user.type(screen.getByLabelText('Password'), 'Password123');
-    await user.click(screen.getByRole('button'));
+    await user.type(emailInput, 'test.com');
+    await user.type(passwordInput, mockPassword);
+    await user.click(button);
 
     expect(emailInput).not.toHaveAccessibleDescription(data.email.invalid);
 });
