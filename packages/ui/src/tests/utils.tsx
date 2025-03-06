@@ -6,8 +6,7 @@ import {
 } from '@testing-library/react';
 import type { ReactElement, ReactNode } from 'react';
 
-import { SpritesheetProvider } from '@/components/icon/icon';
-
+import { SpritesheetProvider } from '../components/icon/icon';
 import { Toaster } from '../components/toast/toast';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
