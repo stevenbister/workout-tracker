@@ -14,6 +14,7 @@ const config: StorybookConfig = {
         '../stories/**/*.mdx',
         '../src/**/*.stories.@(ts|tsx)',
     ],
+    staticDirs: ['../static'],
     addons: [
         getAbsolutePath('@storybook/addon-onboarding'),
         getAbsolutePath('@storybook/addon-essentials'),
