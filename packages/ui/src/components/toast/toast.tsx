@@ -23,24 +23,19 @@ type toast = Omit<typeof sonnerToast, 'custom'> & {
 export const toast: toast = {
     ...sonnerToast,
     render: ({ title, description, button, status }) =>
-        sonnerToast.custom(
-            (id) => (
-                <Toast
-                    id={id}
-                    title={title}
-                    description={description}
-                    button={
-                        button && {
-                            onClick: button.onClick ?? undefined,
-                        }
+        sonnerToast.custom((id) => (
+            <Toast
+                id={id}
+                title={title}
+                description={description}
+                button={
+                    button && {
+                        onClick: button.onClick ?? undefined,
                     }
-                    status={status}
-                />
-            ),
-            {
-                duration: Infinity,
-            }
-        ),
+                }
+                status={status}
+            />
+        )),
 };
 
 export const Toaster = () => <SonnerToaster />;
