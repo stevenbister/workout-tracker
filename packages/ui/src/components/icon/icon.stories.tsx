@@ -1,18 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Icon, SpritesheetProvider } from './icon';
+import { Icon } from './icon';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta<typeof Icon> = {
     title: 'Icon',
     component: Icon,
-    decorators: [
-        (Story) => (
-            <SpritesheetProvider spriteSheetPath="/spritesheet.svg">
-                <Story />
-            </SpritesheetProvider>
-        ),
-    ],
     render: (args) => <Icon {...args} />,
     parameters: {
         // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
