@@ -1,5 +1,7 @@
-import { render, screen } from '@/tests/utils';
+// eslint-disable-next-line no-restricted-imports
+import { render as rtlRender } from '@testing-library/react';
 
+import { render, screen } from '../../tests/utils';
 import {
     Icon,
     type IconProps,
@@ -62,7 +64,7 @@ describe('SpritesheetProvider', () => {
             .spyOn(console, 'error')
             .mockImplementation(() => {});
 
-        expect(() => render(<Icon spriteId="icon-test" />)).toThrowError(
+        expect(() => rtlRender(<Icon spriteId="icon-test" />)).toThrowError(
             'useSpritesheetContext was used outside of its provider'
         );
 
@@ -71,7 +73,11 @@ describe('SpritesheetProvider', () => {
 
     it('uses a custom spriteSheetPath when provided', () => {
         const altMockSpritesheetPath = '/custom/spritesheet.svg';
-        setup({ spriteSheetPath: altMockSpritesheetPath });
+        rtlRender(
+            <SpritesheetProvider spriteSheetPath={altMockSpritesheetPath}>
+                <Icon spriteId={defaultIconProps.spriteId} data-testid="icon" />
+            </SpritesheetProvider>
+        );
 
         const svgElement = screen.getByTestId('icon');
         const useElement = svgElement.querySelector('use');

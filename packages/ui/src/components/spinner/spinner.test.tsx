@@ -1,5 +1,4 @@
-import { render, screen } from '@/tests/utils';
-
+import { render, screen } from '../../tests/utils';
 import type { SpinnerProps } from './spinner';
 import { Spinner } from './spinner';
 

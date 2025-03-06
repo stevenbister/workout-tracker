@@ -1,8 +1,7 @@
 import userEvent from '@testing-library/user-event';
 import { toast as sonnerToast } from 'sonner';
 
-import { render, screen } from '@/tests/utils';
-
+import { render, screen } from '../../tests/utils';
 import type { Status } from '../../types';
 import type { ToastProps } from './toast';
 import { toast } from './toast';
@@ -55,6 +54,8 @@ it('dismisses the toast when the close button is clicked', async () => {
             name: 'Dismiss toast',
         })
     );
+
+    screen.debug();
 
     expect(sonnerToast.dismiss).toHaveBeenCalledTimes(1);
 });

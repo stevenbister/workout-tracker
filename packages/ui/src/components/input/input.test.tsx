@@ -1,5 +1,4 @@
-import { render, screen } from '@/tests/utils';
-
+import { render, screen } from '../../tests/utils';
 import type { InputProps } from './input';
 import { Input } from './input';
 
