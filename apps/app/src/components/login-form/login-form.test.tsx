@@ -54,7 +54,6 @@ it('renders the login form', () => {
         })
     ).toBeInTheDocument();
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
-    expect(screen.getByRole('alert')).toBeInTheDocument();
     expect(
         screen.getByRole('button', {
             name: 'Log in',
@@ -95,10 +94,11 @@ it('displays a form error when the form is submitted with invalid credentials', 
     await user.click(screen.getByRole('button'));
 
     expect(
-        screen.getByRole('alert', {
-            name: mockErrorMessage,
+        screen.getByRole('region', {
+            name: 'Notifications alt+T',
         })
     ).toBeInTheDocument();
+    expect(screen.getByText('Invalid credentials')).toBeInTheDocument();
 });
 
 it('calls signIn when the form is submitted with valid credentials', async () => {
