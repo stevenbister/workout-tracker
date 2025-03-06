@@ -1,8 +1,7 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { createContext, useContext } from 'react';
 
-import { classList } from '@/utils/class-list';
-
+import { classList } from '../../utils/class-list';
 import styles from './icon.module.scss';
 
 export interface IconProps extends ComponentPropsWithoutRef<'svg'> {

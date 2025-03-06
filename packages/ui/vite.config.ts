@@ -1,4 +1,3 @@
-import path from 'node:path';
 import { defineConfig } from 'vite';
 
 import config from '@repo/vite-config/vite';
@@ -14,9 +13,4 @@ export default defineConfig({
             hook: 'buildStart',
         }),
     ],
-    resolve: {
-        alias: {
-            '@': path.resolve(__dirname, './src'),
-        },
-    },
 });
