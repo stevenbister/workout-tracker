@@ -6,7 +6,8 @@
     "exports": {
         "./components/*": "./src/components/*/*.tsx",
         "./utils/*": "./src/utils/*.ts",
-        "./styles/main.scss": "./src/styles/main.scss"
+        "./styles/main.scss": "./src/styles/main.scss",
+        "./tests/utils": "./src/tests/utils.tsx"
     },
     "scripts": {
         "lint": "eslint . && stylelint **/*.scss",

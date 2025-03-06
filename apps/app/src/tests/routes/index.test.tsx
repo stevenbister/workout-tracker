@@ -4,7 +4,8 @@ import {
     createBrowserHistory,
     createRouter,
 } from '@tanstack/react-router';
-import { render, screen, waitFor } from '@testing-library/react';
+
+import { render, screen, waitFor } from '@repo/ui/tests/utils';
 
 import { ROUTES } from '@/constants';
 import { Route as indexRoute } from '@/routes/_authenticated/index';

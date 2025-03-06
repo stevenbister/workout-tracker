@@ -7,5 +7,20 @@ export default [
     ...config,
     {
         ignores: ['./src/routeTree.gen.ts'],
+        rules: {
+            ...config.rules,
+            'no-restricted-imports': [
+                'error',
+                {
+                    paths: [
+                        {
+                            name: '@testing-library/react',
+                            message:
+                                "Please do not import from '@testing-library/react'. Import from '@repo/ui/tests/utils' instead.",
+                        },
+                    ],
+                },
+            ],
+        },
     },
 ];

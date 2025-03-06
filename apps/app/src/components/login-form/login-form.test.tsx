@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { authClient } from '@repo/core/auth/client';
+
+import { render, screen } from '@repo/ui/tests/utils';
 
 import { ROUTES } from '@/constants';
 import data from '@/content/validation.json';
