@@ -39,8 +39,8 @@ export const LoginForm = () => {
 
         if (!entries?.email || !entries?.password) {
             setValidationMessage({
-                email: !entries?.email ? data.email.empty : '',
-                password: !entries?.password ? data.password.empty : '',
+                email: data.email.empty,
+                password: data.password.empty,
             });
             return;
         }
@@ -62,13 +62,13 @@ export const LoginForm = () => {
             fetchOptions: {
                 onRequest: () => setIsLoading(true),
                 onError: (e) => {
+                    console.error(e);
                     toast.render({
                         title: 'Oops, something went wrong',
-                        description: e.error.message,
+                        description:
+                            e.error.message ?? 'Please try again later',
                         status: 'error',
-                        button: {
-                            onClick: () => {},
-                        },
+                        button: {},
                     });
 
                     setIsLoading(false);

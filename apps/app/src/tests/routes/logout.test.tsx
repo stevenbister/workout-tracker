@@ -64,3 +64,16 @@ it('redirects unauthenticated users to the login page when logout is successful'
 
     expect(window.location.pathname).toBe(ROUTES.LOGIN);
 });
+
+it('redirects unauthenticated users to the login page if an error occurs', async () => {
+    await setup({
+        signOut: {
+            data: null,
+            error: {
+                code: 'FAILED_TO_GET_SESSION',
+            },
+        },
+    });
+
+    expect(window.location.pathname).toBe(ROUTES.LOGIN);
+});
