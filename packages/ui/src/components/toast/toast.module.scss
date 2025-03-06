@@ -53,6 +53,11 @@
         flex-shrink: 0;
     }
 
+    .close-icon {
+        fill: transparent;
+        stroke: currentcolor;
+    }
+
     .status-icon {
         align-self: start;
         grid-column: 1 / 2;

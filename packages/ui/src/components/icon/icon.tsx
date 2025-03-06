@@ -9,6 +9,7 @@ export interface IconProps extends ComponentPropsWithoutRef<'svg'> {
     spriteId: string;
     width?: number;
     height?: number;
+    title?: string;
 }
 
 export const Icon = ({
@@ -16,6 +17,7 @@ export const Icon = ({
     width = 100,
     height = 100,
     className,
+    title,
     ...rest
 }: IconProps) => {
     const { spriteSheetPath } = useSpritesheetContext();
@@ -30,6 +32,7 @@ export const Icon = ({
             fill="currentColor"
             {...rest}
         >
+            {title ? <title>{title}</title> : null}
             <use href={`${spriteSheetPath}#${spriteId}`} />
         </svg>
     );
@@ -60,8 +63,6 @@ export interface SpritesheetProviderProps {
 }
 export const SpritesheetProvider = (props: SpritesheetProviderProps) => {
     const { children, spriteSheetPath = './spritesheet.svg' } = props;
-
-    console.log('spriteSheetPath', spriteSheetPath);
 
     return (
         <SpritesheetContext.Provider

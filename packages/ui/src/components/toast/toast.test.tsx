@@ -1,10 +1,11 @@
-import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { toast as sonnerToast } from 'sonner';
 
+import { render, screen } from '@/tests/utils';
+
 import type { Status } from '../../types';
 import type { ToastProps } from './toast';
-import { Toaster, toast } from './toast';
+import { toast } from './toast';
 
 vi.mock('sonner', async (importOriginal) => ({
     ...(await importOriginal<typeof import('sonner')>()),
@@ -25,12 +26,9 @@ const defaultProps: ToastProps = {
 const setup = (props?: Partial<ToastProps>) => ({
     user: userEvent.setup(),
     ...render(
-        <>
-            <Toaster />
-            <button onClick={() => toast.render({ ...defaultProps, ...props })}>
-                {toastTriggerText}
-            </button>
-        </>
+        <button onClick={() => toast.render({ ...defaultProps, ...props })}>
+            {toastTriggerText}
+        </button>
     ),
 });
 
