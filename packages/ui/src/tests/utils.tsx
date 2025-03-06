@@ -1,4 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable no-restricted-imports, react-refresh/only-export-components */
 import {
     type RenderOptions,
     type RenderResult,

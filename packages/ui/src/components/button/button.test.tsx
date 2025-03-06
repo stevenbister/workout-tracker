@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '@/tests/utils';
 
 import { Button, type ButtonProps } from './button';
 

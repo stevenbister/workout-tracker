@@ -10,6 +10,18 @@ const config = [
                 'warn',
                 { allowConstantExport: true },
             ],
+            'no-restricted-imports': [
+                'error',
+                {
+                    paths: [
+                        {
+                            name: '@testing-library/react',
+                            message:
+                                "Please do not import from '@testing-library/react'. Import from '@/tests/utils' instead.",
+                        },
+                    ],
+                },
+            ],
         },
     },
 ];
