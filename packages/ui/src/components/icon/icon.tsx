@@ -28,7 +28,11 @@ export const Icon = ({
             height={height}
             viewBox={`0 0 ${width} ${height}`}
             className={classList(styles.icon, className)}
-            fill="currentColor"
+            fill="transparent"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             {...rest}
         >
             {title ? <title>{title}</title> : null}
