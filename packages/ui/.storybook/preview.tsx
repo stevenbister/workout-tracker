@@ -1,8 +1,17 @@
+/* eslint-disable react-refresh/only-export-components */
 import type { Preview } from '@storybook/react';
-import React from 'react';
+import { RouterProvider } from '@tanstack/react-router';
+import React, { type ReactNode } from 'react';
 
 import { SpritesheetProvider } from '../src/components/icon/icon';
 import '../src/styles/main.scss';
+import { router } from './ts-router';
+
+const SbComponent = ({ Story }: { Story: () => ReactNode }) => (
+    <SpritesheetProvider spriteSheetPath="/spritesheet.svg">
+        <Story />
+    </SpritesheetProvider>
+);
 
 const preview: Preview = {
     parameters: {
@@ -15,9 +24,10 @@ const preview: Preview = {
     },
     decorators: [
         (Story) => (
-            <SpritesheetProvider spriteSheetPath="/spritesheet.svg">
-                <Story />
-            </SpritesheetProvider>
+            <RouterProvider
+                router={router}
+                defaultComponent={() => <SbComponent Story={Story} />}
+            />
         ),
     ],
 };

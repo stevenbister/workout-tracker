@@ -281,6 +281,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@tanstack/react-router':
+        specifier: ^1.109.2
+        version: 1.109.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
