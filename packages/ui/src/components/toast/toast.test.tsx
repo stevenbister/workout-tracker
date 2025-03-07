@@ -1,18 +1,9 @@
 import userEvent from '@testing-library/user-event';
-import { toast as sonnerToast } from 'sonner';
 
-import { render, screen } from '../../tests/utils';
+import { render, screen, waitFor } from '../../tests/utils';
 import type { Status } from '../../types';
 import type { ToastProps } from './toast';
 import { toast } from './toast';
-
-vi.mock('sonner', async (importOriginal) => ({
-    ...(await importOriginal<typeof import('sonner')>()),
-    toast: {
-        ...(await importOriginal<typeof import('sonner')>()).toast,
-        dismiss: vi.fn(),
-    },
-}));
 
 const toastTriggerText = 'Show toast';
 
@@ -55,9 +46,9 @@ it('dismisses the toast when the close button is clicked', async () => {
         })
     );
 
-    screen.debug();
-
-    expect(sonnerToast.dismiss).toHaveBeenCalledTimes(1);
+    await waitFor(() =>
+        expect(screen.queryByText(defaultProps.title)).not.toBeInTheDocument()
+    );
 });
 
 it.each(['error', 'success'] as Status[])(
