@@ -6,7 +6,6 @@ import {
     createRouter,
     useRouterState,
 } from '@tanstack/react-router';
-import React from 'react';
 
 const NotFoundComponent = () => {
     const state = useRouterState();
