@@ -1,6 +1,8 @@
 import { HeadContent, Outlet, createRootRoute } from '@tanstack/react-router';
 import { lazy } from 'react';
 
+import { SpritesheetProvider } from '@repo/ui/components/icon';
+
 const TanStackRouterDevtools =
     process.env.NODE_ENV === 'production'
         ? () => null
@@ -25,7 +27,9 @@ function RootComponent() {
     return (
         <>
             <HeadContent />
-            <Outlet />
+            <SpritesheetProvider>
+                <Outlet />
+            </SpritesheetProvider>
             <TanStackRouterDevtools />
         </>
     );

@@ -1,4 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
+/* eslint-disable no-restricted-imports, react-refresh/only-export-components */
 import {
     type RenderOptions,
     type RenderResult,
@@ -6,13 +6,14 @@ import {
 } from '@testing-library/react';
 import type { ReactElement, ReactNode } from 'react';
 
+import { SpritesheetProvider } from '../components/icon/icon';
 import { Toaster } from '../components/toast/toast';
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
-    <>
+    <SpritesheetProvider>
         {children}
         <Toaster />
-    </>
+    </SpritesheetProvider>
 );
 
 const customRender = (

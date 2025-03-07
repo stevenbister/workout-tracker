@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-
+import { render, screen } from '../../tests/utils';
 import type { InputProps } from './input';
 import { Input } from './input';
 

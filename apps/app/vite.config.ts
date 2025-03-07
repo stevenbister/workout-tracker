@@ -10,6 +10,7 @@ export default defineConfig({
         TanStackRouterVite({ autoCodeSplitting: true }),
         ...config.plugins,
     ],
+    assetsInclude: ['**/*.svg'],
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src'),
