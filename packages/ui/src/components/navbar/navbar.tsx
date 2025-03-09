@@ -15,7 +15,7 @@ export interface NavbarProps {
 
 export const Navbar = ({ items }: NavbarProps) => {
     return (
-        <nav className={styles.navbar}>
+        <nav className={styles.navbar} aria-label="Main navigation">
             <ul>
                 {items.map(({ name, route, icon }) => (
                     <NavItem
