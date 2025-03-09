@@ -29,6 +29,12 @@ export const getAuth = (db: DB, options: Options) => {
         basePath: `${API_PREFIX}/auth`,
         // TODO: env var here
         trustedOrigins: ['http://localhost:5173'],
+        session: {
+            cookieCache: {
+                enabled: true,
+                maxAge: 5 * 60, // Cache duration in seconds
+            },
+        },
         emailAndPassword: {
             enabled: true,
             password: {

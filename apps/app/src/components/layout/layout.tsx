@@ -15,8 +15,7 @@ interface LayoutProps {
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-    // TODO: maybe this could go into a provider so we only call it once
-    const session = authClient.useSession();
+    const { data } = authClient.useSession();
 
     return (
         <>
@@ -24,7 +23,7 @@ export const Layout = ({ children }: LayoutProps) => {
                 {children}
             </main>
 
-            {session.data ? (
+            {data?.session ? (
                 <Navbar
                     items={[
                         {
