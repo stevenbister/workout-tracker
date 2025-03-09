@@ -22,25 +22,29 @@ const mockOptions = {
 it('calls betterAuth with correct options', async () => {
     getAuth(mockDB, mockOptions);
 
-    expect(betterAuth).toHaveBeenNthCalledWith(
-        1,
-        expect.objectContaining({
-            database: expect.any(Function),
-            baseURL: mockOptions.baseURL,
-            basePath: `${API_PREFIX}/auth`,
-            emailAndPassword: expect.objectContaining({
+    expect(betterAuth).toHaveBeenNthCalledWith(1, {
+        database: expect.any(Function),
+        baseURL: mockOptions.baseURL,
+        basePath: `${API_PREFIX}/auth`,
+        trustedOrigins: ['http://localhost:5173'],
+        session: {
+            cookieCache: {
                 enabled: true,
-                password: {
-                    hash: mockOptions.hashFn,
-                    verify: mockOptions.verifyFn,
-                },
-            }),
-            rateLimit: expect.objectContaining({
-                storage: 'database',
-                modelName: 'rateLimit',
-            }),
-        })
-    );
+                maxAge: 5 * 60,
+            },
+        },
+        emailAndPassword: {
+            enabled: true,
+            password: {
+                hash: mockOptions.hashFn,
+                verify: mockOptions.verifyFn,
+            },
+        },
+        rateLimit: {
+            storage: 'database',
+            modelName: 'rateLimit',
+        },
+    });
 });
 
 it('throws error if DB is not provided', async () => {
