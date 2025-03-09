@@ -74,7 +74,7 @@ it('renders the navbar if there is a user session', () => {
     setup({
         useSession: {
             data: {
-                user: {},
+                session: {},
             },
             error: null,
         } as SetupOptions['useSession'],

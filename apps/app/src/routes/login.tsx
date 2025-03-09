@@ -8,13 +8,12 @@ import { ROUTES } from '@/constants';
 
 export const Route = createFileRoute('/login')({
     beforeLoad: async () => {
-        const session = await authClient.getSession();
+        const { data } = await authClient.getSession();
 
-        if (session.data) {
+        if (data?.session)
             throw redirect({
                 to: ROUTES.ROOT,
             });
-        }
     },
     component: RouteComponent,
 });

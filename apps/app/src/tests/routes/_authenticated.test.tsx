@@ -59,7 +59,9 @@ it('redirects unauthenticated users to the login page', async () => {
 it('redirects user back to the original page if they are authenticated', async () => {
     await setup({
         getSession: {
-            data: {},
+            data: {
+                session: {},
+            },
             error: null,
         },
     });

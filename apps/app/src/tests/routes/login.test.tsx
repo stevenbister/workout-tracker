@@ -72,7 +72,7 @@ it('redirects the user to the root page if they are authenticated', async () => 
     await setup({
         getSession: {
             data: {
-                user: {},
+                session: {},
             },
             error: null,
         },
