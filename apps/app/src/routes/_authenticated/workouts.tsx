@@ -4,6 +4,6 @@ export const Route = createFileRoute('/_authenticated/workouts')({
     component: RouteComponent,
 });
 
-function RouteComponent() {
+export function RouteComponent() {
     return <div>Hello /_authenticated/workouts!</div>;
 }
