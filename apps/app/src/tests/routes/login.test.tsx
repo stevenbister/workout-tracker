@@ -20,6 +20,7 @@ vi.mock('@tanstack/react-router', async (importOriginal) => ({
 vi.mock('@repo/core/auth/client', () => ({
     authClient: {
         getSession: vi.fn(),
+        useSession: vi.fn().mockReturnValue({ data: null, error: null }),
         signIn: {
             email: vi.fn(),
         },

@@ -10,6 +10,12 @@ const config = [
                 'warn',
                 { allowConstantExport: true },
             ],
+            '@typescript-eslint/no-empty-object-type': [
+                'warn',
+                {
+                    allowInterfaces: 'with-single-extends',
+                },
+            ],
             'no-restricted-imports': [
                 'error',
                 {
