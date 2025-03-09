@@ -27,10 +27,12 @@ function RootComponent() {
     return (
         <>
             <HeadContent />
+
             <SpritesheetProvider>
                 <Outlet />
             </SpritesheetProvider>
-            <TanStackRouterDevtools />
+
+            <TanStackRouterDevtools position="top-right" />
         </>
     );
 }
