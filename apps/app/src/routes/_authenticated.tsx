@@ -2,8 +2,6 @@ import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
 
 import { authClient } from '@repo/core/auth/client';
 
-import { Navbar } from '@repo/ui/components/navbar';
-
 import { Layout } from '@/components/layout/layout';
 import { ROUTES } from '@/constants';
 
@@ -30,31 +28,10 @@ export const Route = createFileRoute('/_authenticated')({
     component: RouteComponent,
 });
 
-function RouteComponent() {
+export function RouteComponent() {
     return (
-        <>
-            <Layout>
-                <Outlet />
-            </Layout>
-            <Navbar
-                items={[
-                    {
-                        name: 'Home',
-                        route: ROUTES.ROOT,
-                        icon: 'home',
-                    },
-                    {
-                        name: 'Workouts',
-                        route: ROUTES.WORKOUTS,
-                        icon: 'barbell',
-                    },
-                    {
-                        name: 'Profile',
-                        route: ROUTES.PROFILE,
-                        icon: 'user',
-                    },
-                ]}
-            />
-        </>
+        <Layout>
+            <Outlet />
+        </Layout>
     );
 }
