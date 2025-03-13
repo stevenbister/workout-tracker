@@ -1,4 +1,4 @@
-name: API Deploy PROD
+name: API Deploy PREVIEW
 
 on:
   pull_request:
@@ -7,11 +7,11 @@ on:
 jobs:
   generate-token:
     runs-on: ubuntu-latest
-    id: generate-uuid
     name: Generate API Token
     outputs:
       uuid: ${{ steps.generate-uuid.outputs.uuid }}
     steps:
+      - id: generate-uuid
       - uses: filipstefansson/uuid-action@v1
         with:
           name: ${{ github.sha }}
