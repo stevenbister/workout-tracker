@@ -22,11 +22,16 @@ jobs:
     needs: generate-token
     steps:
       - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: 'apps/api'
           precommands: echo "API_TOKEN is ${{ needs.generate-token.outputs.uuid }}"
           secrets: |
             API_TOKEN=${{ needs.generate-token.outputs.uuid }}
