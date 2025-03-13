@@ -11,8 +11,9 @@ jobs:
     outputs:
       uuid: ${{ steps.generate-uuid.outputs.uuid }}
     steps:
-      - id: generate-uuid
-      - uses: filipstefansson/uuid-action@v1
+      - name: Set UUID
+        id: generate-uuid
+        uses: filipstefansson/uuid-action@v1
         with:
           name: ${{ github.sha }}
   deploy:
