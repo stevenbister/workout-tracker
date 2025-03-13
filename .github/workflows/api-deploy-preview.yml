@@ -35,5 +35,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: 'apps/api'
           secrets: |
-            API_KEY=${{ needs.generate-token.outputs.uuid }}
+            API_KEY: ${{ needs.generate-token.outputs.uuid }}
           command: versions upload
