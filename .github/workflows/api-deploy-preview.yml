@@ -19,6 +19,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy Preview
+    needs: generate-token
     steps:
       - uses: actions/checkout@v4
       - name: Deploy
@@ -26,7 +27,6 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          packageManager: pnpm
           workingDirectory: 'apps/api'
           precommands: echo "API_TOKEN is ${{ needs.generate-token.outputs.uuid }}"
           secrets: |
