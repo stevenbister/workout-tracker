@@ -59,7 +59,7 @@ jobs:
           workingDirectory: 'apps/app'
           preCommands: |
             echo '{"API_KEY": "${{env.API_KEY}}"}' | pnpx wrangler pages secret bulk - --project-name workout-tracker-app
-            pn run build
+            pnpm run build
           command: pages deploy ./dist --project-name workout-tracker-app
         env:
           API_KEY: ${{ needs.generate-token.outputs.uuid }}
