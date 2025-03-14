@@ -1,4 +1,4 @@
-name: API Deploy PREVIEW
+name: Deploy PREVIEW
 
 on:
   pull_request:
@@ -16,9 +16,9 @@ jobs:
         uses: filipstefansson/uuid-action@v1
         with:
           name: ${{ github.sha }}
-  deploy:
+  deploy-api:
     runs-on: ubuntu-latest
-    name: Deploy Preview
+    name: Deploy API Preview
     needs: generate-token
     steps:
       - uses: actions/checkout@v4
@@ -37,5 +37,29 @@ jobs:
           preCommands: |
             echo '{"API_KEY": "${{env.API_KEY}}"}' | pnpx wrangler versions secret bulk -
           command: versions upload
+        env:
+          API_KEY: ${{ needs.generate-token.outputs.uuid }}
+  deploy-app:
+    runs-on: ubuntu-latest
+    name: Deploy APP Preview
+    needs: generate-token
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+      - name: Install dependencies
+        run: pnpm install
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: 'apps/app'
+          preCommands: |
+            echo '{"API_KEY": "${{env.API_KEY}}"}' | pnpx wrangler pages secret bulk - --project-name workout-tracker-app
+            pn run build
+          command: pages deploy ./dist --project-name workout-tracker-app
         env:
           API_KEY: ${{ needs.generate-token.outputs.uuid }}
