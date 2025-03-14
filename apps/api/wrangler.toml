@@ -8,14 +8,6 @@ compatibility_flags = [ "nodejs_compat" ]
 BASE_API_URL = "http://localhost:8787"
 BASE_CLIENT_URL = "http://localhost:5173"
 
-# [[kv_namespaces]]
-# binding = "MY_KV_NAMESPACE"
-# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-
-# [[r2_buckets]]
-# binding = "MY_BUCKET"
-# bucket_name = "my-bucket"
-
 [[d1_databases]]
 binding = "DB"
 database_name = "workout-tracker"
@@ -23,9 +15,23 @@ database_id = "14dc62f5-3020-4c0a-9598-2da87319eb80"
 migrations_dir = "src/db/migrations"
 preview_database_id = "c8f83468-3e06-4b7f-924a-dd3b62e6f67f"
 
-# [ai]
-# binding = "AI"
+[env.preview.vars]
+BASE_API_URL = "https://*-workout-tracker-api.stevebister.workers.dev"
+BASE_CLIENT_URL = "https://*.workout-tracker-app-833.pages.dev"
 
-# [observability]
-# enabled = true
-# head_sampling_rate = 1
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "workout-tracker"
+database_id = "c8f83468-3e06-4b7f-924a-dd3b62e6f67f"
+migrations_dir = "src/db/migrations"
+
+[env.production.vars]
+BASE_API_URL = "https://workout-tracker-api.stevebister.workers.dev"
+BASE_CLIENT_URL = "https://workout-tracker-app-833.pages.dev"
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "workout-tracker"
+database_id = "14dc62f5-3020-4c0a-9598-2da87319eb80"
+migrations_dir = "src/db/migrations"
+preview_database_id = "c8f83468-3e06-4b7f-924a-dd3b62e6f67f"
