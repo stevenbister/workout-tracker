@@ -34,7 +34,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: 'apps/api'
-          secrets: API_KEY
+          preCommands: echo '{"API_KEY": "${{ needs.generate-token.outputs.uuid }}"}' |  wrangler versions secret bulk - --cwd apps/api
           command: versions upload
         env:
           API_KEY: ${{ needs.generate-token.outputs.uuid }}
