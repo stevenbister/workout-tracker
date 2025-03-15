@@ -42,7 +42,7 @@ jobs:
   deploy-app:
     runs-on: ubuntu-latest
     name: Deploy APP Preview
-    needs: generate-token
+    needs: deploy-api
     steps:
       - uses: actions/checkout@v4
       - name: Install pnpm
