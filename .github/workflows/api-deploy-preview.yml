@@ -58,8 +58,9 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: 'apps/app'
           preCommands: |
-            echo '{"API_KEY": "${{env.API_KEY}}"}' | pnpx wrangler pages secret bulk - --project-name workout-tracker-app
-            pnpm run build
+            echo '{"API_KEY": "${{env.API_KEY}}"}'
+            pnpx tsc -b && VITE_API_KEY=${{env.API_KEY}} VITE_API_URL=${{env.API_DEPLOYMENT_URL}}  vite build
           command: pages deploy ./dist --project-name workout-tracker-app
         env:
           API_KEY: ${{ needs.generate-token.outputs.uuid }}
+          API_DEPLOYMENT_URL: ${{ needs.deploy-api.outputs.deployment_url }}
