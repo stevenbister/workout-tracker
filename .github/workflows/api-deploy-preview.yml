@@ -51,6 +51,11 @@ jobs:
           version: 9.0.0
       - name: Install dependencies
         run: pnpm install
+      - name: Build
+        run: pnpm run build
+        env:
+          VITE_API_KEY: ${{ needs.generate-token.outputs.uuid }}
+          VITE_API_URL: ${{ needs.deploy-api.outputs.deployment_url }}
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
@@ -60,6 +65,3 @@ jobs:
           preCommands: |
             pnpm run build
           command: pages deploy ./dist --project-name workout-tracker-app
-        env:
-          VITE_API_KEY: ${{ needs.generate-token.outputs.uuid }}
-          VITE_API_URL: ${{ needs.deploy-api.outputs.deployment_url }}
