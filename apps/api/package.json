@@ -5,7 +5,8 @@
     "type": "module",
     "scripts": {
         "dev": "wrangler dev --remote",
-        "deploy": "wrangler deploy --minify",
+        "preview:worker": "wrangler versions upload",
+        "deploy:worker": "wrangler deploy --minify",
         "pretest": "touch src/db/test/test.db && NODE_ENV=test drizzle-kit push --force",
         "posttest": "rm -rf src/db/test/test.db",
         "test": "vitest run",
@@ -44,6 +45,6 @@
         "jsdom": "^26.0.0",
         "typescript": "^5.7.3",
         "vitest": "^3.0.4",
-        "wrangler": "^3.101.0"
+        "wrangler": "^4.0.0"
     }
 }

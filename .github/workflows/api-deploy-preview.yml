@@ -1,0 +1,69 @@
+name: Deploy PREVIEW
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  generate-token:
+    runs-on: ubuntu-latest
+    name: Generate API Token
+    outputs:
+      uuid: ${{ steps.generate-uuid.outputs.uuid }}
+    steps:
+      - name: Set UUID
+        id: generate-uuid
+        uses: filipstefansson/uuid-action@v1
+        with:
+          name: ${{ github.sha }}
+  deploy-api:
+    runs-on: ubuntu-latest
+    name: Deploy API Preview
+    needs: generate-token
+    outputs:
+      deployment-url: ${{ steps.deploy.outputs.deployment-url }}
+      uuid: ${{ needs.generate-token.outputs.uuid }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+      - name: Install dependencies
+        run: pnpm install
+      - name: Deploy
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: 'apps/api'
+          preCommands: |
+            echo '{"API_KEY": "${{env.API_KEY}}"}' | pnpx wrangler secret bulk - --env preview
+          command: deploy --env preview
+        env:
+          API_KEY: ${{ needs.generate-token.outputs.uuid }}
+  deploy-app:
+    runs-on: ubuntu-latest
+    name: Deploy APP Preview
+    needs: deploy-api
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.0.0
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build
+        run: pnpm run build
+        env:
+          VITE_API_KEY: ${{ needs.deploy-api.outputs.uuid }}
+          VITE_API_URL: ${{ needs.deploy-api.outputs.deployment-url }}
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: 'apps/app'
+          command: pages deploy ./dist --project-name workout-tracker-app

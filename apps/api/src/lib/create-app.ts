@@ -17,6 +17,7 @@ import type { AppBindings } from '@/types';
 
 import { STATUS } from './constants/http-status-codes';
 import { USER_AUTHENTICATED_ROUTES } from './constants/routes';
+import { getOriginUrl } from './utils/get-origin-url';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const defaultHook: Hook<any, any, any, any> = async (result, c) => {
@@ -45,8 +46,7 @@ export default function createApp() {
 
     app.use(
         cors({
-            origin: (_, c) =>
-                process.env.NODE_ENV === 'test' ? '' : c.env.BASE_CLIENT_URL,
+            origin: (origin, c) => getOriginUrl(origin, c),
             allowHeaders: ['Content-Type', 'Authorization', 'x-api-key'],
             allowMethods: ['POST', 'GET', 'OPTIONS'],
             exposeHeaders: ['Content-Length'],
