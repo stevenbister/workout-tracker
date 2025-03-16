@@ -39,8 +39,8 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: 'apps/api'
           preCommands: |
-            echo '{"API_KEY": "${{env.API_KEY}}"}' | pnpx wrangler versions secret bulk -
-          command: versions upload
+            echo '{"API_KEY": "${{env.API_KEY}}"}' | pnpx wrangler secret bulk - --env preview
+          command: deploy --env preview
         env:
           API_KEY: ${{ needs.generate-token.outputs.uuid }}
   deploy-app:
