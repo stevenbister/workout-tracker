@@ -20,9 +20,10 @@ export type AuthSession = Auth['$Infer']['Session']['session'];
 
 export type AppBindings = {
     Bindings: {
-        NODE_ENV: string;
+        ENV: string;
         DB: D1Database;
         BASE_API_URL: string;
+        BASE_CLIENT_URL: string;
         BETTER_AUTH_SECRET: string;
         API_KEY: string;
     };
