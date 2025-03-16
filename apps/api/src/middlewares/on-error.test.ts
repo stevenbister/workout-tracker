@@ -13,7 +13,7 @@ type MockError = {
 
 const mockContext = (env: string) =>
     ({
-        env: { NODE_ENV: env },
+        env: { ENV: env },
         newResponse: vi.fn().mockReturnValue({
             status: STATUS.INTERNAL_SERVER_ERROR.CODE,
         }),

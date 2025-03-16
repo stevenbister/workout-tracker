@@ -12,7 +12,7 @@ export const onError: ErrorHandler = (err, c) => {
             ? (currentStatus as ContentfulStatusCode)
             : STATUS.INTERNAL_SERVER_ERROR.CODE;
 
-    const env = c.env?.NODE_ENV ?? 'development';
+    const env = c.env?.ENV ?? 'development';
 
     return c.json(
         {
