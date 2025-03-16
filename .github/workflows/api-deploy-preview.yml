@@ -20,6 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy API Preview
     needs: generate-token
+    outputs:
+      deployment_url: ${{ steps.deploy.outputs.deployment_url }}
     steps:
       - uses: actions/checkout@v4
       - name: Install pnpm
@@ -29,6 +31,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Deploy
+        id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
