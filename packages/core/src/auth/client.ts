@@ -6,7 +6,6 @@ import { API_PREFIX } from '../constants/misc.js';
 export type AuthClient = ReturnType<typeof createAuthClient>;
 
 export const authClient: AuthClient = createAuthClient({
-    // TODO: make this dynamic or update with env var
     baseURL: `${import.meta.env.VITE_API_URL}${API_PREFIX}/auth`, // the base url of your auth server
     fetchOptions: {
         headers: {

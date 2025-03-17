@@ -7,6 +7,7 @@ import { API_PREFIX } from '../constants/misc.js';
 type Options = {
     baseURL: string;
     hashFn: (password: string) => Promise<string>;
+    trustedOrigins: string[];
     verifyFn: ({
         hash,
         password,
@@ -19,7 +20,7 @@ type Options = {
 export const getAuth = (db: DB, options: Options) => {
     if (!db) throw new Error('DB is required');
 
-    const { baseURL, hashFn: hash, verifyFn: verify } = options;
+    const { baseURL, hashFn: hash, verifyFn: verify, trustedOrigins } = options;
 
     return betterAuth({
         database: drizzleAdapter(db, {
@@ -27,8 +28,7 @@ export const getAuth = (db: DB, options: Options) => {
         }),
         baseURL,
         basePath: `${API_PREFIX}/auth`,
-        // TODO: env var here
-        trustedOrigins: ['http://localhost:5173'],
+        trustedOrigins,
         session: {
             cookieCache: {
                 enabled: true,
@@ -45,6 +45,15 @@ export const getAuth = (db: DB, options: Options) => {
         rateLimit: {
             storage: 'database',
             modelName: 'rateLimit',
+        },
+        advanced: {
+            // TODO: Would be better to allow subdomains so will need to setup custom domains for worker/pages but this will do for now
+            // https://www.better-auth.com/docs/integrations/hono#cross-domain-cookies
+            defaultCookieAttributes: {
+                sameSite: 'none',
+                secure: true,
+                partitioned: true,
+            },
         },
     });
 };

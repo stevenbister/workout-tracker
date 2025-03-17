@@ -17,6 +17,7 @@ const mockOptions = {
     baseURL: 'https://example.com',
     hashFn: vi.fn(),
     verifyFn: vi.fn(),
+    trustedOrigins: ['http://localhost:5173'],
 };
 
 it('calls betterAuth with correct options', async () => {
@@ -26,7 +27,7 @@ it('calls betterAuth with correct options', async () => {
         database: expect.any(Function),
         baseURL: mockOptions.baseURL,
         basePath: `${API_PREFIX}/auth`,
-        trustedOrigins: ['http://localhost:5173'],
+        trustedOrigins: mockOptions.trustedOrigins,
         session: {
             cookieCache: {
                 enabled: true,
@@ -43,6 +44,13 @@ it('calls betterAuth with correct options', async () => {
         rateLimit: {
             storage: 'database',
             modelName: 'rateLimit',
+        },
+        advanced: {
+            defaultCookieAttributes: {
+                sameSite: 'none',
+                secure: true,
+                partitioned: true,
+            },
         },
     });
 });
