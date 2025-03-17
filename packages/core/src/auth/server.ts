@@ -46,5 +46,14 @@ export const getAuth = (db: DB, options: Options) => {
             storage: 'database',
             modelName: 'rateLimit',
         },
+        advanced: {
+            // TODO: Would be better to allow subdomains so will need to setup custom domains for worker/pages but this will do for now
+            // https://www.better-auth.com/docs/integrations/hono#cross-domain-cookies
+            defaultCookieAttributes: {
+                sameSite: 'none',
+                secure: true,
+                partitioned: true,
+            },
+        },
     });
 };

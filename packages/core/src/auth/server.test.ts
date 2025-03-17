@@ -45,6 +45,13 @@ it('calls betterAuth with correct options', async () => {
             storage: 'database',
             modelName: 'rateLimit',
         },
+        advanced: {
+            defaultCookieAttributes: {
+                sameSite: 'none',
+                secure: true,
+                partitioned: true,
+            },
+        },
     });
 });
 
