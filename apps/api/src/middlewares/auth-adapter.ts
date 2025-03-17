@@ -12,6 +12,7 @@ export const authAdapter = createMiddleware<AppBindings>(async (c, next) => {
             baseURL: c.env.BASE_API_URL,
             hashFn: hashPassword,
             verifyFn: verifyPassword,
+            trustedOrigins: [c.env.BASE_CLIENT_URL],
         })
     );
 
