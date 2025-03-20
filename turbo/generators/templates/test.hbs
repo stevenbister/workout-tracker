@@ -1,9 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '../../tests/utils';
 
 import type { {{pascalCase name}}Props } from './{{name}}';
 import { {{pascalCase name}} } from './{{name}}';
 
-const defaultProps = {};
+const defaultProps: {{pascalCase name}}Props = {};
 
 const setup = (props?: Partial<{{pascalCase name}}Props>) =>
     render(<{{pascalCase name}} {...defaultProps} {...props} />);
