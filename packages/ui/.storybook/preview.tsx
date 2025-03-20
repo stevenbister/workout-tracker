@@ -3,8 +3,11 @@ import type { Preview } from '@storybook/react';
 import { RouterProvider } from '@tanstack/react-router';
 import React, { type ReactNode } from 'react';
 
-import { SpritesheetProvider } from '../src/components/icon/icon';
+// prettier-ignore
 import '../src/styles/main.scss';
+
+// prettier-ignore
+import { SpritesheetProvider } from '../src/components/icon/icon';
 import { router } from './ts-router';
 
 const SbComponent = ({ Story }: { Story: () => ReactNode }) => (
