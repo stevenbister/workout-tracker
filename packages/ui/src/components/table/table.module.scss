@@ -1,0 +1,54 @@
+@layer components {
+    .container {
+        --table-header-bg: transparent;
+        --table-body-bg: transparent;
+        --table-cell-border: 1px solid var(--c-grey-300);
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .caption {
+        text-align: left;
+    }
+
+    .thead {
+        background: var(--table-header-bg);
+        border-block-end: none;
+    }
+
+    .tfoot {
+        background-color: var(--table-header-bg);
+        border-block: 2px solid;
+    }
+
+    .th,
+    .td {
+        padding: var(--space-2xs) var(--space-xs);
+        text-align: center;
+        vertical-align: baseline;
+    }
+
+    .th {
+        font-weight: var(--fw-600);
+    }
+
+    .td {
+        border-bottom: var(--table-cell-border);
+    }
+
+    .tbody .th {
+        background-color: var(--table-body-bg);
+    }
+
+    .thead .th,
+    .tfoot .th {
+        background-color: var(--table-header-bg);
+    }
+
+    .thead .th {
+        vertical-align: bottom;
+    }
+}

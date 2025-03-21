@@ -42,7 +42,6 @@ const setup = (props?: Partial<RoutineCardProps>) =>
 it('renders the component', () => {
     setup();
 
-    screen.debug();
     expect(screen.getByRole('article')).toBeInTheDocument();
     expect(
         screen.getByRole('link', {
