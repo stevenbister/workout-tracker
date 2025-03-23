@@ -14,9 +14,4 @@ export const Route = createFileRoute('/logout')({
             });
         }
     },
-    component: RouteComponent,
 });
-
-function RouteComponent() {
-    return <>How did you get here!?</>;
-}
