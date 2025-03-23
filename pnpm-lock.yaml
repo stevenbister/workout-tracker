@@ -108,6 +108,9 @@ importers:
       '@tanstack/react-router':
         specifier: ^1.109.2
         version: 1.109.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      ky:
+        specifier: ^1.7.5
+        version: 1.7.5
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -4269,6 +4272,10 @@ packages:
 
   known-css-properties@0.35.0:
     resolution: {integrity: sha512-a/RAk2BfKk+WFGhhOCAYqSiFLc34k8Mt/6NWRI4joER0EYUzXIcFivjjnoD3+XU1DggLn/tZc3DOAgke7l8a4A==}
+
+  ky@1.7.5:
+    resolution: {integrity: sha512-HzhziW6sc5m0pwi5M196+7cEBtbt0lCYi67wNsiwMUmz833wloE0gbzJPWKs1gliFKQb34huItDQX97LyOdPdA==}
+    engines: {node: '>=18'}
 
   kysely@0.27.5:
     resolution: {integrity: sha512-s7hZHcQeSNKpzCkHRm8yA+0JPLjncSWnjb+2TIElwS2JAqYr+Kv3Ess+9KFfJS0C1xcQ1i9NkNHpWwCYpHMWsA==}
@@ -10077,6 +10084,8 @@ snapshots:
   kleur@3.0.3: {}
 
   known-css-properties@0.35.0: {}
+
+  ky@1.7.5: {}
 
   kysely@0.27.5: {}
 
