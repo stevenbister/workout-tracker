@@ -1,6 +1,6 @@
-import { ALL_EXERCISES, ALL_ROUTINES } from '@repo/core/constants/paths';
+import { EXERCISES, ROUTINES } from '@repo/core/constants/paths';
 
 export const USER_AUTHENTICATED_ROUTES = [
-    `${ALL_EXERCISES}/*`,
-    `${ALL_ROUTINES}/*`,
+    `${EXERCISES}/*`,
+    `${ROUTINES}/*`,
 ] as const;
