@@ -1,12 +1,9 @@
 import type { Context, Next } from 'hono';
 import { testClient } from 'hono/testing';
 
-import {
-    ALL_ROUTINES,
-    CREATE_ROUTINE,
-    ROUTINE_BY_ID,
-} from '@repo/core/constants/paths';
+import { CREATE_ROUTINE, ROUTINES } from '@repo/core/constants/paths';
 
+import { mockApiKey, mockHeaders } from '@/__mocks__/headers';
 import { mockSession, mockUser } from '@/__mocks__/session';
 import { testDB } from '@/db/test/test-adapter';
 import { STATUS } from '@/lib/constants/http-status-codes';
@@ -16,7 +13,6 @@ import type { AppBindings, DrizzleD1 } from '@/types';
 
 import { routines } from './routines.index';
 import type { InsertRoutineSchema } from './routines.routes';
-import { mockApiKey, mockHeaders } from '@/__mocks__/headers';
 
 vi.mock('@/middlewares/db-connect', () => ({
     dbConnect: (c: Context<AppBindings, string, object>, next: Next) => {
@@ -80,7 +76,7 @@ beforeEach(() => {
     );
 });
 
-describe(ALL_ROUTINES, () => {
+describe(ROUTINES, () => {
     it('returns list of routines linked to the current user', async () => {
         const res = await getAllRoute.$get(mockHeaders);
         const data = await res.json();
@@ -100,7 +96,7 @@ describe(ALL_ROUTINES, () => {
     });
 });
 
-describe(ROUTINE_BY_ID, () => {
+describe(`${ROUTINES}/:id`, () => {
     it('returns a single routine by its id', async () => {
         const res = await getByIdRoute.$get({
             ...mockHeaders,

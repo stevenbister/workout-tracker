@@ -1,7 +1,7 @@
 import type { Context, Next } from 'hono';
 import { testClient } from 'hono/testing';
 
-import { ALL_MUSCLE_GROUPS } from '@repo/core/constants/paths';
+import { MUSCLE_GROUPS } from '@repo/core/constants/paths';
 
 import { mockApiKey, mockHeaders } from '@/__mocks__/headers';
 import { mockSession, mockUser } from '@/__mocks__/session';
@@ -47,7 +47,7 @@ beforeEach(() => {
     );
 });
 
-describe(ALL_MUSCLE_GROUPS, () => {
+describe(MUSCLE_GROUPS, () => {
     it('returns list of muscle groups', async () => {
         const res = await getAllRoute.$get(mockHeaders);
         const data = await res.json();

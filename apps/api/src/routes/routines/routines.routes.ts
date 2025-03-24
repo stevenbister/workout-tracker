@@ -1,10 +1,6 @@
 import { createRoute, z } from '@hono/zod-openapi';
 
-import {
-    ALL_ROUTINES,
-    CREATE_ROUTINE,
-    ROUTINE_BY_ID,
-} from '@repo/core/constants/paths';
+import { CREATE_ROUTINE, ROUTINES } from '@repo/core/constants/paths';
 
 import { insertRoutineSchema, routineSchema } from '@/db/schema/routine';
 import {
@@ -84,7 +80,7 @@ const modifiedInsertRoutineSchema = insertRoutineSchema
     );
 
 export const list = createRoute({
-    path: ALL_ROUTINES,
+    path: ROUTINES,
     method: 'get',
     tags,
     request: headersSchemaWithCookie,
@@ -97,7 +93,7 @@ export const list = createRoute({
 });
 
 export const getById = createRoute({
-    path: ROUTINE_BY_ID,
+    path: `${ROUTINES}/:id`,
     method: 'get',
     tags,
     request: headersSchemaWithCookie,

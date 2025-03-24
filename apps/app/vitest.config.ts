@@ -20,6 +20,7 @@ export default mergeConfig(
                     './src/routes/__root.tsx',
                     './src/routeTree.gen.ts',
                     'src/**/constants.ts',
+                    'src/types/*.ts',
                 ],
             },
         },

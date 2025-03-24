@@ -1,6 +1,6 @@
 import { createRoute, z } from '@hono/zod-openapi';
 
-import { ALL_EXERCISES, EXERCISE_BY_ID } from '@repo/core/constants/paths';
+import { EXERCISES } from '@repo/core/constants/paths';
 
 import { exerciseSchema } from '@/db/schema/exercise';
 import { STATUS } from '@/lib/constants/http-status-codes';
@@ -24,7 +24,7 @@ const exerciseWithMuscleGroupsSchema = z.array(
 );
 
 export const list = createRoute({
-    path: ALL_EXERCISES,
+    path: EXERCISES,
     method: 'get',
     tags,
     request: {
@@ -43,7 +43,7 @@ export const list = createRoute({
 });
 
 export const getById = createRoute({
-    path: EXERCISE_BY_ID,
+    path: `${EXERCISES}/:id`,
     method: 'get',
     tags,
     request: headersSchemaWithCookie,
