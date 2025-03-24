@@ -1,11 +1,7 @@
 import type { Context, Next } from 'hono';
 import { testClient } from 'hono/testing';
 
-import {
-    CREATE_ROUTINE,
-    ROUTINES,
-    ROUTINE_BY_ID,
-} from '@repo/core/constants/paths';
+import { CREATE_ROUTINE, ROUTINES } from '@repo/core/constants/paths';
 
 import { mockApiKey, mockHeaders } from '@/__mocks__/headers';
 import { mockSession, mockUser } from '@/__mocks__/session';
@@ -100,7 +96,7 @@ describe(ROUTINES, () => {
     });
 });
 
-describe(ROUTINE_BY_ID, () => {
+describe(`${ROUTINES}/:id`, () => {
     it('returns a single routine by its id', async () => {
         const res = await getByIdRoute.$get({
             ...mockHeaders,

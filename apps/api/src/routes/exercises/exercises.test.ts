@@ -1,7 +1,7 @@
 import type { Context, Next } from 'hono';
 import { testClient } from 'hono/testing';
 
-import { EXERCISES, EXERCISE_BY_ID } from '@repo/core/constants/paths';
+import { EXERCISES } from '@repo/core/constants/paths';
 
 import { mockApiKey, mockHeaders } from '@/__mocks__/headers';
 import { mockSession, mockUser } from '@/__mocks__/session';
@@ -132,7 +132,7 @@ describe(EXERCISES, () => {
     });
 });
 
-describe(EXERCISE_BY_ID, () => {
+describe(`${EXERCISES}/:id`, () => {
     it('returns a single item with an id that matches the param passed', async () => {
         setup({
             user: mockUser,
