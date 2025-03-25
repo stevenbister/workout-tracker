@@ -1,6 +1,10 @@
 import { createRoute, z } from '@hono/zod-openapi';
 
-import { CREATE_ROUTINE, ROUTINES } from '@repo/core/constants/paths';
+import {
+    CREATE_ROUTINE,
+    ROUTINES,
+    ROUTINE_GROUPS,
+} from '@repo/core/constants/paths';
 
 import { insertRoutineSchema, routineSchema } from '@/db/schema/routine';
 import {
@@ -11,6 +15,7 @@ import {
     insertRoutineExerciseSetSchema,
     routineExerciseSetSchema,
 } from '@/db/schema/routine-exercise-set';
+import { routineGroupSchema } from '@/db/schema/routine-group';
 import { STATUS } from '@/lib/constants/http-status-codes';
 import { errorSchema } from '@/lib/schemas/error-schema';
 import { headersSchemaWithCookie } from '@/lib/schemas/headers-schema';
@@ -35,15 +40,17 @@ const modifiedRoutineSchema = routineSchema
                     .merge(
                         z.object({
                             name: z.string().optional(),
-                            sets: z.array(
-                                routineExerciseSetSchema.pick({
-                                    id: true,
-                                    maxReps: true,
-                                    minReps: true,
-                                    setNumber: true,
-                                    weight: true,
-                                })
-                            ),
+                            sets: z
+                                .array(
+                                    routineExerciseSetSchema.pick({
+                                        id: true,
+                                        maxReps: true,
+                                        minReps: true,
+                                        setNumber: true,
+                                        weight: true,
+                                    })
+                                )
+                                .optional(),
                         })
                     )
             ),
@@ -137,8 +144,33 @@ export const create = createRoute({
     },
 });
 
+export const groups = createRoute({
+    path: ROUTINE_GROUPS,
+    method: 'get',
+    tags,
+    request: headersSchemaWithCookie,
+    responses: {
+        [STATUS.OK.CODE]: jsonContent(
+            z.array(
+                routineGroupSchema
+                    .pick({
+                        id: true,
+                        name: true,
+                    })
+                    .merge(
+                        z.object({
+                            routines: modifiedRoutineSchema.array(),
+                        })
+                    )
+            ),
+            'List of all routine groups by user'
+        ),
+    },
+});
+
 export type ListRoute = typeof list;
 export type GetByIdRoute = typeof getById;
 export type CreateRoute = typeof create;
+export type GroupsRoute = typeof groups;
 
 export type InsertRoutineSchema = z.infer<typeof modifiedInsertRoutineSchema>;

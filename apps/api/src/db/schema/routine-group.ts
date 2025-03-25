@@ -2,6 +2,7 @@ import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 
 export type RoutineGroup = typeof routineGroup.$inferSelect;
+export type InsertRoutineGroup = typeof routineGroup.$inferInsert;
 
 export const routineGroup = sqliteTable('routine_group', {
     id: integer('id').primaryKey({ autoIncrement: true }),
