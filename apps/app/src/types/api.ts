@@ -5,3 +5,6 @@ export type Routines =
 
 export type Routine =
     paths['/api/v1/routines/:id']['get']['responses']['200']['content']['application/json'];
+
+export type RoutineGroups =
+    paths['/api/v1/routines/groups']['get']['responses']['200']['content']['application/json'];
