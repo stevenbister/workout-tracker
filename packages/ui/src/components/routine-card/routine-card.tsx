@@ -6,7 +6,7 @@ import styles from './routine-card.module.scss';
 
 export interface RoutineCardProps {
     heading: string;
-    exerciseList: string[];
+    exerciseList: (string | undefined)[];
     link: Omit<LinkComponentProps<'a'>, 'className'>;
     button: {
         label: string;
@@ -28,7 +28,9 @@ export const RoutineCard = ({
         <div className={styles.inner}>
             <h2 className={styles.heading}>{heading}</h2>
 
-            <p className={styles.list}>{exerciseList.join(', ')}</p>
+            {exerciseList.length > 0 ? (
+                <p className={styles.list}>{exerciseList.join(', ')}</p>
+            ) : null}
 
             <Button onClick={onClick} className={styles.button}>
                 {label}
