@@ -201,8 +201,17 @@ $config: (
     }
 }
 
-.stack > * + * {
-    margin-block-start: var(--space-m);
+// TODO: Component?
+.stack {
+    --gap: var(--space-m);
+
+    &--s {
+        --gap: var(--space-s);
+    }
+
+    > * + * {
+        margin-block-start: var(--gap);
+    }
 }
 
 .sr-only:not(:focus, :active) {
