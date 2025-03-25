@@ -1,10 +1,17 @@
+@use '../../styles/mixins/z-index' as *;
+
 @layer components {
     .navbar {
         --_navbar-bg: var(--c-grey-200);
         --_navbar-border-color: var(--c-grey-300);
 
+        position: fixed;
+        bottom: 0;
+        width: 100%;
         border-top: solid 2px var(--_navbar-border-color);
         background-color: var(--_navbar-bg);
+
+        @include z-index('navbar');
 
         ul {
             display: flex;
