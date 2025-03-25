@@ -155,7 +155,7 @@ describe(CREATE_ROUTINE, () => {
     });
 });
 
-describe.only(ROUTINE_GROUPS, () => {
+describe(ROUTINE_GROUPS, () => {
     it('returns a list of the routine groups to the current user', async () => {
         const res = await getGroupsRoute.$get(mockHeaders);
         const data = await res.json();
