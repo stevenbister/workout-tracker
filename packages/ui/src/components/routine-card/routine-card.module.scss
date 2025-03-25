@@ -1,4 +1,5 @@
 @use '../../styles/mixins/line-clamp' as *;
+@use '../../styles/mixins/z-index' as *;
 @use '../../styles/functions/rem' as *;
 
 @layer components {
@@ -30,7 +31,7 @@
     }
 
     .link {
-        z-index: 1;
+        @include z-index('link');
     }
 
     .heading {
@@ -58,7 +59,8 @@
     }
 
     .button {
-        z-index: 2;
         margin-block-start: var(--space-xs);
+
+        @include z-index('button');
     }
 }
