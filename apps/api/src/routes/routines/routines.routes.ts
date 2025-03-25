@@ -35,15 +35,17 @@ const modifiedRoutineSchema = routineSchema
                     .merge(
                         z.object({
                             name: z.string().optional(),
-                            sets: z.array(
-                                routineExerciseSetSchema.pick({
-                                    id: true,
-                                    maxReps: true,
-                                    minReps: true,
-                                    setNumber: true,
-                                    weight: true,
-                                })
-                            ),
+                            sets: z
+                                .array(
+                                    routineExerciseSetSchema.pick({
+                                        id: true,
+                                        maxReps: true,
+                                        minReps: true,
+                                        setNumber: true,
+                                        weight: true,
+                                    })
+                                )
+                                .optional(),
                         })
                     )
             ),

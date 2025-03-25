@@ -4,29 +4,51 @@ import type { DrizzleD1 } from '@/types';
 
 import { createRoutinesMap } from './create-routines-map';
 
-it('creates a map with routines and their exercises', async () => {
-    const mockRoutines: Pick<Routine, 'id' | 'name' | 'description'>[] = [
-        {
-            id: 1,
-            name: 'Routine 1',
-            description: 'Description 1',
-        },
-        {
-            id: 1,
-            name: 'Routine 1',
-            description: 'Description 1',
-        },
-        {
-            id: 2,
-            name: 'Routine 2',
-            description: 'Description 2',
-        },
-    ];
+const mockDB = testDB as unknown as DrizzleD1;
+const mockRoutines: Pick<Routine, 'id' | 'name' | 'description'>[] = [
+    {
+        id: 1,
+        name: 'Routine 1',
+        description: 'Description 1',
+    },
+    {
+        id: 1,
+        name: 'Routine 1',
+        description: 'Description 1',
+    },
+    {
+        id: 2,
+        name: 'Routine 2',
+        description: 'Description 2',
+    },
+];
 
-    const routineMap = await createRoutinesMap(
-        testDB as unknown as DrizzleD1,
-        mockRoutines
-    );
+it('returns a map with routines and their exercises', async () => {
+    const routineMap = await createRoutinesMap({
+        db: mockDB,
+        routines: mockRoutines,
+    });
+
+    expect(routineMap.size).toBe(2);
+    expect(routineMap.get(mockRoutines[0]!.id)).toEqual({
+        id: mockRoutines[0]!.id,
+        name: mockRoutines[0]!.name,
+        description: mockRoutines[0]!.description,
+        exercises: expect.arrayContaining([
+            expect.objectContaining({
+                id: expect.any(Number),
+                name: expect.any(String),
+            }),
+        ]),
+    });
+});
+
+it('returns sets as part of the exercises when requested', async () => {
+    const routineMap = await createRoutinesMap({
+        db: mockDB,
+        routines: mockRoutines,
+        includeSets: true,
+    });
 
     expect(routineMap.size).toBe(2);
     expect(routineMap.get(mockRoutines[0]!.id)).toEqual({
@@ -60,10 +82,7 @@ it('handles routines with no exercises', async () => {
         },
     ];
 
-    const routineMap = await createRoutinesMap(
-        testDB as unknown as DrizzleD1,
-        routines
-    );
+    const routineMap = await createRoutinesMap({ db: mockDB, routines });
 
     expect(routineMap.size).toBe(1);
     expect(routineMap.get(routines[0]!.id)).toEqual({
@@ -77,10 +96,7 @@ it('handles routines with no exercises', async () => {
 it('handles an empty array of routines', async () => {
     const routines: Pick<Routine, 'id' | 'name' | 'description'>[] = [];
 
-    const routineMap = await createRoutinesMap(
-        testDB as unknown as DrizzleD1,
-        routines
-    );
+    const routineMap = await createRoutinesMap({ db: mockDB, routines });
 
     expect(routineMap.size).toBe(0);
 });

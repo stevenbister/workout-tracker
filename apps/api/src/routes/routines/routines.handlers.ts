@@ -9,29 +9,35 @@ import {
     type InsertRoutineExerciseSet,
     routineExerciseSet,
 } from '@/db/schema/routine-exercise-set';
+import { routineGroup } from '@/db/schema/routine-group';
 import { user as userSchema } from '@/db/schema/users';
 import { STATUS } from '@/lib/constants/http-status-codes';
 import { createRoutinesMap } from '@/lib/utils/create-routines-map';
 import type { AppRouteHandler } from '@/types';
 
-import type { CreateRoute, GetByIdRoute, ListRoute } from './routines.routes';
+import type {
+    CreateRoute,
+    GetByIdRoute,
+    GroupsRoute,
+    ListRoute,
+} from './routines.routes';
 
 export const list: AppRouteHandler<ListRoute> = async (c) => {
     const db = c.get('db');
     const user = c.get('user');
 
-    // TODO: Reuse most of this query
     const routines = await db
         .select({
             id: routine.id,
             name: routine.name,
             description: routine.description,
+            routineGroupId: routine.routineGroupId,
         })
         .from(routine)
         .leftJoin(userSchema, eq(routine.userId, userSchema.id))
         .where(eq(userSchema.id, user?.id ?? ''));
 
-    const routineMap = await createRoutinesMap(db, routines);
+    const routineMap = await createRoutinesMap({ db, routines });
 
     const result = Array.from(routineMap.values());
 
@@ -48,6 +54,7 @@ export const getById: AppRouteHandler<GetByIdRoute> = async (c) => {
             id: routine.id,
             name: routine.name,
             description: routine.description,
+            routineGroupId: routine.routineGroupId,
         })
         .from(routine)
         .leftJoin(userSchema, eq(routine.userId, userSchema.id))
@@ -63,7 +70,11 @@ export const getById: AppRouteHandler<GetByIdRoute> = async (c) => {
             STATUS.NOT_FOUND.CODE
         );
 
-    const routineMap = await createRoutinesMap(db, routines);
+    const routineMap = await createRoutinesMap({
+        db,
+        routines,
+        includeSets: true,
+    });
 
     const [result] = Array.from(routineMap.values());
 

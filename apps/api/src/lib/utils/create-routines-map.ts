@@ -2,81 +2,117 @@ import { eq, inArray } from 'drizzle-orm';
 
 import type { Exercise } from '@/db/schema/exercise';
 import { exercise } from '@/db/schema/exercise';
-import type { Routine } from '@/db/schema/routine';
-import { routineExercise } from '@/db/schema/routine-exercise';
+import { type Routine } from '@/db/schema/routine';
+import {
+    type RoutineExercise,
+    routineExercise,
+} from '@/db/schema/routine-exercise';
 import type { RoutineExerciseSet } from '@/db/schema/routine-exercise-set';
 import { routineExerciseSet } from '@/db/schema/routine-exercise-set';
-import type { DrizzleD1 } from '@/types';
+import type { DrizzleD1, Nullable } from '@/types';
+
+type RoutineProps = Pick<
+    Routine,
+    'id' | 'name' | 'description' | 'routineGroupId'
+>;
 
 export type ExerciseWithSets = Pick<Exercise, 'id' | 'name'> & {
-    sets: Pick<
+    sets?: Pick<
         RoutineExerciseSet,
         'id' | 'maxReps' | 'minReps' | 'setNumber' | 'weight'
     >[];
 };
 
-export type RoutineExerciseWithSets = Pick<
-    Routine,
-    'id' | 'name' | 'description'
-> & {
+export type RoutineExerciseWithSets = RoutineProps & {
     exercises: ExerciseWithSets[];
 };
 
-export const createRoutinesMap = async (
-    db: DrizzleD1,
-    routines: Pick<Routine, 'id' | 'name' | 'description'>[]
-) => {
+type RoutineExercises = {
+    exercise: Nullable<Exercise>;
+    routine_exercise: RoutineExercise;
+    routine_exercise_set?: RoutineExerciseSet;
+}[];
+
+export const createRoutinesMap = async ({
+    db,
+    routines,
+    includeSets = false,
+}: {
+    db: DrizzleD1;
+    routines: RoutineProps[];
+    includeSets?: boolean;
+}) => {
     const routineMap = new Map<number, RoutineExerciseWithSets>();
     const exerciseMap = new Map<number, Map<number, ExerciseWithSets>>();
 
-    const routineIds = routines.map((r) => r.id);
+    const routineIds = routines.map(({ id }) => id);
 
-    const routineExercises = await db
+    const query = db
         .select()
         .from(routineExercise)
         .leftJoin(exercise, eq(routineExercise.exerciseId, exercise.id))
-        .leftJoin(
-            routineExerciseSet,
-            eq(routineExercise.id, routineExerciseSet.routineExerciseId)
-        )
         .where(inArray(routineExercise.routineId, routineIds));
 
-    for (const { id, name, description } of routines) {
+    if (includeSets) {
+        query.leftJoin(
+            routineExerciseSet,
+            eq(routineExercise.id, routineExerciseSet.routineExerciseId)
+        );
+    }
+
+    const routineExercises: RoutineExercises = await query;
+
+    for (const { id, name, description, routineGroupId } of routines) {
         routineMap.set(id, {
             id,
             name,
             description,
+            routineGroupId,
             exercises: [],
         });
     }
 
-    for (const {
-        routine_exercise,
-        exercise,
-        routine_exercise_set,
-    } of routineExercises) {
-        const routineId = routine_exercise.routineId;
-        const exerciseId = exercise!.id;
+    for (const routineExercise of routineExercises) {
+        const routineId = routineExercise.routine_exercise.routineId;
+        const exerciseId = routineExercise.exercise!.id;
 
         if (!exerciseMap.has(routineId)) exerciseMap.set(routineId, new Map());
 
         const routineExercisesMap = exerciseMap.get(routineId)!;
 
-        if (!routineExercisesMap.has(exerciseId)) {
+        if (
+            !routineExercisesMap.has(exerciseId) &&
+            routineExercise.routine_exercise_set
+        ) {
             routineExercisesMap.set(exerciseId, {
                 id: exerciseId,
-                name: exercise?.name ?? '',
+                name: routineExercise.exercise?.name ?? '',
                 sets: [],
+            });
+        } else if (!routineExercisesMap.has(exerciseId)) {
+            routineExercisesMap.set(exerciseId, {
+                id: exerciseId,
+                name: routineExercise.exercise?.name ?? '',
             });
         }
 
-        if (routine_exercise_set) {
-            routineExercisesMap.get(exerciseId)?.sets.push({
-                id: routine_exercise_set.id,
-                maxReps: routine_exercise_set.maxReps,
-                minReps: routine_exercise_set.minReps,
-                setNumber: routine_exercise_set.setNumber,
-                weight: routine_exercise_set.weight,
+        if (routineExercise?.routine_exercise_set) {
+            const {
+                routine_exercise_set: {
+                    id,
+                    maxReps,
+                    minReps,
+                    setNumber,
+                    weight,
+                },
+            } = routineExercise;
+
+            routineExercisesMap.get(exerciseId)?.sets?.push({
+                id,
+                maxReps,
+                minReps,
+                setNumber,
+                weight,
             });
         }
     }
