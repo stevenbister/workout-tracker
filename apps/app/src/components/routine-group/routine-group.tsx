@@ -19,7 +19,6 @@ export const RoutineGroup = ({ name, routines }: RoutineGroupProps) => (
                     exerciseList={exercises.map(({ name }) => name)}
                     button={{
                         label: content.start,
-                        onClick: () => void 0,
                     }}
                     link={{
                         // @ts-expect-error -- we've not made the routes yet
