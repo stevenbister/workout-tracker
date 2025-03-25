@@ -160,3 +160,40 @@ export const create: AppRouteHandler<CreateRoute> = async (c) => {
         STATUS.OK.CODE
     );
 };
+
+export const groups: AppRouteHandler<GroupsRoute> = async (c) => {
+    const db = c.get('db');
+    const user = c.get('user');
+
+    const routines = await db
+        .select({
+            id: routine.id,
+            name: routine.name,
+            description: routine.description,
+            routineGroupId: routine.routineGroupId,
+        })
+        .from(routine)
+        .leftJoin(userSchema, eq(routine.userId, userSchema.id))
+        .where(eq(userSchema.id, user?.id ?? ''));
+
+    const routineMap = await createRoutinesMap({ db, routines });
+
+    const groups = await db
+        .select({
+            id: routineGroup.id,
+            name: routineGroup.name,
+        })
+        .from(routineGroup);
+
+    const routineGroups = groups.map(({ id, name }) => {
+        return {
+            id,
+            name,
+            routines: Array.from(routineMap.values()).filter(
+                (r) => r.routineGroupId === id
+            ),
+        };
+    });
+
+    return c.json(routineGroups, STATUS.OK.CODE);
+};

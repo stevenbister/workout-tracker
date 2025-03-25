@@ -1,7 +1,11 @@
 import type { Context, Next } from 'hono';
 import { testClient } from 'hono/testing';
 
-import { CREATE_ROUTINE, ROUTINES } from '@repo/core/constants/paths';
+import {
+    CREATE_ROUTINE,
+    ROUTINES,
+    ROUTINE_GROUPS,
+} from '@repo/core/constants/paths';
 
 import { mockApiKey, mockHeaders } from '@/__mocks__/headers';
 import { mockSession, mockUser } from '@/__mocks__/session';
@@ -63,6 +67,7 @@ const client = testClient(createApp().route('/', routines), {
 const getAllRoute = client.api.v1.routines;
 const getByIdRoute = client.api.v1.routines[':id'];
 const createRoute = client.api.v1.routines.create;
+const getGroupsRoute = client.api.v1.routines.groups;
 
 beforeEach(() => {
     vi.resetAllMocks();
@@ -147,5 +152,35 @@ describe(CREATE_ROUTINE, () => {
                 ]),
             })),
         });
+    });
+});
+
+describe.only(ROUTINE_GROUPS, () => {
+    it('returns a list of the routine groups to the current user', async () => {
+        const res = await getGroupsRoute.$get(mockHeaders);
+        const data = await res.json();
+
+        expect(res.status).toBe(STATUS.OK.CODE);
+        expect(data).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    id: expect.any(Number),
+                    name: expect.any(String),
+                    routines: expect.arrayContaining([
+                        expect.objectContaining({
+                            id: expect.any(Number),
+                            name: expect.any(String),
+                            description: expect.any(String),
+                            exercises: expect.arrayContaining([
+                                expect.objectContaining({
+                                    id: expect.any(Number),
+                                    name: expect.any(String),
+                                }),
+                            ]),
+                        }),
+                    ]),
+                }),
+            ])
+        );
     });
 });
