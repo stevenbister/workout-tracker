@@ -11,7 +11,7 @@ import type { RoutineExerciseSet } from '@/db/schema/routine-exercise-set';
 import { routineExerciseSet } from '@/db/schema/routine-exercise-set';
 import type { DrizzleD1, Nullable } from '@/types';
 
-type RoutineProps = Pick<
+export type RoutineProps = Pick<
     Routine,
     'id' | 'name' | 'description' | 'routineGroupId'
 >;

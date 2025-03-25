@@ -1,25 +1,27 @@
-import type { Routine } from '@/db/schema/routine';
 import { testDB } from '@/db/test/test-adapter';
 import type { DrizzleD1 } from '@/types';
 
-import { createRoutinesMap } from './create-routines-map';
+import { type RoutineProps, createRoutinesMap } from './create-routines-map';
 
 const mockDB = testDB as unknown as DrizzleD1;
-const mockRoutines: Pick<Routine, 'id' | 'name' | 'description'>[] = [
+const mockRoutines: RoutineProps[] = [
     {
         id: 1,
         name: 'Routine 1',
         description: 'Description 1',
+        routineGroupId: 1,
     },
     {
         id: 1,
         name: 'Routine 1',
         description: 'Description 1',
+        routineGroupId: 1,
     },
     {
         id: 2,
         name: 'Routine 2',
         description: 'Description 2',
+        routineGroupId: 1,
     },
 ];
 
@@ -34,6 +36,7 @@ it('returns a map with routines and their exercises', async () => {
         id: mockRoutines[0]!.id,
         name: mockRoutines[0]!.name,
         description: mockRoutines[0]!.description,
+        routineGroupId: mockRoutines[0]!.routineGroupId,
         exercises: expect.arrayContaining([
             expect.objectContaining({
                 id: expect.any(Number),
@@ -55,6 +58,7 @@ it('returns sets as part of the exercises when requested', async () => {
         id: mockRoutines[0]!.id,
         name: mockRoutines[0]!.name,
         description: mockRoutines[0]!.description,
+        routineGroupId: mockRoutines[0]!.routineGroupId,
         exercises: expect.arrayContaining([
             expect.objectContaining({
                 id: expect.any(Number),
@@ -74,11 +78,12 @@ it('returns sets as part of the exercises when requested', async () => {
 });
 
 it('handles routines with no exercises', async () => {
-    const routines: Pick<Routine, 'id' | 'name' | 'description'>[] = [
+    const routines: RoutineProps[] = [
         {
             id: 3,
             name: 'Routine 3',
             description: 'Description 3',
+            routineGroupId: 1,
         },
     ];
 
@@ -89,12 +94,13 @@ it('handles routines with no exercises', async () => {
         id: routines[0]!.id,
         name: routines[0]!.name,
         description: routines[0]!.description,
+        routineGroupId: routines[0]!.routineGroupId,
         exercises: [],
     });
 });
 
 it('handles an empty array of routines', async () => {
-    const routines: Pick<Routine, 'id' | 'name' | 'description'>[] = [];
+    const routines: RoutineProps[] = [];
 
     const routineMap = await createRoutinesMap({ db: mockDB, routines });
 
