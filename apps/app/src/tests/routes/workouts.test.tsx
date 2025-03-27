@@ -1,13 +1,11 @@
-import {
-    type RouterHistory,
-    RouterProvider,
-    createBrowserHistory,
-    createRouter,
-} from '@tanstack/react-router';
+import { RouterProvider, createRouter } from '@tanstack/react-router';
 
 import { render, screen, waitFor } from '@repo/ui/tests/utils';
 
+import { RoutineGroup } from '@/components/routine-group/routine-group';
 import { ROUTES } from '@/constants';
+import content from '@/content/workouts.json';
+import { mockRoutineGroups } from '@/mocks/routines';
 import { Route } from '@/routes/_authenticated/workouts';
 
 vi.mock('@repo/core/auth/client', () => ({
@@ -16,29 +14,62 @@ vi.mock('@repo/core/auth/client', () => ({
     },
 }));
 
-const setup = async () => {
-    const router = createRouter({
-        routeTree: Route,
-    }) as never;
+vi.mock('@/api/routines', () => ({
+    getRoutineGroups: vi.fn().mockReturnValue(mockRoutineGroups),
+}));
 
-    await waitFor(() => render(<RouterProvider router={router} />));
-};
+vi.mock('@/components/routine-group/routine-group', () => ({
+    RoutineGroup: vi.fn().mockImplementation(() => <div />),
+}));
 
-let history: RouterHistory;
-
-beforeEach(() => (history = createBrowserHistory()));
-
-afterEach(() => {
-    history.destroy();
-    window.history.replaceState(null, 'root', ROUTES.WORKOUTS);
-    vi.clearAllMocks();
-    vi.restoreAllMocks();
+const router = createRouter({
+    routeTree: Route,
 });
 
-it('renders the workout route', async () => {
+const setup = async () =>
+    await waitFor(() => render(<RouterProvider router={router as never} />));
+
+beforeEach(
+    async () =>
+        await router.navigate({
+            to: ROUTES.WORKOUTS,
+        })
+);
+
+afterEach(() => vi.clearAllMocks());
+
+it('renders the route heading', async () => {
     await setup();
 
     expect(
-        screen.getByText('Hello /_authenticated/workouts!')
+        screen.getByRole('heading', {
+            level: 1,
+            name: content.heading,
+        })
     ).toBeInTheDocument();
+});
+
+it('renders the new routine button', async () => {
+    await setup();
+
+    expect(
+        screen.getByRole('button', {
+            name: content.new,
+        })
+    ).toBeInTheDocument();
+});
+
+it('renders the routine groups', async () => {
+    await setup();
+
+    for (const mockGroup of mockRoutineGroups) {
+        expect(RoutineGroup).toHaveBeenNthCalledWith(
+            1,
+            expect.objectContaining({
+                name: mockGroup.name,
+                routines: mockGroup.routines,
+            }),
+            undefined
+        );
+    }
 });
