@@ -61,3 +61,13 @@ it('renders the component', () => {
         })
     ).toBeInTheDocument();
 });
+
+it('does not render the exercises if there are none', () => {
+    setup({
+        exerciseList: [],
+    });
+
+    expect(
+        screen.queryByText(mockExerciseList.join(', '))
+    ).not.toBeInTheDocument();
+});

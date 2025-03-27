@@ -1,16 +1,19 @@
 import type { LinkComponentProps } from '@tanstack/react-router';
 import { Link } from '@tanstack/react-router';
+import type { ComponentPropsWithoutRef } from 'react';
 
 import { Button } from '../button/button';
 import styles from './routine-card.module.scss';
 
 export interface RoutineCardProps {
     heading: string;
-    exerciseList: string[];
+    exerciseList: (string | undefined)[];
     link: Omit<LinkComponentProps<'a'>, 'className'>;
-    button: {
+    button: Omit<
+        ComponentPropsWithoutRef<'button'>,
+        'children' | 'className'
+    > & {
         label: string;
-        onClick: () => void;
     };
 }
 
@@ -18,7 +21,7 @@ export const RoutineCard = ({
     heading,
     exerciseList,
     link,
-    button: { label, onClick },
+    button: { label, ...rest },
 }: RoutineCardProps) => (
     <article className={styles.card}>
         <Link {...link} className={styles.link}>
@@ -28,9 +31,11 @@ export const RoutineCard = ({
         <div className={styles.inner}>
             <h2 className={styles.heading}>{heading}</h2>
 
-            <p className={styles.list}>{exerciseList.join(', ')}</p>
+            {exerciseList.length > 0 ? (
+                <p className={styles.list}>{exerciseList.join(', ')}</p>
+            ) : null}
 
-            <Button onClick={onClick} className={styles.button}>
+            <Button {...rest} className={styles.button}>
                 {label}
             </Button>
         </div>

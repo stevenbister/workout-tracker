@@ -292,12 +292,69 @@ export interface paths {
                             exercises: {
                                 id: number;
                                 name?: string;
-                                sets: {
+                                sets?: {
                                     id: number;
                                     maxReps: number;
                                     minReps: number;
                                     setNumber: number;
                                     weight: number;
+                                }[];
+                            }[];
+                        }[];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/routines/groups": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header: {
+                    "x-api-key": string;
+                    Cookie: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description List of all routine groups by user */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            id: number;
+                            name: string;
+                            routines: {
+                                id: number;
+                                name: string;
+                                description: string | null;
+                                exercises: {
+                                    id: number;
+                                    name?: string;
+                                    sets?: {
+                                        id: number;
+                                        maxReps: number;
+                                        minReps: number;
+                                        setNumber: number;
+                                        weight: number;
+                                    }[];
                                 }[];
                             }[];
                         }[];
@@ -345,7 +402,7 @@ export interface paths {
                             exercises: {
                                 id: number;
                                 name?: string;
-                                sets: {
+                                sets?: {
                                     id: number;
                                     maxReps: number;
                                     minReps: number;
@@ -429,7 +486,7 @@ export interface paths {
                             exercises: {
                                 id: number;
                                 name?: string;
-                                sets: {
+                                sets?: {
                                     id: number;
                                     maxReps: number;
                                     minReps: number;

@@ -1,0 +1,8 @@
+{
+    "appName": "Workout Tracker",
+    "routes": {
+        "workouts": {
+            "title": "Workouts"
+        }
+    }
+}

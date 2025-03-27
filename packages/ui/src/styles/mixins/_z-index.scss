@@ -1,0 +1,14 @@
+@use 'sass:list';
+@use 'sass:meta';
+
+$z-index: ('link', 'button', 'navbar');
+
+@mixin z-index($key) {
+    $index: list.index($z-index, $key);
+
+    @if meta.type_of($index) != number {
+        @error "Cannot find #{$key} in z-index map.";
+    }
+
+    z-index: $index;
+}

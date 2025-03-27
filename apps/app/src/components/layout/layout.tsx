@@ -12,14 +12,21 @@ import styles from './layout.module.scss';
 
 interface LayoutProps {
     children: ReactNode;
+    justify?: 'start';
 }
 
-export const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children, justify }: LayoutProps) => {
     const { data } = authClient.useSession();
 
     return (
         <>
-            <main className={classList(styles.layout, 'container')}>
+            <main
+                className={classList(
+                    styles.layout,
+                    justify && styles[`justify-${justify}`],
+                    'container'
+                )}
+            >
                 {children}
             </main>
 

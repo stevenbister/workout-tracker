@@ -7,6 +7,8 @@
         "./components/*": "./src/components/*/*.tsx",
         "./utils/*": "./src/utils/*.ts",
         "./styles/main.scss": "./src/styles/main.scss",
+        "./styles/functions/*": "./src/styles/functions/*.scss",
+        "./styles/mixins/*": "./src/styles/mixins/*.scss",
         "./tests/utils": "./src/tests/utils.tsx"
     },
     "scripts": {

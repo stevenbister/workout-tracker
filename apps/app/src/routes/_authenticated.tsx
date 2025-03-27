@@ -25,7 +25,7 @@ export const Route = createFileRoute('/_authenticated')({
 
 export function RouteComponent() {
     return (
-        <Layout>
+        <Layout justify="start">
             <Outlet />
         </Layout>
     );
