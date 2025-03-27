@@ -8,7 +8,7 @@ import { Input, type InputProps } from '@repo/ui/components/input';
 import { toast } from '@repo/ui/components/toast';
 
 import { ROUTES } from '@/constants';
-import data from '@/content/validation.json';
+import content from '@/content/validation.json';
 import { validateEmail } from '@/utils/validate-email';
 
 import styles from './login-form.module.scss';
@@ -39,8 +39,8 @@ export const LoginForm = () => {
 
         if (!entries?.email || !entries?.password) {
             setValidationMessage({
-                email: data.email.empty,
-                password: data.password.empty,
+                email: content.email.empty,
+                password: content.password.empty,
             });
             return;
         }
@@ -50,7 +50,7 @@ export const LoginForm = () => {
         if (!validEmail) {
             setValidationMessage({
                 ...validationMessage,
-                email: data.email.invalid,
+                email: content.email.invalid,
             });
             return;
         }

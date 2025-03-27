@@ -1,27 +1,8 @@
-import {
-    RouterProvider,
-    createMemoryHistory,
-    createRootRoute,
-    createRoute,
-    createRouter,
-} from '@tanstack/react-router';
 import userEvent from '@testing-library/user-event';
 
-import { render, screen } from '@repo/ui/tests/utils';
+import { renderWithRouter, screen } from '@repo/ui/tests/utils';
 
 import { RoutineGroup, type RoutineGroupProps } from './routine-group';
-
-const mockRootRoute = createRootRoute();
-const mockRoute = createRoute({
-    path: '/test',
-    getParentRoute: () => mockRootRoute,
-});
-mockRootRoute.addChildren([mockRoute]);
-
-const router = createRouter({
-    history: createMemoryHistory({ initialEntries: ['/test'] }),
-    routeTree: mockRootRoute,
-}) as never;
 
 const mockRoutines = [
     {
@@ -69,12 +50,7 @@ const defaultProps: RoutineGroupProps = {
 
 const setup = () => ({
     user: userEvent.setup(),
-    ...render(
-        <RouterProvider
-            router={router}
-            defaultComponent={() => <RoutineGroup {...defaultProps} />}
-        />
-    ),
+    ...renderWithRouter(<RoutineGroup {...defaultProps} />),
 });
 
 it('renders the group label', () => {

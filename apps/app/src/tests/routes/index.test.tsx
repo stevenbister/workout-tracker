@@ -1,29 +1,19 @@
-import type { RouterHistory } from '@tanstack/react-router';
-import {
-    RouterProvider,
-    createBrowserHistory,
-    createRouter,
-} from '@tanstack/react-router';
+import { RouterProvider, createRouter } from '@tanstack/react-router';
 
 import { render, screen, waitFor } from '@repo/ui/tests/utils';
 
-import { ROUTES } from '@/constants';
 import { Route as indexRoute } from '@/routes/_authenticated/index';
 
-let history: RouterHistory;
+const router = createRouter({ routeTree: indexRoute });
 
-beforeEach(() => (history = createBrowserHistory()));
-
-afterEach(() => {
-    history.destroy();
-    window.history.replaceState(null, 'root', ROUTES.ROOT);
-    vi.clearAllMocks();
-});
+afterEach(() => vi.clearAllMocks());
 
 it('renders the index route', async () => {
-    const router = createRouter({ routeTree: indexRoute, history }) as never;
+    await router.navigate({
+        to: '/',
+    });
 
-    await waitFor(() => render(<RouterProvider router={router} />));
+    await waitFor(() => render(<RouterProvider router={router as never} />));
 
     expect(screen.getByText('index')).toBeInTheDocument();
 });

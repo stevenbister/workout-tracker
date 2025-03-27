@@ -22,19 +22,17 @@ vi.mock('@/components/routine-group/routine-group', () => ({
     RoutineGroup: vi.fn().mockImplementation(() => <div />),
 }));
 
-const router = createRouter({
-    routeTree: Route,
-});
+const router = createRouter({ routeTree: Route });
 
-const setup = async () =>
-    await waitFor(() => render(<RouterProvider router={router as never} />));
+const setup = async () => {
+    await router.navigate({
+        to: ROUTES.WORKOUTS,
+    });
 
-beforeEach(
-    async () =>
-        await router.navigate({
-            to: ROUTES.WORKOUTS,
-        })
-);
+    return await waitFor(() =>
+        render(<RouterProvider router={router as never} />)
+    );
+};
 
 afterEach(() => vi.clearAllMocks());
 

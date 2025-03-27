@@ -1,7 +1,4 @@
-import { RouterProvider } from '@tanstack/react-router';
-
-import { router } from '../../../.storybook/ts-router';
-import { render, screen } from '../../tests/utils';
+import { renderWithRouter, screen } from '../../tests/utils';
 import type { NavItem, NavbarProps } from './navbar';
 import { Navbar } from './navbar';
 
@@ -28,12 +25,7 @@ const defaultProps: NavbarProps = {
 };
 
 const setup = (props?: Partial<NavbarProps>) =>
-    render(
-        <RouterProvider
-            router={router}
-            defaultComponent={() => <Navbar {...defaultProps} {...props} />}
-        />
-    );
+    renderWithRouter(<Navbar {...defaultProps} {...props} />);
 
 it('renders the component with nav items', () => {
     setup();

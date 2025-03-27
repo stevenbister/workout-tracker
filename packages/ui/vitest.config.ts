@@ -18,6 +18,7 @@ export default mergeConfig(
                     ...configDefaults.coverage.exclude!,
                     './*.config.{ts,js}',
                     './src/**/*.stories.{ts,tsx}',
+                    './src/mocks/*',
                     './stories/**/*',
                     './plugins/**/*',
                 ],
