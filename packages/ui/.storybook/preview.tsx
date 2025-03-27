@@ -4,11 +4,10 @@ import { RouterProvider } from '@tanstack/react-router';
 import React, { type ReactNode } from 'react';
 
 // prettier-ignore
-import '../src/styles/main.scss';
-
-// prettier-ignore
 import { SpritesheetProvider } from '../src/components/icon/icon';
-import { router } from './ts-router';
+// prettier-ignore
+import '../src/styles/main.scss';
+import { router } from '../src/mocks/mock-router';
 
 const SbComponent = ({ Story }: { Story: () => ReactNode }) => (
     <SpritesheetProvider spriteSheetPath="/spritesheet.svg">
