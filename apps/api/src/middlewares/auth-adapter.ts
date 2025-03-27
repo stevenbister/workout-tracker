@@ -9,7 +9,7 @@ export const authAdapter = createMiddleware<AppBindings>(async (c, next) => {
     c.set(
         'authAdapter',
         getAuth(c.get('db'), {
-            baseURL: c.env.BASE_API_URL,
+            baseURL: `${c.env.BASE_API_URL}/`,
             hashFn: hashPassword,
             verifyFn: verifyPassword,
             trustedOrigins: [c.env.BASE_CLIENT_URL],
