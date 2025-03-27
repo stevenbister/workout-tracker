@@ -13,7 +13,7 @@ it('creates auth client with correct baseURL', async () => {
     authClient;
 
     expect(createAuthClient).toHaveBeenNthCalledWith(1, {
-        baseURL: `${apiUrl}${API_PREFIX}/auth`,
+        baseURL: `${apiUrl}/${API_PREFIX}/auth`,
         fetchOptions: {
             headers: {
                 'x-api-key': apiKey,
