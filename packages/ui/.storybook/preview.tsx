@@ -3,10 +3,9 @@ import type { Preview } from '@storybook/react';
 import { RouterProvider } from '@tanstack/react-router';
 import React, { type ReactNode } from 'react';
 
-// prettier-ignore
-import { SpritesheetProvider } from '../src/components/icon/icon';
-// prettier-ignore
 import '../src/styles/main.scss';
+
+import { SpritesheetProvider } from '../src/components/icon/icon';
 import { router } from '../src/mocks/mock-router';
 
 const SbComponent = ({ Story }: { Story: () => ReactNode }) => (
