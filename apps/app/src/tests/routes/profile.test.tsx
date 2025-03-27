@@ -1,9 +1,4 @@
-import {
-    type RouterHistory,
-    RouterProvider,
-    createBrowserHistory,
-    createRouter,
-} from '@tanstack/react-router';
+import { RouterProvider, createRouter } from '@tanstack/react-router';
 
 import { render, screen, waitFor } from '@repo/ui/tests/utils';
 
@@ -16,24 +11,17 @@ vi.mock('@repo/core/auth/client', () => ({
     },
 }));
 
-const setup = async () => {
-    const router = createRouter({
-        routeTree: Route,
-    }) as never;
+const router = createRouter({ routeTree: Route });
 
-    await waitFor(() => render(<RouterProvider router={router} />));
+const setup = async () => {
+    await router.navigate({
+        to: ROUTES.PROFILE,
+    });
+
+    await waitFor(() => render(<RouterProvider router={router as never} />));
 };
 
-let history: RouterHistory;
-
-beforeEach(() => (history = createBrowserHistory()));
-
-afterEach(() => {
-    history.destroy();
-    window.history.replaceState(null, 'root', ROUTES.WORKOUTS);
-    vi.clearAllMocks();
-    vi.restoreAllMocks();
-});
+afterEach(() => vi.restoreAllMocks());
 
 it('renders the profile route', async () => {
     await setup();

@@ -18,16 +18,14 @@ vi.mock('@repo/core/auth/client', () => ({
     },
 }));
 
+const router = createRouter({ routeTree: _authenticatedRoute }) as never;
+
 type SetupOptions = {
     getSession: ReturnType<AuthClient['getSession']>;
 };
 
 const setup = async (options: SetupOptions) => {
     vi.mocked(authClient.getSession).mockReturnValueOnce(options?.getSession);
-
-    const router = createRouter({
-        routeTree: _authenticatedRoute,
-    }) as never;
 
     await waitFor(() => render(<RouterProvider router={router} />));
 };

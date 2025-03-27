@@ -27,14 +27,12 @@ type SetupOptions = {
     signOut: ReturnType<AuthClient['signOut']>;
 };
 
+const router = createRouter({ routeTree: logoutRoute }) as never;
+
 const setup = async (options?: SetupOptions) => {
     vi.mocked(authClient.signOut).mockReturnValueOnce(
         options?.signOut ?? defaultSession
     );
-
-    const router = createRouter({
-        routeTree: logoutRoute,
-    }) as never;
 
     await waitFor(() => render(<RouterProvider router={router} />));
 };

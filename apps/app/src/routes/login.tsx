@@ -8,9 +8,9 @@ import { ROUTES } from '@/constants';
 
 export const Route = createFileRoute('/login')({
     beforeLoad: async () => {
-        const { data } = await authClient.getSession();
+        const auth = await authClient.getSession();
 
-        if (data?.session)
+        if (auth?.data?.session)
             throw redirect({
                 to: ROUTES.ROOT,
             });

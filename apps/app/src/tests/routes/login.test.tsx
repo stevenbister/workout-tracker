@@ -1,9 +1,4 @@
-import type { RouterHistory } from '@tanstack/react-router';
-import {
-    RouterProvider,
-    createBrowserHistory,
-    createRouter,
-} from '@tanstack/react-router';
+import { RouterProvider, createRouter } from '@tanstack/react-router';
 
 import { type AuthClient, authClient } from '@repo/core/auth/client';
 
@@ -36,27 +31,21 @@ const defaultSession = {
     error: null,
 };
 
+const router = createRouter({ routeTree: loginRoute });
+
 const setup = async (options?: SetupOptions) => {
     vi.mocked(authClient.getSession).mockReturnValueOnce(
         options?.getSession ?? defaultSession
     );
 
-    const router = createRouter({
-        routeTree: loginRoute,
-    }) as never;
+    await router.navigate({
+        to: ROUTES.LOGIN,
+    });
 
-    await waitFor(() => render(<RouterProvider router={router} />));
+    await waitFor(() => render(<RouterProvider router={router as never} />));
 };
 
-let history: RouterHistory;
-
-beforeEach(() => (history = createBrowserHistory()));
-
-afterEach(() => {
-    history.destroy();
-    window.history.replaceState(null, 'login', ROUTES.LOGIN);
-    vi.clearAllMocks();
-});
+afterEach(() => vi.clearAllMocks());
 
 it('renders the login route', async () => {
     await setup();
