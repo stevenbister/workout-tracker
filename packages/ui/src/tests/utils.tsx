@@ -9,11 +9,10 @@ import type { ReactElement, ReactNode } from 'react';
 
 import { SpritesheetProvider } from '../components/icon/icon';
 import { Toaster } from '../components/toast/toast';
-import { router as defaultRouter } from '../mocks/mock-router';
+import { router } from '../mocks/mock-router';
 
 type WrapperProps = {
     children: ReactNode;
-    router?: typeof defaultRouter;
 };
 
 const Wrapper = ({ children }: WrapperProps) => (
@@ -23,12 +22,12 @@ const Wrapper = ({ children }: WrapperProps) => (
     </SpritesheetProvider>
 );
 
-const WrapperWithRoutes = ({
-    children,
-    router = defaultRouter,
-}: WrapperProps) => (
+const WrapperWithRoutes = ({ children }: WrapperProps) => (
     <Wrapper>
-        <RouterProvider router={router} defaultComponent={() => children} />
+        <RouterProvider
+            router={router as never}
+            defaultComponent={() => children}
+        />
     </Wrapper>
 );
 
@@ -39,13 +38,10 @@ const customRender = (
 
 const customRenderWithRouter = (
     ui: ReactElement,
-    router?: typeof defaultRouter,
     options?: Omit<RenderOptions, 'wrapper'>
 ): RenderResult => {
     return render(ui, {
-        wrapper: ({ children }) => (
-            <WrapperWithRoutes router={router}>{children}</WrapperWithRoutes>
-        ),
+        wrapper: WrapperWithRoutes,
         ...options,
     });
 };
