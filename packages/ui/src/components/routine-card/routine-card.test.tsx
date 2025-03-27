@@ -1,7 +1,4 @@
-import { RouterProvider } from '@tanstack/react-router';
-
-import { router } from '../../../.storybook/ts-router';
-import { render, screen } from '../../tests/utils';
+import { renderWithRouter, screen } from '../../tests/utils';
 import type { RoutineCardProps } from './routine-card';
 import { RoutineCard } from './routine-card';
 
@@ -30,14 +27,7 @@ const defaultProps: RoutineCardProps = {
 };
 
 const setup = (props?: Partial<RoutineCardProps>) =>
-    render(
-        <RouterProvider
-            router={router}
-            defaultComponent={() => (
-                <RoutineCard {...defaultProps} {...props} />
-            )}
-        />
-    );
+    renderWithRouter(<RoutineCard {...defaultProps} {...props} />);
 
 it('renders the component', () => {
     setup();

@@ -1,15 +1,8 @@
-import {
-    RouterProvider,
-    createMemoryHistory,
-    createRootRoute,
-    createRoute,
-    createRouter,
-    useRouter,
-} from '@tanstack/react-router';
+import { useRouter } from '@tanstack/react-router';
 import userEvent from '@testing-library/user-event';
 import { HTTPError, type NormalizedOptions } from 'ky';
 
-import { render, screen, waitFor } from '@repo/ui/tests/utils';
+import { renderWithRouter, screen, waitFor } from '@repo/ui/tests/utils';
 
 import data from '@/content/error.json';
 
@@ -23,18 +16,6 @@ vi.mock('@tanstack/react-router', async (importOriginal) => ({
 }));
 
 const mockTitle = 'Test Error';
-
-const mockRootRoute = createRootRoute();
-const mockRoute = createRoute({
-    path: '/test',
-    getParentRoute: () => mockRootRoute,
-});
-mockRootRoute.addChildren([mockRoute]);
-
-const router = createRouter({
-    history: createMemoryHistory({ initialEntries: ['/test'] }),
-    routeTree: mockRootRoute,
-}) as never;
 
 const defaultProps: ErrorComponentProps = {
     title: mockTitle,
@@ -55,14 +36,7 @@ const setup = async (props?: Partial<ErrorComponentProps>) => {
 
     return await waitFor(() => ({
         user: userEvent.setup(),
-        ...render(
-            <RouterProvider
-                router={router}
-                defaultComponent={() => (
-                    <ErrorComponent {...defaultProps} {...props} />
-                )}
-            />
-        ),
+        ...renderWithRouter(<ErrorComponent {...defaultProps} {...props} />),
     }));
 };
 
