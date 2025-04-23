@@ -17,8 +17,8 @@ migrations_dir = "src/db/migrations"
 preview_database_id = "c8f83468-3e06-4b7f-924a-dd3b62e6f67f"
 
 [env.preview.vars]
-BASE_API_URL = "https://workout-tracker-api.stevebister.workers.dev"
-BASE_CLIENT_URL = "https://workout-tracker-app-833.pages.dev"
+BASE_API_URL = "https://liftlog.api.stevenbister.com"
+BASE_CLIENT_URL = "https://liftlog.stevenbister.com"
 ENV = 'preview'
 
 [[env.preview.d1_databases]]
@@ -28,8 +28,8 @@ database_id = "c8f83468-3e06-4b7f-924a-dd3b62e6f67f"
 migrations_dir = "src/db/migrations"
 
 [env.production.vars]
-BASE_API_URL = "https://workout-tracker-api.stevebister.workers.dev"
-BASE_CLIENT_URL = "https://workout-tracker-app-833.pages.dev"
+BASE_API_URL = "https://liftlog.api.stevenbister.com"
+BASE_CLIENT_URL = "https://liftlog.stevenbister.com"
 ENV = 'production'
 
 [[env.production.d1_databases]]
