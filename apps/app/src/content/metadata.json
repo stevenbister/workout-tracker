@@ -1,8 +1,21 @@
 {
     "appName": "Workout Tracker",
+    "separator": "|",
     "routes": {
-        "workouts": {
-            "title": "Workouts"
-        }
+        "login": [
+            {
+                "title": "Login"
+            }
+        ],
+        "profile": [
+            {
+                "title": "Profile"
+            }
+        ],
+        "workouts": [
+            {
+                "title": "Workouts"
+            }
+        ]
     }
 }
