@@ -59,7 +59,7 @@ jobs:
         run: pnpm run build
         env:
           VITE_API_KEY: ${{ needs.deploy-api.outputs.uuid }}
-          VITE_API_URL: ${{ vars.API_URL }}
+          VITE_API_URL: ${{ needs.deploy-api.outputs.deployment-url }}
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
