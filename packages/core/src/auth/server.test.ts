@@ -46,10 +46,8 @@ it('calls betterAuth with correct options', async () => {
             modelName: 'rateLimit',
         },
         advanced: {
-            defaultCookieAttributes: {
-                sameSite: 'none',
-                secure: true,
-                partitioned: true,
+            crossSubDomainCookies: {
+                enabled: true,
             },
         },
     });
