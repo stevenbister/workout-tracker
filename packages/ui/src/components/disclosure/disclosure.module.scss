@@ -10,7 +10,8 @@
         gap: var(--space-3xs);
         padding-block-end: var(--space-xs);
 
-        &::marker {
+        &::marker,
+        &::-webkit-details-marker {
             display: none;
             content: '';
         }
