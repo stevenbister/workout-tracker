@@ -7,17 +7,13 @@ import { Icon } from '@repo/ui/components/icon';
 import { getRoutineGroups } from '@/api/routines';
 import { ErrorComponent } from '@/components/error-component/error-component';
 import { RoutineGroup } from '@/components/routine-group/routine-group';
-import metaData from '@/content/metadata.json';
 import content from '@/content/workouts.json';
+import { getMetadata } from '@/utils/get-metadata';
 
 export const Route = createFileRoute('/_authenticated/workouts')({
     loader: async () => await getRoutineGroups(),
     head: () => ({
-        meta: [
-            {
-                title: `${metaData.routes.workouts.title} | ${metaData.appName}`,
-            },
-        ],
+        meta: getMetadata('workouts'),
     }),
     component: RouteComponent,
     errorComponent: ({ error }) => (
