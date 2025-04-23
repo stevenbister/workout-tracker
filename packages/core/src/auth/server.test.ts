@@ -18,6 +18,7 @@ const mockOptions = {
     hashFn: vi.fn(),
     verifyFn: vi.fn(),
     trustedOrigins: ['http://localhost:5173'],
+    secret: 'secret',
 };
 
 it('calls betterAuth with correct options', async () => {
@@ -27,6 +28,7 @@ it('calls betterAuth with correct options', async () => {
         database: expect.any(Function),
         baseURL: mockOptions.baseURL,
         basePath: `${API_PREFIX}/auth`,
+        secret: mockOptions.secret,
         trustedOrigins: mockOptions.trustedOrigins,
         session: {
             cookieCache: {

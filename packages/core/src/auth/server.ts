@@ -15,12 +15,19 @@ type Options = {
         hash: string;
         password: string;
     }) => Promise<boolean>;
+    secret: string;
 };
 
 export const getAuth = (db: DB, options: Options) => {
     if (!db) throw new Error('DB is required');
 
-    const { baseURL, hashFn: hash, verifyFn: verify, trustedOrigins } = options;
+    const {
+        baseURL,
+        hashFn: hash,
+        verifyFn: verify,
+        trustedOrigins,
+        secret,
+    } = options;
 
     return betterAuth({
         database: drizzleAdapter(db, {
@@ -28,6 +35,7 @@ export const getAuth = (db: DB, options: Options) => {
         }),
         baseURL,
         basePath: `${API_PREFIX}/auth`,
+        secret,
         trustedOrigins,
         session: {
             cookieCache: {
