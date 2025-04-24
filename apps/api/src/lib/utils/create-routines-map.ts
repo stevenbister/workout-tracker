@@ -16,12 +16,13 @@ export type RoutineProps = Pick<
     'id' | 'name' | 'description' | 'routineGroupId'
 >;
 
-export type ExerciseWithSets = Pick<Exercise, 'id' | 'name'> & {
-    sets?: Pick<
-        RoutineExerciseSet,
-        'id' | 'maxReps' | 'minReps' | 'setNumber' | 'weight'
-    >[];
-};
+export type ExerciseWithSets = Pick<Exercise, 'id' | 'name'> &
+    Pick<RoutineExercise, 'restTime'> & {
+        sets?: Pick<
+            RoutineExerciseSet,
+            'id' | 'maxReps' | 'minReps' | 'setNumber' | 'weight'
+        >[];
+    };
 
 export type RoutineExerciseWithSets = RoutineProps & {
     exercises: ExerciseWithSets[];
@@ -87,25 +88,20 @@ export const createRoutinesMap = async ({
             routineExercisesMap.set(exerciseId, {
                 id: exerciseId,
                 name: routineExercise.exercise?.name ?? '',
+                restTime: routineExercise.routine_exercise?.restTime,
                 sets: [],
             });
         } else if (!routineExercisesMap.has(exerciseId)) {
             routineExercisesMap.set(exerciseId, {
                 id: exerciseId,
                 name: routineExercise.exercise?.name ?? '',
+                restTime: routineExercise.routine_exercise?.restTime,
             });
         }
 
         if (routineExercise?.routine_exercise_set) {
-            const {
-                routine_exercise_set: {
-                    id,
-                    maxReps,
-                    minReps,
-                    setNumber,
-                    weight,
-                },
-            } = routineExercise;
+            const { id, maxReps, minReps, setNumber, weight } =
+                routineExercise.routine_exercise_set;
 
             routineExercisesMap.get(exerciseId)?.sets?.push({
                 id,

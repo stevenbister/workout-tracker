@@ -16,6 +16,7 @@ export const routineExercise = sqliteTable('routine_exercise', {
         .notNull()
         .references(() => exercise.id, { onDelete: 'cascade' }),
     order: integer('order').notNull(),
+    restTime: integer('rest_time').notNull().default(0),
     createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(
         () => new Date()
     ),

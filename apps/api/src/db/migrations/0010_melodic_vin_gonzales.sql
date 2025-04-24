@@ -1,0 +1,1 @@
+ALTER TABLE `routine_exercise` ADD `rest_time` integer DEFAULT 0 NOT NULL;
