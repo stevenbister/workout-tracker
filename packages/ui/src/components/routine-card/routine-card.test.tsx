@@ -1,4 +1,5 @@
 import { renderWithRouter, screen } from '../../tests/utils';
+import { Button } from '../button/button';
 import type { RoutineCardProps } from './routine-card';
 import { RoutineCard } from './routine-card';
 
@@ -17,10 +18,7 @@ const mockPath = '/workouts/upper-a';
 const defaultProps: RoutineCardProps = {
     heading: mockExerciseName,
     exerciseList: mockExerciseList,
-    button: {
-        label: mockButtonLabel,
-        onClick: vi.fn(),
-    },
+    button: <Button>{mockButtonLabel}</Button>,
     link: {
         to: mockPath,
     },

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
+import { Button } from '../button/button';
 import { RoutineCard } from './routine-card';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
@@ -34,10 +35,7 @@ export const Default: Story = {
             'Triceps Pushdown (Cable)',
             'Bicep Curl (Dumbbell)',
         ],
-        button: {
-            label: 'Start routine',
-            onClick: fn(),
-        },
+        button: <Button onClick={() => fn()}>Start routine</Button>,
         link: {
             to: '/',
         },
