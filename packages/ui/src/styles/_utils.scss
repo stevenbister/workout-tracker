@@ -162,7 +162,11 @@ $config: (
     ),
     font-weight: (
         prefix: 'fw',
-        values: map-type-scale-properties(1, list.length($font-weights), 'fw-'),
+        values: map-type-scale-properties(
+                400,
+                list.length($font-weights),
+                'fw-'
+            ),
     ),
     line-height: (
         prefix: 'lh',
@@ -201,7 +205,6 @@ $config: (
     }
 }
 
-// TODO: Component?
 .stack {
     --gap: var(--space-m);
 
