@@ -36,6 +36,7 @@ const modifiedRoutineSchema = routineSchema
                 routineExerciseSchema
                     .pick({
                         id: true,
+                        restTime: true,
                     })
                     .merge(
                         z.object({

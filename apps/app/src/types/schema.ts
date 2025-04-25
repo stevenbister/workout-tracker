@@ -291,6 +291,7 @@ export interface paths {
                             description: string | null;
                             exercises: {
                                 id: number;
+                                restTime: number;
                                 name?: string;
                                 sets?: {
                                     id: number;
@@ -347,6 +348,7 @@ export interface paths {
                                 description: string | null;
                                 exercises: {
                                     id: number;
+                                    restTime: number;
                                     name?: string;
                                     sets?: {
                                         id: number;
@@ -401,6 +403,7 @@ export interface paths {
                             description: string | null;
                             exercises: {
                                 id: number;
+                                restTime: number;
                                 name?: string;
                                 sets?: {
                                     id: number;
@@ -485,6 +488,7 @@ export interface paths {
                             description: string | null;
                             exercises: {
                                 id: number;
+                                restTime: number;
                                 name?: string;
                                 sets?: {
                                     id: number;

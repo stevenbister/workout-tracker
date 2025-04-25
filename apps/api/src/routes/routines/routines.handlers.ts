@@ -144,8 +144,9 @@ export const create: AppRouteHandler<CreateRoute> = async (c) => {
             id: newRoutine.id,
             name: newRoutine.name,
             description: newRoutine?.description,
-            exercises: newRoutineExercise.map(({ id }) => ({
+            exercises: newRoutineExercise.map(({ id, restTime }) => ({
                 id,
+                restTime,
                 sets: newSets
                     .filter((set) => set.routineExerciseId === id)
                     .map(({ id, maxReps, minReps, setNumber, weight }) => ({
