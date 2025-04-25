@@ -1,0 +1,11 @@
+@layer components {
+    .icon-text {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3xs);
+    }
+
+    .icon {
+        flex-shrink: 0;
+    }
+}
