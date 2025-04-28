@@ -70,6 +70,7 @@ const modifiedInsertRoutineSchema = insertRoutineSchema
                     .pick({
                         exerciseId: true,
                         order: true,
+                        restTime: true,
                     })
                     .merge(
                         z.object({

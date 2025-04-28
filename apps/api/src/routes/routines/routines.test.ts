@@ -142,6 +142,7 @@ describe(CREATE_ROUTINE, () => {
             description,
             exercises: exercises.map(() => ({
                 id: expect.any(Number),
+                restTime: expect.any(Number),
                 sets: expect.arrayContaining([
                     expect.objectContaining({
                         maxReps: expect.any(Number),
