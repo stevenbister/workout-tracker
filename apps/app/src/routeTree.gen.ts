@@ -17,6 +17,7 @@ import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedWorkoutsImport } from './routes/_authenticated/workouts'
 import { Route as AuthenticatedProfileImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedRoutinesRoutineIdImport } from './routes/_authenticated/routines/$routineId'
 
 // Create/Update Routes
 
@@ -54,6 +55,13 @@ const AuthenticatedProfileRoute = AuthenticatedProfileImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+
+const AuthenticatedRoutinesRoutineIdRoute =
+  AuthenticatedRoutinesRoutineIdImport.update({
+    id: '/routines/$routineId',
+    path: '/routines/$routineId',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -101,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/_authenticated/routines/$routineId': {
+      id: '/_authenticated/routines/$routineId'
+      path: '/routines/$routineId'
+      fullPath: '/routines/$routineId'
+      preLoaderRoute: typeof AuthenticatedRoutinesRoutineIdImport
+      parentRoute: typeof AuthenticatedImport
+    }
   }
 }
 
@@ -110,12 +125,14 @@ interface AuthenticatedRouteChildren {
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedWorkoutsRoute: typeof AuthenticatedWorkoutsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedRoutinesRoutineIdRoute: typeof AuthenticatedRoutinesRoutineIdRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedWorkoutsRoute: AuthenticatedWorkoutsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedRoutinesRoutineIdRoute: AuthenticatedRoutinesRoutineIdRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
@@ -129,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof AuthenticatedProfileRoute
   '/workouts': typeof AuthenticatedWorkoutsRoute
   '/': typeof AuthenticatedIndexRoute
+  '/routines/$routineId': typeof AuthenticatedRoutinesRoutineIdRoute
 }
 
 export interface FileRoutesByTo {
@@ -137,6 +155,7 @@ export interface FileRoutesByTo {
   '/profile': typeof AuthenticatedProfileRoute
   '/workouts': typeof AuthenticatedWorkoutsRoute
   '/': typeof AuthenticatedIndexRoute
+  '/routines/$routineId': typeof AuthenticatedRoutinesRoutineIdRoute
 }
 
 export interface FileRoutesById {
@@ -147,13 +166,27 @@ export interface FileRoutesById {
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/workouts': typeof AuthenticatedWorkoutsRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/routines/$routineId': typeof AuthenticatedRoutinesRoutineIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/login' | '/logout' | '/profile' | '/workouts' | '/'
+  fullPaths:
+    | ''
+    | '/login'
+    | '/logout'
+    | '/profile'
+    | '/workouts'
+    | '/'
+    | '/routines/$routineId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/logout' | '/profile' | '/workouts' | '/'
+  to:
+    | '/login'
+    | '/logout'
+    | '/profile'
+    | '/workouts'
+    | '/'
+    | '/routines/$routineId'
   id:
     | '__root__'
     | '/_authenticated'
@@ -162,6 +195,7 @@ export interface FileRouteTypes {
     | '/_authenticated/profile'
     | '/_authenticated/workouts'
     | '/_authenticated/'
+    | '/_authenticated/routines/$routineId'
   fileRoutesById: FileRoutesById
 }
 
@@ -197,7 +231,8 @@ export const routeTree = rootRoute
       "children": [
         "/_authenticated/profile",
         "/_authenticated/workouts",
-        "/_authenticated/"
+        "/_authenticated/",
+        "/_authenticated/routines/$routineId"
       ]
     },
     "/login": {
@@ -216,6 +251,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/": {
       "filePath": "_authenticated/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/routines/$routineId": {
+      "filePath": "_authenticated/routines/$routineId.tsx",
       "parent": "/_authenticated"
     }
   }

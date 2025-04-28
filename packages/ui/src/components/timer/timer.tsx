@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useInterval } from '../../hooks/use-interval';
+import { getTemporalUnit } from '../../utils/get-temporal-unit';
 
 export type TimerStatus = 'idle' | 'ticking';
 
@@ -16,9 +17,7 @@ export const Timer = ({ status = 'idle' }: TimerProps) => {
         setIsTicking(status === 'ticking');
     }, [status]);
 
-    const seconds = Math.floor(timeElapsed % 60);
-    const minutes = Math.floor((timeElapsed / 60) % 60);
-    const hours = Math.floor((timeElapsed / 60 / 60) % 24);
+    const { seconds, minutes, hours } = getTemporalUnit(timeElapsed);
 
     useInterval(
         () => {

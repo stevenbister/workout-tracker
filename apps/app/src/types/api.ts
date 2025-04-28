@@ -8,3 +8,5 @@ export type Routine =
 
 export type RoutineGroups =
     paths['/api/v1/routines/groups']['get']['responses']['200']['content']['application/json'];
+
+export type RoutineExercise = Routine['exercises'][number];

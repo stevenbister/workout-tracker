@@ -63,6 +63,7 @@ it('returns sets as part of the exercises when requested', async () => {
             expect.objectContaining({
                 id: expect.any(Number),
                 name: expect.any(String),
+                restTime: expect.any(Number),
                 sets: expect.arrayContaining([
                     expect.objectContaining({
                         id: expect.any(Number),
