@@ -3,6 +3,7 @@ export const ROUTES = {
     LOGIN: '/login',
     LOGOUT: '/logout',
     WORKOUTS: '/workouts',
+    ROUTINES: '/routines',
     PROFILE: '/profile',
 } as const;
 

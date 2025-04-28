@@ -12,11 +12,31 @@ export const mockRoutineGroups: RoutineGroups = [
                 exercises: [
                     {
                         id: 1,
+                        restTime: 120,
                         name: 'Barbell Bench Press',
+                        sets: [
+                            {
+                                id: 1,
+                                setNumber: 1,
+                                weight: 100,
+                                maxReps: 10,
+                                minReps: 8,
+                            },
+                        ],
                     },
                     {
                         id: 2,
+                        restTime: 240,
                         name: 'Barbell Deadlift',
+                        sets: [
+                            {
+                                id: 1,
+                                setNumber: 1,
+                                weight: 100,
+                                maxReps: 10,
+                                minReps: 8,
+                            },
+                        ],
                     },
                 ],
             },
