@@ -2,18 +2,20 @@ import userEvent from '@testing-library/user-event';
 
 import { renderWithRouter, screen } from '@repo/ui/tests/utils';
 
+import type { Routine } from '@/types/api';
+
 import { RoutineGroup, type RoutineGroupProps } from './routine-group';
 
-const mockRoutines = [
+const mockRoutines: Routine[] = [
     {
         id: 4,
         name: 'Full body',
         description: 'lorem ipsum',
-        routineGroupId: 2,
         exercises: [
             {
                 id: 1,
                 name: 'Barbell Bench Press',
+                restTime: 120,
             },
         ],
     },
@@ -21,11 +23,11 @@ const mockRoutines = [
         id: 5,
         name: 'test 1',
         description: 'blah blah blah',
-        routineGroupId: 2,
         exercises: [
             {
                 id: 1,
                 name: 'Dumbbell Bench Press',
+                restTime: 120,
             },
         ],
     },
@@ -33,11 +35,11 @@ const mockRoutines = [
         id: 6,
         name: 'test 2',
         description: 'blah blah blah',
-        routineGroupId: 2,
         exercises: [
             {
                 id: 1,
                 name: 'Barbell Deadlift',
+                restTime: 120,
             },
         ],
     },
@@ -77,6 +79,6 @@ it('renders the routines', async () => {
             })
         ).toBeInTheDocument();
 
-        expect(screen.getByText(exercises[0]!.name)).toBeInTheDocument();
+        expect(screen.getByText(exercises[0]!.name!)).toBeInTheDocument();
     }
 });
