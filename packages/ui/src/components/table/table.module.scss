@@ -27,8 +27,8 @@
 
     .th,
     .td {
-        padding: var(--space-2xs) var(--space-xs);
-        text-align: center;
+        padding: var(--space-2xs) var(--space-xs) var(--space-2xs) 0;
+        text-align: left;
         vertical-align: baseline;
     }
 
