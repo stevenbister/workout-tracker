@@ -26,7 +26,7 @@ function RootComponent() {
         <>
             <HeadContent />
 
-            <SpritesheetProvider>
+            <SpritesheetProvider spriteSheetPath="/spritesheet.svg">
                 <Outlet />
             </SpritesheetProvider>
 
