@@ -7,11 +7,14 @@ import { getRoutine } from '@/api/routines';
 import { ExerciseTable } from '@/components/exercise-table/exercise-table';
 import { StartRoutineButton } from '@/components/start-routine-button/start-routine-button';
 import content from '@/content/routines.json';
+import { getMetadata } from '@/utils/get-metadata';
 
 export const Route = createFileRoute('/_authenticated/routines/$routineId')({
     loader: async ({ params }) => await getRoutine(params.routineId),
     component: RouteComponent,
-    // TODO: Add head
+    head: () => ({
+        meta: getMetadata('routines'),
+    }),
 });
 
 function RouteComponent() {
