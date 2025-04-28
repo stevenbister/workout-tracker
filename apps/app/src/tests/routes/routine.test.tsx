@@ -8,8 +8,9 @@ import { ROUTES } from '@/constants';
 import content from '@/content/routines.json';
 import { mockRoutineGroups } from '@/mocks/routines';
 import { Route as routineRoute } from '@/routes/_authenticated/routines/$routineId';
+import type { Routine } from '@/types/api';
 
-const mockRoutine = mockRoutineGroups[0]!.routines[0]!;
+const mockRoutine: Routine = mockRoutineGroups[0]!.routines[0]!;
 
 const router = createRouter({ routeTree: routineRoute });
 
@@ -22,7 +23,9 @@ vi.mock('@/components/exercise-table/exercise-table', () => ({
 }));
 
 const setup = async () => {
-    vi.mocked(getRoutine).mockReturnValue(mockRoutine);
+    vi.mocked(getRoutine).mockReturnValue(
+        mockRoutine as unknown as Promise<Routine>
+    );
 
     await router.navigate({
         to: `${ROUTES.ROUTINES}/1`,
