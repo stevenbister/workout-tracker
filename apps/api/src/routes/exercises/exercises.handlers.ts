@@ -15,6 +15,7 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
         .select({
             id: exercise.id,
             name: exercise.name,
+            howTo: exercise.howTo,
         })
         .from(exercise)
         .limit(parseInt(limit ?? ''))

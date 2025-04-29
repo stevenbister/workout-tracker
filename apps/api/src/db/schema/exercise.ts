@@ -7,6 +7,7 @@ export type InsertExercise = typeof exercise.$inferInsert;
 export const exercise = sqliteTable('exercise', {
     id: integer('id').primaryKey({ autoIncrement: true }),
     name: text().notNull(),
+    howTo: text('how_to'),
     createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(
         () => new Date()
     ),
