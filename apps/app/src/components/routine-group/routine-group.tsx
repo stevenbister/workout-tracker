@@ -1,6 +1,7 @@
 import { Disclosure } from '@repo/ui/components/disclosure';
 import { RoutineCard } from '@repo/ui/components/routine-card';
 
+import { ROUTES } from '@/constants';
 import type { Routines } from '@/types/api';
 
 import { StartRoutineButton } from '../start-routine-button/start-routine-button';
@@ -20,8 +21,9 @@ export const RoutineGroup = ({ name, routines }: RoutineGroupProps) => (
                     exerciseList={exercises.map(({ name }) => name)}
                     button={<StartRoutineButton />}
                     link={{
-                        // @ts-expect-error -- we've not made the routes yet
-                        to: `/routines/${id}`,
+                        to: `${ROUTES.ROUTINES}/$routineId`,
+                        params: { routineId: String(id) },
+                        preload: 'viewport',
                     }}
                 />
             ))}
