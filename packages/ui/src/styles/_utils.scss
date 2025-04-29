@@ -168,6 +168,12 @@ $config: (
                 'fw-'
             ),
     ),
+    text-decoration: (
+        prefix: 'td',
+        values: (
+            none: none,
+        ),
+    ),
     line-height: (
         prefix: 'lh',
         values: map-type-scale-properties(1, list.length($line-heights), 'lh-'),

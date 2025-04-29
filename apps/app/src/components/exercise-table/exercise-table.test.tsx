@@ -1,4 +1,4 @@
-import { render, screen } from '@repo/ui/tests/utils';
+import { renderWithRouter, screen } from '@repo/ui/tests/utils';
 
 import type { RoutineExercise } from '@/types/api';
 
@@ -19,7 +19,7 @@ const defaultProps: ExerciseTableProps = {
 };
 
 const setup = (props?: Partial<ExerciseTableProps>) =>
-    render(<ExerciseTable {...defaultProps} {...props} />);
+    renderWithRouter(<ExerciseTable {...defaultProps} {...props} />);
 
 it('renders the exercise table', () => {
     setup();
