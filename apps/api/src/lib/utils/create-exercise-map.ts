@@ -7,7 +7,7 @@ import { exerciseMuscleGroup } from '@/db/schema/exercise-muscle-group';
 import { muscleGroup } from '@/db/schema/muscle-group';
 import type { DrizzleD1 } from '@/types';
 
-type ExerciseNoDates = Omit<Exercise, 'createdAt' | 'updatedAt'>;
+export type ExerciseNoDates = Omit<Exercise, 'createdAt' | 'updatedAt'>;
 
 type ExerciseWithMuscleGroups = ExerciseNoDates & {
     equipment: string[];

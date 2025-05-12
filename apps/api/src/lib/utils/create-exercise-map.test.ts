@@ -2,20 +2,23 @@ import { seed } from '@/db/seed';
 import { testDB } from '@/db/test/test-adapter';
 import type { DrizzleD1 } from '@/types';
 
-import { createExerciseMap } from './create-exercise-map';
+import { type ExerciseNoDates, createExerciseMap } from './create-exercise-map';
 
-const mockExercises = [
+const mockExercises: ExerciseNoDates[] = [
     {
         id: 1,
         name: 'Barbell Bench Press',
+        howTo: '',
     },
     {
         id: 2,
         name: 'Barbell Deadlift',
+        howTo: '',
     },
     {
         id: 3,
         name: 'Barbell Overhead Press',
+        howTo: '',
     },
 ];
 
@@ -38,6 +41,7 @@ it('returns a map of exercises with muscle groups', async () => {
                 expect.objectContaining({
                     id: expect.any(Number),
                     name: expect.any(String),
+                    howTo: expect.any(String),
                     equipment: expect.arrayContaining([expect.any(String)]),
                     primaryMuscleGroups: expect.arrayContaining([
                         expect.any(String),
