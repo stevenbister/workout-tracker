@@ -7,7 +7,7 @@ import { mockExercise } from '@/mocks/exercise';
 import { Route as exerciseIdRoute } from '@/routes/_authenticated/exercises/$exerciseId';
 import type { Exercise } from '@/types/api';
 
-import { mockRoute } from '../utils';
+import { renderMockRoute } from '../utils';
 
 vi.mock('@/api/exercises', () => ({
     getExercise: vi.fn(),
@@ -18,7 +18,7 @@ const setup = async () => {
         mockExercise as unknown as Promise<Exercise>
     );
 
-    await mockRoute({
+    await renderMockRoute({
         routeTree: exerciseIdRoute,
         route: `${ROUTES.EXERCISES}/1`,
     });

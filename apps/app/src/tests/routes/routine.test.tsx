@@ -8,7 +8,7 @@ import { mockRoutineGroups } from '@/mocks/routines';
 import { Route as routineRoute } from '@/routes/_authenticated/routines/$routineId';
 import type { Routine } from '@/types/api';
 
-import { mockRoute } from '../utils';
+import { renderMockRoute } from '../utils';
 
 const mockRoutine: Routine = mockRoutineGroups[0]!.routines[0]!;
 
@@ -25,7 +25,7 @@ const setup = async () => {
         mockRoutine as unknown as Promise<Routine>
     );
 
-    await mockRoute({
+    await renderMockRoute({
         routeTree: routineRoute,
         route: `${ROUTES.ROUTINES}/1`,
     });

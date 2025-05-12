@@ -16,7 +16,7 @@ export const clientSpy = <T,>(response: Response<T>) => {
     }));
 };
 
-export const mockRoute = async ({
+export const renderMockRoute = async ({
     routeTree,
     route,
 }: {
