@@ -1,15 +1,15 @@
 import { eq, inArray } from 'drizzle-orm';
 
 import { equipment } from '@/db/schema/equipment';
-import { type Exercise } from '@/db/schema/exercise';
+import type { Exercise } from '@/db/schema/exercise';
 import { exerciseEquipment as exerciseEquipmentSchema } from '@/db/schema/exercise-equipment';
 import { exerciseMuscleGroup } from '@/db/schema/exercise-muscle-group';
 import { muscleGroup } from '@/db/schema/muscle-group';
 import type { DrizzleD1 } from '@/types';
 
-type ExerciseWithMuscleGroups = {
-    id: number;
-    name: string;
+export type ExerciseNoDates = Omit<Exercise, 'createdAt' | 'updatedAt'>;
+
+type ExerciseWithMuscleGroups = ExerciseNoDates & {
     equipment: string[];
     primaryMuscleGroups: string[];
     secondaryMuscleGroups: string[];
@@ -17,7 +17,7 @@ type ExerciseWithMuscleGroups = {
 
 export const createExerciseMap = async (
     db: DrizzleD1,
-    exercises: Pick<Exercise, 'id' | 'name'>[]
+    exercises: ExerciseNoDates[]
 ) => {
     const exercisesMap = new Map<number, ExerciseWithMuscleGroups>();
 
@@ -48,11 +48,12 @@ export const createExerciseMap = async (
         );
 
     for (const exercise of exercises) {
-        const { id, name } = exercise;
+        const { id, name, howTo } = exercise;
 
         exercisesMap.set(id, {
             id,
             name,
+            howTo,
             equipment: [],
             primaryMuscleGroups: [],
             secondaryMuscleGroups: [],

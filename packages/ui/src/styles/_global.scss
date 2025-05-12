@@ -15,3 +15,15 @@ body {
 h1 {
     font-size: var(--fs-2);
 }
+
+h2 {
+    font-size: var(--fs-1);
+}
+
+ol:not([class]) {
+    padding-inline-start: 1rem;
+
+    > * {
+        margin-block-start: var(--space-s);
+    }
+}

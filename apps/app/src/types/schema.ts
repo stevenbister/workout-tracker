@@ -122,6 +122,7 @@ export interface paths {
                         "application/json": {
                             id: number;
                             name: string;
+                            howTo: string | null;
                             primaryMuscleGroups: string[];
                             secondaryMuscleGroups: string[];
                         }[];
@@ -165,6 +166,7 @@ export interface paths {
                         "application/json": {
                             id: number;
                             name: string;
+                            howTo: string | null;
                             primaryMuscleGroups: string[];
                             secondaryMuscleGroups: string[];
                         }[];
@@ -465,6 +467,7 @@ export interface paths {
                         exercises: {
                             exerciseId: number;
                             order: number;
+                            restTime?: number;
                             sets: {
                                 maxReps?: number;
                                 minReps?: number;

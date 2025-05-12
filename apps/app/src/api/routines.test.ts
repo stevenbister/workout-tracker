@@ -1,19 +1,8 @@
+import type { Response } from '@/tests/utils';
+import { clientSpy } from '@/tests/utils';
 import type { Routine, RoutineGroups } from '@/types/api';
 
-import { client } from './client';
 import { getRoutine, getRoutineGroups } from './routines';
-
-type Response<T> = {
-    data: T;
-};
-
-const clientSpy = <T>(response: Response<T>) => {
-    vi.spyOn(client, 'get').mockImplementation(() => ({
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        json: () => Promise.resolve(response),
-    }));
-};
 
 afterEach(() => vi.resetAllMocks());
 

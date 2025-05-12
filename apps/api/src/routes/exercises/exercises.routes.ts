@@ -14,6 +14,7 @@ const exerciseWithMuscleGroupsSchema = z.array(
         .pick({
             id: true,
             name: true,
+            howTo: true,
         })
         .merge(
             z.object({

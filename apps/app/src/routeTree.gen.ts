@@ -18,6 +18,7 @@ import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index
 import { Route as AuthenticatedWorkoutsImport } from './routes/_authenticated/workouts'
 import { Route as AuthenticatedProfileImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedRoutinesRoutineIdImport } from './routes/_authenticated/routines/$routineId'
+import { Route as AuthenticatedExercisesExerciseIdImport } from './routes/_authenticated/exercises/$exerciseId'
 
 // Create/Update Routes
 
@@ -60,6 +61,13 @@ const AuthenticatedRoutinesRoutineIdRoute =
   AuthenticatedRoutinesRoutineIdImport.update({
     id: '/routines/$routineId',
     path: '/routines/$routineId',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedExercisesExerciseIdRoute =
+  AuthenticatedExercisesExerciseIdImport.update({
+    id: '/exercises/$exerciseId',
+    path: '/exercises/$exerciseId',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 
@@ -109,6 +117,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/_authenticated/exercises/$exerciseId': {
+      id: '/_authenticated/exercises/$exerciseId'
+      path: '/exercises/$exerciseId'
+      fullPath: '/exercises/$exerciseId'
+      preLoaderRoute: typeof AuthenticatedExercisesExerciseIdImport
+      parentRoute: typeof AuthenticatedImport
+    }
     '/_authenticated/routines/$routineId': {
       id: '/_authenticated/routines/$routineId'
       path: '/routines/$routineId'
@@ -125,6 +140,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedWorkoutsRoute: typeof AuthenticatedWorkoutsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedExercisesExerciseIdRoute: typeof AuthenticatedExercisesExerciseIdRoute
   AuthenticatedRoutinesRoutineIdRoute: typeof AuthenticatedRoutinesRoutineIdRoute
 }
 
@@ -132,6 +148,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedWorkoutsRoute: AuthenticatedWorkoutsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedExercisesExerciseIdRoute: AuthenticatedExercisesExerciseIdRoute,
   AuthenticatedRoutinesRoutineIdRoute: AuthenticatedRoutinesRoutineIdRoute,
 }
 
@@ -146,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof AuthenticatedProfileRoute
   '/workouts': typeof AuthenticatedWorkoutsRoute
   '/': typeof AuthenticatedIndexRoute
+  '/exercises/$exerciseId': typeof AuthenticatedExercisesExerciseIdRoute
   '/routines/$routineId': typeof AuthenticatedRoutinesRoutineIdRoute
 }
 
@@ -155,6 +173,7 @@ export interface FileRoutesByTo {
   '/profile': typeof AuthenticatedProfileRoute
   '/workouts': typeof AuthenticatedWorkoutsRoute
   '/': typeof AuthenticatedIndexRoute
+  '/exercises/$exerciseId': typeof AuthenticatedExercisesExerciseIdRoute
   '/routines/$routineId': typeof AuthenticatedRoutinesRoutineIdRoute
 }
 
@@ -166,6 +185,7 @@ export interface FileRoutesById {
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/workouts': typeof AuthenticatedWorkoutsRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/exercises/$exerciseId': typeof AuthenticatedExercisesExerciseIdRoute
   '/_authenticated/routines/$routineId': typeof AuthenticatedRoutinesRoutineIdRoute
 }
 
@@ -178,6 +198,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/workouts'
     | '/'
+    | '/exercises/$exerciseId'
     | '/routines/$routineId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -186,6 +207,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/workouts'
     | '/'
+    | '/exercises/$exerciseId'
     | '/routines/$routineId'
   id:
     | '__root__'
@@ -195,6 +217,7 @@ export interface FileRouteTypes {
     | '/_authenticated/profile'
     | '/_authenticated/workouts'
     | '/_authenticated/'
+    | '/_authenticated/exercises/$exerciseId'
     | '/_authenticated/routines/$routineId'
   fileRoutesById: FileRoutesById
 }
@@ -232,6 +255,7 @@ export const routeTree = rootRoute
         "/_authenticated/profile",
         "/_authenticated/workouts",
         "/_authenticated/",
+        "/_authenticated/exercises/$exerciseId",
         "/_authenticated/routines/$routineId"
       ]
     },
@@ -251,6 +275,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/": {
       "filePath": "_authenticated/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/exercises/$exerciseId": {
+      "filePath": "_authenticated/exercises/$exerciseId.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/routines/$routineId": {

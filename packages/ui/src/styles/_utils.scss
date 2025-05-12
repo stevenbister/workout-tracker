@@ -168,6 +168,20 @@ $config: (
                 'fw-'
             ),
     ),
+    text-decoration: (
+        prefix: 'td',
+        values: (
+            none: none,
+        ),
+    ),
+    text-align: (
+        prefix: 'ta',
+        values: (
+            left: left,
+            center: center,
+            right: right,
+        ),
+    ),
     line-height: (
         prefix: 'lh',
         values: map-type-scale-properties(1, list.length($line-heights), 'lh-'),
@@ -186,6 +200,12 @@ $config: (
             success-150: var(--c-success-15),
             error-100: var(--c-error-10),
             error-150: var(--c-error-15),
+        ),
+    ),
+    display: (
+        prefix: 'd',
+        values: (
+            flex: flex,
         ),
     ),
 );
