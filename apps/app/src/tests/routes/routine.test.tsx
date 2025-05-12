@@ -1,6 +1,4 @@
-import { RouterProvider, createRouter } from '@tanstack/react-router';
-
-import { render, screen, waitFor } from '@repo/ui/tests/utils';
+import { screen } from '@repo/ui/tests/utils';
 
 import { getRoutine } from '@/api/routines';
 import { ExerciseTable } from '@/components/exercise-table/exercise-table';
@@ -10,9 +8,9 @@ import { mockRoutineGroups } from '@/mocks/routines';
 import { Route as routineRoute } from '@/routes/_authenticated/routines/$routineId';
 import type { Routine } from '@/types/api';
 
-const mockRoutine: Routine = mockRoutineGroups[0]!.routines[0]!;
+import { mockRoute } from '../utils';
 
-const router = createRouter({ routeTree: routineRoute });
+const mockRoutine: Routine = mockRoutineGroups[0]!.routines[0]!;
 
 vi.mock('@/api/routines', () => ({
     getRoutine: vi.fn(),
@@ -27,11 +25,10 @@ const setup = async () => {
         mockRoutine as unknown as Promise<Routine>
     );
 
-    await router.navigate({
-        to: `${ROUTES.ROUTINES}/1`,
+    await mockRoute({
+        routeTree: routineRoute,
+        route: `${ROUTES.ROUTINES}/1`,
     });
-
-    await waitFor(() => render(<RouterProvider router={router as never} />));
 };
 
 afterEach(() => vi.clearAllMocks());
