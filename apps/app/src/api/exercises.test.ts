@@ -21,7 +21,6 @@ describe('getExercise', () => {
         clientSpy(mockResponse);
 
         const result = await getExercise('1');
-        console.log(result);
 
         expect(result).toEqual(mockResponse);
     });

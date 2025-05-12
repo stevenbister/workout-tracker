@@ -29,8 +29,6 @@ afterEach(() => vi.clearAllMocks());
 it('renders the exercise name', async () => {
     await setup();
 
-    screen.debug();
-
     expect(
         screen.getByRole('heading', {
             name: mockExercise.name,
