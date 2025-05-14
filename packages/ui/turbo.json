@@ -2,17 +2,13 @@
     "extends": ["//"],
     "tasks": {
         "build": {
-            "dependsOn": ["build:fonts", "build:styles"]
+            "dependsOn": ["build:styles"]
         },
         "build:styles": {
             "outputs": ["dist/**"]
         },
         "dev": {
-            "with": ["dev:fonts", "dev:styles"]
-        },
-        "dev:fonts": {
-            "cache": false,
-            "persistent": true
+            "with": ["dev:styles"]
         },
         "dev:styles": {
             "cache": false,
