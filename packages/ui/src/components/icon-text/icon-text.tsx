@@ -1,5 +1,4 @@
 import { Icon, type IconProps } from '../icon/icon';
-import styles from './icon-text.module.scss';
 
 export interface IconTextProps extends Pick<IconProps, 'spriteId'> {
     text: string;
@@ -7,8 +6,8 @@ export interface IconTextProps extends Pick<IconProps, 'spriteId'> {
 
 export const IconText = ({ spriteId, text }: IconTextProps) => {
     return (
-        <span className={styles['icon-text']}>
-            <Icon spriteId={spriteId} className={styles.icon} />
+        <span className="flex items-center gap-1.5">
+            <Icon spriteId={spriteId} className="shrink-[0]" />
             {text}
         </span>
     );

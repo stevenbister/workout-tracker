@@ -19,10 +19,7 @@ const meta: Meta<typeof Button> = {
             options: ['button', 'a'],
         },
         variant: {
-            options: ['', 'ghost'],
-        },
-        status: {
-            options: ['', 'success', 'danger'],
+            options: ['default', 'outline', 'ghost'],
         },
     },
     // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
@@ -42,18 +39,6 @@ export const Default: Story = {
 export const Ghost: Story = {
     args: {
         variant: 'ghost',
-    },
-};
-
-export const Success: Story = {
-    args: {
-        status: 'success',
-    },
-};
-
-export const Danger: Story = {
-    args: {
-        status: 'danger',
     },
 };
 

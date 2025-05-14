@@ -27,14 +27,14 @@ function RouteComponent() {
 
     return (
         <>
-            <h1 className="mx-auto mb-l">{content.heading}</h1>
+            <h1 className="mx-auto mb-5 text-2xl">{content.heading}</h1>
 
             <Button>
                 {content.new}
                 <Icon spriteId="plus" />
             </Button>
 
-            <section className="stack stack--s mt-l" aria-labelledby={id}>
+            <section className="stack mt-5" aria-labelledby={id}>
                 <h2 id={id} className="sr-only">
                     {content.routine_folders}
                 </h2>

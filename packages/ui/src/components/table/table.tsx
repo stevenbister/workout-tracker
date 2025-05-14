@@ -1,7 +1,6 @@
 import { type ComponentPropsWithoutRef, useId } from 'react';
 
 import { classList } from '../../utils/class-list';
-import styles from './table.module.scss';
 
 export interface TableProps extends ComponentPropsWithoutRef<'table'> {
     caption: string;
@@ -11,15 +10,13 @@ export const Table = ({ children, caption, ...rest }: TableProps) => {
     const captionId = useId();
 
     return (
-        <div
-            className={styles.container}
-            tabIndex={0}
-            role="region"
-            aria-labelledby={captionId}
-        >
+        <div tabIndex={0} role="region" aria-labelledby={captionId}>
             <table
                 {...rest}
-                className={classList(styles.table, rest.className)}
+                className={classList(
+                    'w-full table-fixed border-collapse',
+                    rest.className
+                )}
             >
                 <caption id={captionId} className="sr-only">
                     {caption}
@@ -37,7 +34,10 @@ export const Table = ({ children, caption, ...rest }: TableProps) => {
 interface TheadProps extends ComponentPropsWithoutRef<'thead'> {}
 
 const Thead = ({ children, ...rest }: TheadProps) => (
-    <thead {...rest} className={classList(styles.thead, rest.className)}>
+    <thead
+        {...rest}
+        className={classList('border-b-0 bg-transparent', rest.className)}
+    >
         {children}
     </thead>
 );
@@ -48,7 +48,7 @@ const Thead = ({ children, ...rest }: TheadProps) => (
 interface TbodyProps extends ComponentPropsWithoutRef<'tbody'> {}
 
 const Tbody = ({ children, ...rest }: TbodyProps) => (
-    <tbody {...rest} className={classList(styles.tbody, rest.className)}>
+    <tbody {...rest} className={classList('bg-transparent', rest.className)}>
         {children}
     </tbody>
 );
@@ -59,7 +59,10 @@ const Tbody = ({ children, ...rest }: TbodyProps) => (
 interface TfootProps extends ComponentPropsWithoutRef<'tfoot'> {}
 
 const Tfoot = ({ children, ...rest }: TfootProps) => (
-    <tfoot {...rest} className={classList(styles.tfoot, rest.className)}>
+    <tfoot
+        {...rest}
+        className={classList('border-y-2 bg-transparent', rest.className)}
+    >
         {children}
     </tfoot>
 );
@@ -70,7 +73,7 @@ const Tfoot = ({ children, ...rest }: TfootProps) => (
 interface TrProps extends ComponentPropsWithoutRef<'tr'> {}
 
 const Tr = ({ children, ...rest }: TrProps) => (
-    <tr {...rest} className={classList(styles.tr, rest.className)}>
+    <tr {...rest} className={rest.className}>
         {children}
     </tr>
 );
@@ -81,7 +84,13 @@ const Tr = ({ children, ...rest }: TrProps) => (
 interface ThProps extends ComponentPropsWithoutRef<'th'> {}
 
 const Th = ({ children, ...rest }: ThProps) => (
-    <th {...rest} className={classList(styles.th, rest.className)}>
+    <th
+        {...rest}
+        className={classList(
+            'bg-transparent py-2 pr-1 text-left align-bottom font-semibold',
+            rest.className
+        )}
+    >
         {children}
     </th>
 );
@@ -92,7 +101,13 @@ const Th = ({ children, ...rest }: ThProps) => (
 interface TdProps extends ComponentPropsWithoutRef<'td'> {}
 
 const Td = ({ children, ...rest }: TdProps) => (
-    <td {...rest} className={classList(styles.td, rest.className)}>
+    <td
+        {...rest}
+        className={classList(
+            'border-b border-b-gray-300 bg-transparent py-2 pr-1 text-left align-middle',
+            rest.className
+        )}
+    >
         {children}
     </td>
 );

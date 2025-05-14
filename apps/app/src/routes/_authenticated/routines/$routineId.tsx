@@ -23,11 +23,11 @@ function RouteComponent() {
 
     return (
         <>
-            <h1 className="mx-auto mb-l">{name}</h1>
+            <h1 className="mx-auto mb-5 text-2xl">{name}</h1>
 
             <StartRoutineButton />
 
-            <Button variant="ghost" className="mt-s mb-l">
+            <Button variant="outline" className="mb-4 mt-4">
                 {content.edit}
             </Button>
 

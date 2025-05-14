@@ -8,8 +8,6 @@ import { classList } from '@repo/ui/utils/class-list';
 
 import { ROUTES } from '@/constants';
 
-import styles from './layout.module.scss';
-
 interface LayoutProps {
     children: ReactNode;
     justify?: 'start';
@@ -18,12 +16,19 @@ interface LayoutProps {
 export const Layout = ({ children, justify }: LayoutProps) => {
     const { data } = authClient.useSession();
 
+    const justifyVariants: Record<
+        NonNullable<LayoutProps['justify']>,
+        string
+    > = {
+        start: 'justify-start',
+    };
+
     return (
         <>
             <main
                 className={classList(
-                    styles.layout,
-                    justify && styles[`justify-${justify}`],
+                    'flex flex-auto flex-col pb-32',
+                    justify ? justifyVariants[justify] : 'justify-center',
                     'container'
                 )}
             >

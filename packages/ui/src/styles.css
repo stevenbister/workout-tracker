@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+
+@font-face {
+    font-display: swap;
+    font-family: Geist;
+    font-style: normal;
+    font-weight: normal;
+    src: url('./fonts/Geist-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: Geist;
+    font-style: normal;
+    font-weight: 600;
+    src: url('./fonts/Geist-SemiBold.woff2') format('woff2');
+}
+
+/* TODO: remove stylelint */
+@theme {
+    --default-font-family: 'Geist';
+}

@@ -3,7 +3,6 @@ import { useState } from 'react';
 
 import { classList } from '../../utils/class-list';
 import { Icon } from '../icon/icon';
-import styles from './disclosure.module.scss';
 
 export interface DisclosureProps {
     label: string;
@@ -30,12 +29,15 @@ export const Disclosure = ({
 
     return (
         <details open={_isOpen}>
-            <summary onClick={handleClick} className={styles.summary}>
+            <summary
+                onClick={handleClick}
+                className="inline-flex cursor-pointer items-center gap-1 pb-3 text-base font-semibold marker:hidden marker:content-none"
+            >
                 <Icon
                     spriteId="chevron-right"
                     className={classList(
-                        styles.icon,
-                        styles[_isOpen ? 'open' : 'closed']
+                        'stroke-3 transition-transform ease-in',
+                        _isOpen ? 'rotate-90' : ''
                     )}
                 />
                 {label}

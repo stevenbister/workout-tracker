@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
+import { Button } from '../button/button';
 import { RoutineCard } from '../routine-card/routine-card';
 import { Disclosure } from './disclosure';
 
@@ -37,7 +38,7 @@ export const Default: Story = {
                     'Seated Row',
                     'Bicep Curl',
                 ]}
-                button={{ label: 'Start routine', onClick: () => void 0 }}
+                button={<Button onClick={() => void 0}>Start routine</Button>}
                 link={{ to: '/' }}
             />
         ),

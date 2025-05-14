@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import path from 'node:path';
 import { defineConfig } from 'vite';
@@ -8,6 +9,7 @@ export default defineConfig({
     ...config,
     plugins: [
         TanStackRouterVite({ autoCodeSplitting: true }),
+        tailwindcss(),
         ...config.plugins,
     ],
     assetsInclude: ['**/*.svg'],

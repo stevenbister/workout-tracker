@@ -1,12 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
 import type { Preview } from '@storybook/react';
 import { RouterProvider } from '@tanstack/react-router';
-import React, { type ReactNode } from 'react';
-
-import '../src/styles/main.scss';
+import { type ReactNode } from 'react';
 
 import { SpritesheetProvider } from '../src/components/icon/icon';
 import { router } from '../src/mocks/mock-router';
+import '../src/styles.css';
 
 const SbComponent = ({ Story }: { Story: () => ReactNode }) => (
     <SpritesheetProvider spriteSheetPath="/spritesheet.svg">

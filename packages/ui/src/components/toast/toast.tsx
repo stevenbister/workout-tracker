@@ -4,7 +4,6 @@ import type { Status } from '../../types';
 import { classList } from '../../utils/class-list';
 import { Button } from '../button/button';
 import { Icon } from '../icon/icon';
-import styles from './toast.module.scss';
 
 export interface ToastProps {
     id: string | number;
@@ -48,22 +47,26 @@ export const Toast = ({
     button,
     status,
 }: ToastProps) => (
-    <div className={classList(styles.toast, status && styles[status])}>
+    <div
+        className={classList(
+            'shadow-xs grid min-w-80 grid-cols-[auto_minmax(1rem,1fr)_auto] items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-gray-500'
+        )}
+    >
         {status === 'error' || status === 'success' ? (
             <ToastStatusIcon status={status} />
         ) : null}
 
-        <div className={styles.content}>
-            <p className={styles.title}>{title}</p>
+        <div className={classList('col-[1_/_3]', status && 'col-[2_/_3]')}>
+            <p className="mb-0 text-sm font-semibold">{title}</p>
             {description ? (
-                <p className={styles.description}>{description}</p>
+                <p className="mb-0 mt-1 text-sm text-gray-600">{description}</p>
             ) : null}
         </div>
 
         {button ? (
             <Button
-                variant="link"
-                className={styles.button}
+                variant="ghost"
+                className="p-4! col-[3_/_-1] self-start"
                 onClick={() => {
                     button?.onClick?.();
                     sonnerToast.dismiss(id);
@@ -79,24 +82,19 @@ export const Toast = ({
 const ToastCloseIcon = () => (
     <Icon
         spriteId="close"
-        className={classList(styles.icon, styles['close-icon'])}
+        className="w-5 shrink-0 fill-transparent stroke-[currentcolor]"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
     />
 );
 
-const ToastStatusIcon = ({ status }: { status: Status }) =>
-    status === 'error' ? (
-        <Icon
-            spriteId="error"
-            title="error"
-            className={classList(styles.icon, styles['status-icon'])}
-        />
+const ToastStatusIcon = ({ status }: { status: Status }) => {
+    const className = 'col-[1_/_2] w-5 shrink-0 self-start';
+
+    return status === 'error' ? (
+        <Icon spriteId="error" title="error" className={className} />
     ) : (
-        <Icon
-            spriteId="success"
-            title="success"
-            className={classList(styles.icon, styles['status-icon'])}
-        />
+        <Icon spriteId="success" title="success" className={className} />
     );
+};

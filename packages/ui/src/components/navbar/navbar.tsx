@@ -1,7 +1,6 @@
 import { Link } from '@tanstack/react-router';
 
 import { Icon } from '../icon/icon';
-import styles from './navbar.module.scss';
 
 export interface NavItem {
     name: string;
@@ -15,8 +14,11 @@ export interface NavbarProps {
 
 export const Navbar = ({ items }: NavbarProps) => {
     return (
-        <nav className={styles.navbar} aria-label="Main navigation">
-            <ul>
+        <nav
+            className="fixed bottom-0 left-0 w-full border-t-2 border-t-gray-500 bg-gray-100"
+            aria-label="Main navigation"
+        >
+            <ul className="flex list-none justify-evenly p-0">
                 {items.map(({ name, route, icon }) => (
                     <NavItem
                         route={route}
@@ -35,8 +37,16 @@ export interface NavItemProps extends NavItem {}
 const NavItem = ({ name, route, icon }: NavItemProps) => {
     return (
         <li>
-            <Link to={route} className={styles['nav-item']}>
-                <Icon spriteId={icon} className={styles.icon} />
+            <Link
+                to={route}
+                className="decoration-none flex flex-col items-center p-2 text-xs text-gray-800"
+            >
+                <Icon
+                    spriteId={icon}
+                    style={{
+                        ['--icon-size' as string]: '1.5rem',
+                    }}
+                />
                 {name}
             </Link>
         </li>

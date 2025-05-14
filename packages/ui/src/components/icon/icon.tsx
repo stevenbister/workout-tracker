@@ -2,7 +2,6 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { createContext, useContext } from 'react';
 
 import { classList } from '../../utils/class-list';
-import styles from './icon.module.scss';
 
 export interface IconProps extends ComponentPropsWithoutRef<'svg'> {
     spriteId: string;
@@ -27,7 +26,11 @@ export const Icon = ({
             width={width}
             height={height}
             viewBox={`0 0 ${width} ${height}`}
-            className={classList(styles.icon, className)}
+            className={classList('w-(--icon-size) h-(--icon-size)', className)}
+            style={{
+                ['--icon-size' as string]: '1em',
+                ...rest.style,
+            }}
             fill="transparent"
             stroke="currentColor"
             strokeWidth="2"
