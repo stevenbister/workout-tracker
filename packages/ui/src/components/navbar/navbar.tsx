@@ -15,7 +15,7 @@ export interface NavbarProps {
 export const Navbar = ({ items }: NavbarProps) => {
     return (
         <nav
-            className="fixed bottom-0 left-0 w-full border-t-2 border-t-gray-500 bg-gray-100"
+            className="bg-global-bg border-t-global-border fixed bottom-0 left-0 w-full border-t-2"
             aria-label="Main navigation"
         >
             <ul className="flex list-none justify-evenly p-0">
@@ -39,7 +39,7 @@ const NavItem = ({ name, route, icon }: NavItemProps) => {
         <li>
             <Link
                 to={route}
-                className="decoration-none flex flex-col items-center p-2 text-xs text-gray-800"
+                className="decoration-none text-global-text flex flex-col items-center p-2 text-xs"
             >
                 <Icon
                     spriteId={icon}

@@ -21,7 +21,7 @@ export const RoutineCard = ({
     <article
         className={classList(
             styles.card,
-            'rounded-lg bg-gray-100 p-3 transition-transform ease-in has-[.link:active]:scale-[0.97]'
+            'bg-global-bg-light rounded-lg p-3 transition-transform ease-in has-[.link:active]:scale-[0.97]'
         )}
     >
         <Link {...link} className="link z-1">
@@ -34,7 +34,7 @@ export const RoutineCard = ({
             </h2>
 
             {exerciseList.length > 0 ? (
-                <p className="max-w-[30ch] text-sm text-gray-500">
+                <p className="text-global-text-light max-w-[30ch] text-sm">
                     {exerciseList.join(', ')}
                 </p>
             ) : null}

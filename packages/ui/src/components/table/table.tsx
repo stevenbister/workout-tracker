@@ -104,7 +104,7 @@ const Td = ({ children, ...rest }: TdProps) => (
     <td
         {...rest}
         className={classList(
-            'border-b border-b-gray-300 bg-transparent py-2 pr-1 text-left align-middle',
+            'border-b-global-border border-b bg-transparent py-2 pr-1 text-left align-middle',
             rest.className
         )}
     >

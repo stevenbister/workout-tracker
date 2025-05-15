@@ -22,19 +22,19 @@ export const Input = ({
     const validationMessageId = useId();
 
     const styles: Record<State, string> = {
-        default: 'border-gray-300',
-        invalid: 'border-red-500',
+        default: 'border-global-border',
+        invalid: 'border-error',
     };
 
     return (
         <div className="relative">
             <label
                 className={classList(
-                    'relative mt-2 block rounded-lg border bg-transparent p-3 text-sm text-gray-800 has-[input:focus-visible]:outline',
+                    'text-global-text relative mt-2 block rounded-lg border bg-transparent p-3 text-sm has-[input:focus-visible]:outline',
                     styles[state]
                 )}
             >
-                <span className="absolute top-[-18px] bg-gray-100 py-1">
+                <span className="bg-global-bg absolute top-[-1rem] py-1">
                     {label}
                 </span>
                 <input
@@ -47,7 +47,7 @@ export const Input = ({
             </label>
             <div
                 id={validationMessageId}
-                className="absolute py-3 pt-2 text-xs text-red-500 empty:hidden"
+                className="text-error absolute py-3 pt-2 text-xs empty:hidden"
             >
                 {validationMessage}
             </div>

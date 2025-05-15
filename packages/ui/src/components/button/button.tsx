@@ -48,9 +48,9 @@ export const Button = forwardRef(
     ) => {
         const variantStyles: Record<Variant, string> = {
             default:
-                'bg-gray-800 text-gray-100 hover:bg-gray-600 active:bg-gray-600',
+                'bg-gray-800 text-gray-50 hover:bg-gray-600 active:bg-gray-600',
             outline:
-                'border-1 border-[currentcolor] bg-transparent text-gray-800 hover:bg-gray-800 hover:text-gray-100 active:bg-gray-800 active:text-gray-100',
+                'border-1 border-[currentcolor] bg-transparent text-gray-800 hover:bg-gray-800 hover:text-gray-50 active:bg-gray-800 active:text-gray-50',
             ghost: 'bg-transparent text-gray-800 hover:bg-transparent active:transparent',
         };
 

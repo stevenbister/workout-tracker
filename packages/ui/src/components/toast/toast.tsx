@@ -49,7 +49,7 @@ export const Toast = ({
 }: ToastProps) => (
     <div
         className={classList(
-            'shadow-xs grid min-w-80 grid-cols-[auto_minmax(1rem,1fr)_auto] items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-gray-500'
+            'shadow-xs bg-global-bg-light text-global-text grid min-w-80 grid-cols-[auto_minmax(1rem,1fr)_auto] items-center gap-1.5 rounded-lg px-3 py-1.5'
         )}
     >
         {status === 'error' || status === 'success' ? (
@@ -59,7 +59,9 @@ export const Toast = ({
         <div className={classList('col-[1_/_3]', status && 'col-[2_/_3]')}>
             <p className="mb-0 text-sm font-semibold">{title}</p>
             {description ? (
-                <p className="mb-0 mt-1 text-sm text-gray-600">{description}</p>
+                <p className="text-global-text-light mb-0 mt-1 text-sm">
+                    {description}
+                </p>
             ) : null}
         </div>
 
