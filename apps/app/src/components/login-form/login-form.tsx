@@ -11,8 +11,6 @@ import { ROUTES } from '@/constants';
 import content from '@/content/validation.json';
 import { validateEmail } from '@/utils/validate-email';
 
-import styles from './login-form.module.scss';
-
 type FormFields = {
     email?: string | undefined;
     password?: string | undefined;
@@ -120,7 +118,7 @@ export const LoginForm = () => {
             method="post"
             onSubmit={handleSubmit}
             noValidate
-            className={styles.form}
+            className="flex flex-col gap-6"
         >
             {formFields.map((field) => (
                 <Input key={field.name} {...field} />

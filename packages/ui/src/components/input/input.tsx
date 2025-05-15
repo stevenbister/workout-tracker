@@ -1,13 +1,13 @@
 import { type ComponentPropsWithoutRef, useId } from 'react';
 
 import { classList } from '../../utils/class-list';
-import styles from './input.module.scss';
 
+type State = 'default' | 'invalid';
 export interface InputProps
     extends Omit<ComponentPropsWithoutRef<'input'>, 'id' | 'type'> {
     label: string;
     type?: 'text' | 'email' | 'password';
-    state?: 'default' | 'invalid';
+    state?: State;
     validationMessage?: string;
 }
 
@@ -21,12 +21,25 @@ export const Input = ({
     const inputId = useId();
     const validationMessageId = useId();
 
+    const styles: Record<State, string> = {
+        default: 'border-global-border',
+        invalid: 'border-error',
+    };
+
     return (
-        <div className={styles.container}>
-            <label className={classList(styles.input, styles[state])}>
-                <span>{label}</span>
+        <div className="relative">
+            <label
+                className={classList(
+                    'text-global-text relative mt-2 block rounded-lg border bg-transparent p-3 text-sm has-[input:focus-visible]:outline',
+                    styles[state]
+                )}
+            >
+                <span className="bg-global-bg absolute top-[-1rem] py-1">
+                    {label}
+                </span>
                 <input
                     {...rest}
+                    className="w-full cursor-auto outline-none"
                     id={inputId}
                     type={type}
                     aria-describedby={validationMessageId}
@@ -34,7 +47,7 @@ export const Input = ({
             </label>
             <div
                 id={validationMessageId}
-                className={styles['validation-message']}
+                className="text-error absolute py-3 pt-2 text-xs empty:hidden"
             >
                 {validationMessage}
             </div>

@@ -23,5 +23,9 @@
             }
         }
     ],
-    "plugins": ["@trivago/prettier-plugin-sort-imports"]
+    "tailwindFunctions": ["classList"],
+    "plugins": [
+        "@trivago/prettier-plugin-sort-imports",
+        "prettier-plugin-tailwindcss"
+    ]
 }

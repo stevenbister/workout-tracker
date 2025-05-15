@@ -13,7 +13,7 @@ export interface RoutineGroupProps {
 
 export const RoutineGroup = ({ name, routines }: RoutineGroupProps) => (
     <Disclosure label={name}>
-        <div className="stack stack--s mt-3xs">
+        <div className="stack">
             {routines.map(({ id, name, exercises }) => (
                 <RoutineCard
                     key={id}

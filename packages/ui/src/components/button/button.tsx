@@ -8,14 +8,13 @@ import {
     forwardRef,
 } from 'react';
 
-import type { Status } from '../../types';
 import { classList } from '../../utils/class-list';
 import { Spinner } from '../spinner/spinner';
-import styles from './button.module.scss';
+
+type Variant = 'default' | 'outline' | 'ghost';
 
 export type ButtonProps = {
-    variant?: 'ghost' | 'link';
-    status?: Extract<Status, 'success'> | 'danger';
+    variant?: Variant;
     isLoading?: boolean;
 };
 
@@ -44,30 +43,39 @@ interface ForwardRefComponent<IntrinsicElementString, OwnProps = ButtonProps>
 
 export const Button = forwardRef(
     (
-        { as: Element = 'button', variant, status, isLoading, ...rest },
+        { as: Element = 'button', variant = 'default', isLoading, ...rest },
         forwardedRef
-    ) => (
-        <Element
-            {...rest}
-            disabled={isLoading}
-            className={classList(
-                styles.btn,
-                variant && styles[variant],
-                status && styles[status],
-                rest.className
-            )}
-            ref={forwardedRef}
-        >
-            {isLoading ? (
-                <>
-                    <Spinner className={styles.spinner} />
-                    <span className="sr-only">Loading</span>
-                </>
-            ) : (
-                rest.children
-            )}
-        </Element>
-    )
+    ) => {
+        const variantStyles: Record<Variant, string> = {
+            default:
+                'bg-gray-800 text-gray-50 hover:bg-gray-600 active:bg-gray-600',
+            outline:
+                'border-1 border-[currentcolor] bg-transparent text-gray-800 hover:bg-gray-800 hover:text-gray-50 active:bg-gray-800 active:text-gray-50',
+            ghost: 'bg-transparent text-gray-800 hover:bg-transparent active:transparent',
+        };
+
+        return (
+            <Element
+                {...rest}
+                disabled={isLoading}
+                className={classList(
+                    'inline-flex cursor-pointer items-center justify-center gap-8 rounded-lg px-8 py-2 disabled:pointer-events-none disabled:opacity-75',
+                    variant && variantStyles[variant],
+                    rest.className
+                )}
+                ref={forwardedRef}
+            >
+                {isLoading ? (
+                    <>
+                        <Spinner height="small" />
+                        <span className="sr-only">Loading</span>
+                    </>
+                ) : (
+                    rest.children
+                )}
+            </Element>
+        );
+    }
 ) as ForwardRefComponent<'button'>;
 
 Button.displayName = 'Button';

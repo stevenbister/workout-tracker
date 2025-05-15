@@ -22,7 +22,7 @@ function RouteComponent() {
 
     return (
         <article>
-            <h1 className="ta-center mb-l">{name}</h1>
+            <h1 className="text-center text-2xl">{name}</h1>
 
             <section aria-labelledby={muscleGroupsId}>
                 <h2 id={muscleGroupsId} className="sr-only">
@@ -41,8 +41,8 @@ function RouteComponent() {
                 </dl>
             </section>
 
-            <section aria-labelledby={howToId} className="stack stack--s mt-l">
-                <h2 id={howToId} className="fw-400">
+            <section aria-labelledby={howToId} className="stack mt-5">
+                <h2 id={howToId} className="text-xl">
                     {content.how_to.heading}
                 </h2>
 

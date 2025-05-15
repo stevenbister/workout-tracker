@@ -9,8 +9,8 @@ export const MuscleGroupList = ({
     muscleGroups,
     title,
 }: MuscleGroupListProps) => (
-    <div className="d-flex">
-        <dt className="mr-2xs">{title}</dt>
+    <div className="flex">
+        <dt className="mr-1">{title}</dt>
         <dd>
             {muscleGroups.map((muscleGroup, i) => (
                 <Fragment key={muscleGroup}>

@@ -19,12 +19,11 @@ export const ExerciseTable = ({ exercise }: ExerciseTableProps) => {
 
     return (
         <article className="stack">
-            <h2 className="fs-1 fw-400">
+            <h2 className="text-lg font-normal">
                 <Link
                     to={`${ROUTES.EXERCISES}/$exerciseId`}
                     params={{ exerciseId: String(id) }}
                     preload="viewport"
-                    className="c-grey-600 td-none"
                 >
                     {name}
                 </Link>

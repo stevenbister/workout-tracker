@@ -25,7 +25,7 @@ export const Route = createFileRoute('/login')({
 function RouteComponent() {
     return (
         <Layout>
-            <h1 className="mx-auto mb-2xl">Login</h1>
+            <h1 className="mx-auto mb-8">Login</h1>
             <LoginForm />
         </Layout>
     );
